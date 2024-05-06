@@ -10,9 +10,11 @@
 
 body {
   background: $background;
-  background-size: contain;
+  background-size: cover;
   background-repeat: repeat-y;
   padding: 20px;
+  width: 100vw;
+  height: 100vh;
 }
 
 .wrapper {
