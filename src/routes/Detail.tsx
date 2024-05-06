@@ -55,12 +55,12 @@ export default function Detail() {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://63448999dcae733e8fe1045c.mockapi.io/items/${params.id}`)
+        const { data } = await axios.get(`https://bookish-happiness-7xvx747jrrwfx65-8000.app.github.dev/food/${params.id}`)
         setPizza(data)
         setLoading(false)
       } catch (error) {
         setLoading(false)
-        alert('Ошибка при получении пицы!')
+        alert('Ошибка при получении товара!')
         navigate('/')
       }
     }
@@ -79,7 +79,7 @@ export default function Detail() {
               <img
                 className='pizza-block__image'
                 src={pizza.image}
-                alt='Pizza'
+                alt='Food'
               />
             </div>
             <div className='pizza-detail-info'>

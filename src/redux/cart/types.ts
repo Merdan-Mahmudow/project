@@ -4,6 +4,7 @@ export type CartItem = {
   price: number
   image: string
   count: number
+  description: string
 }
 
 export interface CartSliceState {

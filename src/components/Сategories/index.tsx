@@ -6,12 +6,11 @@ type CategoryItem = {
 }
 
 export const categoriesList: CategoryItem[] = [
-  { id: 0, name: 'Все' },
-  { id: 1, name: 'Мясные' },
-  { id: 2, name: 'Вегетарианские' },
-  { id: 3, name: 'Гриль' },
-  { id: 4, name: 'Острые' },
-  { id: 5, name: 'Закрытые' },
+  { id: 0, name: 'Популярное' },
+  { id: 1, name: 'Не острое' },
+  { id: 2, name: 'Острое' },
+  { id: 3, name: 'Десерты' },
+  { id: 4, name: 'Напитки' },
 ]
 
 type СategoriesProps = {

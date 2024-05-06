@@ -7,13 +7,12 @@ import PlusSvg from '../../svg/PlusSvg'
 import { selectCartItemById } from '../../redux/cart/selectors'
 import { CartItem } from '../../redux/cart/types'
 
-const typeNames = ['тонкое', 'традиционное']
-
 type PizzaBlockProps = {
   id: string,
   image: string,
   foodName: string,
   price: number,
+  description: string,
 }
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
@@ -21,6 +20,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   image = '',
   foodName = '',
   price = 0,
+  description = '',
 }) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
@@ -44,6 +44,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       price,
       image,
       count: 0,
+      description,
     }
     dispatch(addItem(item))
   }
@@ -60,6 +61,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
           <h4 className='pizza-block__title'>{foodName}</h4>
         </Link>
         <div className='pizza-block__bottom'>
+          <p>{description}</p>
           <div className='pizza-block__price'>от {price} ₽</div>
           <button
             onClick={onClickAdd}

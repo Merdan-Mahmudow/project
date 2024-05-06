@@ -119,19 +119,13 @@ export const Catalog: React.FC = () => {
           <>
             <div className='content__top'>
               <Сategories value={category} onChangeCategory={onChangeCategory} />
-              <SortPopup value={sort} />
             </div>
             <div className='info__wrapper'>
-              <h2 className='content__title'>{category.name} пиццы</h2>
-              <Search />
+              <h2 className='content__title'>{category.name}</h2>
             </div>
             <div className='content__items'>
               {status === 'loading' ? skeletons : pizzas}
             </div>
-            <Pagination
-              currentPage={currentPage}
-              onChangePage={onChangePage}
-            />
           </>
         )}
       </div>

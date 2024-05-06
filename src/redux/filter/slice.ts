@@ -5,7 +5,7 @@ const initialState: FilterSliceState = {
   searchValue: '',
   category: {
     id: 0,
-    name: 'Все',
+    name: 'Популярное',
   },
   currentPage: 1,
   sort: {
