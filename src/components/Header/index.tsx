@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { selectCart } from '../../redux/cart/selectors'
 import CartSvg from '../../svg/CartSvg'
-import LogoPizzaSvg from '../../svg/LogoPizzaSvg'
+import LogoPizzaSvg from '../../assets/images/logo.svg'
+import HeartButton from '../../assets/images/heart.svg'
+import Kimchistop from '../../assets/images/kimchistop.svg'
 
 export const Header: React.FC = () => {
   const { pathname } = useLocation()
@@ -19,18 +21,20 @@ export const Header: React.FC = () => {
   }, [items])
 
   return (
-    <header className='header'>
-      <div className='container'>
-        <Link to={'/'}>
-          <div className='header__logo'>
-            <LogoPizzaSvg width={38} />
+    <header className='p-3 bg-white rounded-t-[40px]'>
+      <div className='flex justify-around'>
+        <Link to={'/'} >
+          <div className='flex justify-between gap-5'>
+            <img  src={LogoPizzaSvg} alt="" />
             <div>
-              <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+              {/* <h1 className='text-2xl uppercase font-bold font-next'>KIMCHI<span className='text-red'>STOP</span></h1> */}
+              <img src={Kimchistop} alt="" />
+              <p className='text-center font-bold font-next text-sm uppercase'>самая вкусная еда</p>
             </div>
+            <img className='w-[40px]' src={HeartButton} alt="" />
           </div>
         </Link>
-        {pathname !== '/cart' &&
+        {/* {pathname !== '/cart' &&
           (<div className='header__cart'>
             <Link to={'cart'}>
               <button className='button button--cart'>
@@ -41,7 +45,7 @@ export const Header: React.FC = () => {
               </button>
             </Link>
           </div>)
-        }
+        } */}
       </div>
     </header>
   )

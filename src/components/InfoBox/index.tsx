@@ -26,16 +26,16 @@ export const InfoBox: React.FC<InfoBoxProps> = (
     <div className='content'>
       <div className='container container--cart'>
         <div className='cart cart--empty'>
-          <h2>{title}</h2>
-          <p>{description}</p>
+          <h2 className='text-center'>{title}</h2>
+          <p className='text-center'>{description}</p>
           {icon ?
-            <p className='cart--icon'>{icon}</p> :
+            <p className='text-center'>{icon}</p> :
             img ? <img src={img} alt={alt} /> :
               <EmptyCart />
           }
           <Link to={`/`}>
-            <button className='button button--black'>
-              <span>{buttonTitle}</span>
+            <button className='bg-black px-3 py-2 rounded'>
+              <span className='text-white'>{buttonTitle}</span>
             </button>
           </Link>
         </div>

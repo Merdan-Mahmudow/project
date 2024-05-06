@@ -106,6 +106,9 @@ export const Catalog: React.FC = () => {
 
   return (
     <div className='content'>
+            <div className='text-center'>
+              <h2 className='text-3xl uppercase font-term py-3'>{category.name} пиццы</h2>
+            </div>
       <div className='container'>
         {status === 'error' ? (
           <InfoBox
@@ -123,7 +126,7 @@ export const Catalog: React.FC = () => {
             <div className='info__wrapper'>
               <h2 className='content__title'>{category.name}</h2>
             </div>
-            <div className='content__items'>
+            <div className='grid grid-cols-2 gap-3 overflow-hidden overflow-y-scroll px-2 py-3'>
               {status === 'loading' ? skeletons : pizzas}
             </div>
           </>
