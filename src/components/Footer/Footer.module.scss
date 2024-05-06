@@ -1,0 +1,41 @@
+
+footer {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top: 1px solid #eaeaea;
+  padding: 20px;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff8a;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  .footerBox{
+    .neon {
+      margin: 0 auto;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 100;
+      line-height: 22px;
+
+      span {
+        color: #0000005e;
+      }
+      a{
+        color: #000000;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:760px) {
+  footer {
+    padding:7px;
+    .footerBox{
+      .neon {font-size: 8px;line-height: 15px;}
+    }
+  }
+
+}

@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "rules": {
+    "no-console": "warn", // не забыть убрать консоль
+    //"prefer-const": "warn", // Предложите использовать const (предпочитать-константа)
+    "semi": [
+      "warn",
+      "never"
+    ] // не требует точек с запятой в конце
+  }
+}

@@ -1,0 +1,122 @@
+@import '../variables.scss';
+
+.pizza-block {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 65px;
+
+  @media (max-width:980px) {
+    margin-bottom: 40px;
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 260px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1%;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(92, 99, 112);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  &__selector {
+    text-align: center;
+    display: flex;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 6px;
+
+    ul {
+      display: flex;
+      flex: 1;
+
+      &:first-of-type {
+        margin-bottom: 6px;
+      }
+
+      li {
+        padding: 8px;
+        flex: 1;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        @include noselect();
+
+        &.active {
+          background: #ffffff;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+          border-radius: 5px;
+          cursor: auto;
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  &__price {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.015em;
+  }
+}
+
+@media (min-width:590px) {
+
+  .pizza-detail-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .pizza-detail-img {
+      display: flex;
+      align-items: center;
+
+      .pizza-block__image {
+        width: 100%;
+      }
+    }
+
+    .pizza-detail-info {
+      .pizza-block__title {
+        font-size: 23px;
+      }
+
+      .pizza-block__selector {
+        ul li {
+          padding: 14px;
+          font-size: 17px;
+        }
+      }
+    }
+
+    .pizza-detail-img,
+    .pizza-detail-info {
+      width: 50%;
+      padding: 20px;
+      max-width: 490px;
+    }
+  }
+}
