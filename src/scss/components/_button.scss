@@ -1,16 +1,16 @@
 @import '../variables.scss';
 
 .button {
-  display: inline-block;
-  background-color: $orange;
-  border-radius: 30px;
-  padding: 10px 20px;
-  min-width: 100px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
-  border: 1px solid transparent;
-  @include noselect();
+  // display: inline-block;
+  // background-color: $orange;
+  // border-radius: 30px;
+  // padding: 10px 20px;
+  // min-width: 100px;
+  // text-align: center;
+  // cursor: pointer;
+  // transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  // border: 1px solid transparent;
+  // @include noselect();
 
   &,
   span {
