@@ -74,6 +74,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             {addedCount > 0 && <i className='text-[10px] font-next font-bold ml-[5px] bg-black text-white w-[15px] h-[15px] rounded-full'>{addedCount}</i>}
           </button>
         </div>
+        </div>
       </div>
     </div>
   )
