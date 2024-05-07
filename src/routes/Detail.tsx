@@ -55,7 +55,7 @@ export default function Detail() {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://bookish-happiness-7xvx747jrrwfx65-8000.app.github.dev/food/${params.id}`)
+        const { data } = await axios.get(`https://wvqk69-8000.csb.app/food/${params.id}`)
         setPizza(data)
         setLoading(false)
       } catch (error) {

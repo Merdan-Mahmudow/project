@@ -2,12 +2,14 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
-    fontFamily: {
-      'next': 'Next_Art'
+    extend: {
+      "backgroundImage":{
+        "headerNav": 'url(../assets/images/nav_header.png)'
+      }
     },
     fontFamily: {
-      'term': 'Terminator_Gen'
+      'next': 'Next_Art',
+      'term': 'Terminator_Gen',
     }
   },
   plugins: [],
