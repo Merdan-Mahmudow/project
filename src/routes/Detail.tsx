@@ -75,22 +75,22 @@ export default function Detail() {
 
         <div className='pizza-block-wrapper'>
           <div className='pizza-detail-block'>
-            <div className='pizza-detail-img'>
+            <div className='flex w-full justify-center'>
               <img
-                className='pizza-block__image'
+                className='w-full'
                 src={pizza.image}
                 alt='Food'
               />
             </div>
             <div className='pizza-detail-info'>
-              <h4 className='pizza-block__title'>{pizza.foodName}</h4>
-              <div className='pizza-block__description'>{pizza.description}</div>
+              <h4 className='font-term uppercase text-4xl pl-3'>{pizza.foodName}</h4>
+              <div className='font-next text-l pl-3 uppercase font-bold text-white'>{pizza.description}</div>
               
-              <div className='pizza-block__bottom'>
-                <div className='pizza-block__price'>от {pizza.price} ₽</div>
+              <div className='flex justify-between px-3 py-4 items-center'>
+                <div className='font-term text-3xl'>{pizza.price}P</div>
                 <button
                   onClick={onClickAdd}
-                  className='button button--outline button--add'>
+                  className='border-2 border-[#ABABAB] px-0 py-[5px] w-[100px] rounded-md flex justify-center items-center'>
                   <PlusSvg />
                   <span>Добавить</span>
                   {addedCount > 0 && <i>{addedCount}</i>}
