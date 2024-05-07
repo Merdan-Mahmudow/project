@@ -106,9 +106,14 @@ export const Catalog: React.FC = () => {
 
   return (
     <div className='content'>
-            <div className='text-center'>
-              <h2 className='text-3xl uppercase font-term py-3'>{category.name} пиццы</h2>
-            </div>
+      <div className='text-center mb-2'>
+        <h2 className='text-3xl uppercase font-term py-3 text-white bg-headerNav bg-no-repeat bg-cover'>Меню</h2>
+        <div className="warning text-center">
+          <h1 className="font-term kor_love pt-2">ВНИМЕНИЕ ЛЮБИТЕЛЯМ КОРЕЙСКОЙ ЕДЫ!</h1>
+          <p className='mt-2 font-sans text-sm font-medium'>Адрес навынос: г. Южно-Сахалинск, ул. Мира 231/9</p>
+          <p className='pb-2 font-sans text-sm font-medium'>Принимаем заказы: ежедневно с 10:00 до 21:30</p>
+        </div>
+      </div>
       <div className='container'>
         {status === 'error' ? (
           <InfoBox
@@ -124,9 +129,8 @@ export const Catalog: React.FC = () => {
               <Сategories value={category} onChangeCategory={onChangeCategory} />
             </div>
             <div className='info__wrapper'>
-              <h2 className='content__title'>{category.name}</h2>
             </div>
-            <div className='grid grid-cols-2 gap-3 overflow-hidden overflow-y-scroll px-2 py-3'>
+            <div className='grid grid-cols-2 gap-3 overflow-hidden overflow-y-scroll px-2 pt-4'>
               {status === 'loading' ? skeletons : pizzas}
             </div>
           </>
