@@ -7,7 +7,9 @@ import { Catalog } from './Catalog'
 // import { Orders } from './Orders'
 // import { NotFound } from './NotFound'
 // import { ErrorPage } from './ErrorPage'
+// import { Delivery } from './Delvery'
 import { GlobalLoader } from '../components/GlobalLoader'
+
 
 //const Cart: React.FC = React.lazy(() => import('./Cart'))
 
@@ -16,10 +18,11 @@ const Detail: React.FC = React.lazy(() => import(/*webpackChunkName: "Detail"*/'
 const Orders: React.FC = React.lazy(() => import(/*webpackChunkName: "Orders"*/'./Orders'))
 const NotFound: React.FC = React.lazy(() => import(/*webpackChunkName: "NotFound"*/'./NotFound'))
 const ErrorPage: React.FC = React.lazy(() => import(/*webpackChunkName: "ErrorPage"*/'./ErrorPage'))
+const Delivery: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Delivery'))
 
 export const router = createHashRouter([
   {
-    path: '',
+    path: '/',
     element: <Suspense fallback={<GlobalLoader />}><Root /></Suspense>,
     errorElement: <ErrorPage />,
     children: [
@@ -43,6 +46,10 @@ export const router = createHashRouter([
         path: 'cart',
         element: <Cart />,
       },
+      {
+        path: 'delivery',
+        element: <Delivery/>
+      }
     ],
   },
 ]) 
