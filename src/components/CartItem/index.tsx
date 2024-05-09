@@ -10,21 +10,19 @@ import { CartItem as CartItemType } from '../../redux/cart/types'
 type CartItemProps = {
   id: string,
   image: string,
-  name: string,
+  foodName: string,
   price: number,
   count: number,
-  type: string,
-  size: string,
+  description: string
 }
 
 export const CartItem: React.FC<CartItemProps> = ({
   id = '0',
   image = '',
-  name = '',
+  foodName = '',
   price = 0,
   count = 0,
-  type,
-  size,
+  description = ''
 }) => {
   const dispatch = useDispatch()
 
@@ -61,8 +59,8 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
       <div className='cart__item-info'>
         <Link key={id} to={`/pizza/${id}`}>
-          <h3>{name}</h3>
-          <p>{type}, {size} см.</p>
+          <h3>{foodName}</h3>
+          <p>{description}</p>
         </Link>
       </div>
 
