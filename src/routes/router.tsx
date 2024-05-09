@@ -2,8 +2,8 @@ import React, { Suspense } from 'react'
 import { createHashRouter } from 'react-router-dom'
 import { Root } from './Root'
 import { Catalog } from './Catalog'
-//import { Detail } from './Detail'
-//import { Cart } from './Cart'
+// import { Detail } from './Detail'
+// import { Cart } from './Cart'
 // import { Orders } from './Orders'
 // import { NotFound } from './NotFound'
 // import { ErrorPage } from './ErrorPage'
@@ -37,6 +37,10 @@ export const router = createHashRouter([
       {
         path: 'pizza/:id',
         element: <Detail />,
+      },
+      {
+        path: 'delivery',
+        element: <Delivery />
       },
       {
         path: 'orders',
