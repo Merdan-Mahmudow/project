@@ -8,7 +8,6 @@ import { addItem, minusItem, removeItem } from '../../redux/cart/slice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
 import { HiPlusSm } from "react-icons/hi";
 import { HiMinusSm } from "react-icons/hi";
-import { HiTrash } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 
 type CartItemProps = {

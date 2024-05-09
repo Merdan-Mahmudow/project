@@ -8,6 +8,13 @@ import BackArrowSvg from '../svg/BackArrowSvg'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearItems } from '../redux/cart/slice'
 import { selectCart } from '../redux/cart/selectors'
+import { HiPlusSm } from "react-icons/hi";
+import { HiMinusSm } from "react-icons/hi";
+import cutlery from '../assets/images/cutlery_2.svg';
+import bus from '../assets/images/cutlery_2.svg'
+import money from '../assets/images/cutlery_2.svg'
+import way_to_pay from '../assets/images/cutlery_2.svg'
+import promo from '../assets/images/cutlery_2.svg'
 
 export default function Cart() {
   const dispatch = useDispatch()
@@ -35,7 +42,7 @@ export default function Cart() {
             <div className="flex w-full  bg-red-600 px-2 py-2">
                <h1 className='text-white font-term text-2xl w-full text-center'>Мой заказ</h1>
             </div>
-            <div className='flex justify-end'>
+            <div className='flex justify-end bg-white'>
               {/* <div onClick={onClickClear} className='cart__clear'><BasketSvg /><span>Очистить корзину</span></div> */}
               <button onClick={onClickClear}
                 className="flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c] hover:shadow-xl hover:shadow-red-500 hover:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185]"
@@ -65,9 +72,36 @@ export default function Cart() {
               }
             </div>
             <div className='cart__bottom'>
-              <div className='cart__bottom-details'>
-                <span> Всего пицц: <b>{totalCount} шт.</b> </span>
-                <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
+              <div className='flex w-full justify-between px-2 py-2 bg-[#F1F1F1] border-b-2 border-stone-800'>
+                <span className='uppercase font-term text-2xl'> Итого: </span>
+                <p className='uppercase font-term text-2xl'>{totalPrice} P</p>
+              </div>
+              <div className='bg-[#F1F1F1] px-2 py-2 border-b-2 border-stone-800'>
+                 <p className='text-[10px] font-roboto font-bold'>Призаказе от 2000р Батат фри с пармезаном всего за 120р Для получения скидки добавьте блюдо в заказ самостоятельно его можно найти в разделе Закуски</p>
+              </div>
+              <div className='flex justify-between px-2 py-2 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+                 <div className='flex items-center gap-2'>
+                    <img src={cutlery} alt="" />
+                    <div className='flex flex-col gap-1'>
+                       <h2 className='font-term text-xl leading-3'>ПРИБОРЫ</h2>
+                       <p className='font-roboto text-[10]'>бесплатно</p>
+                    </div>
+                 </div>
+                 <div className='flex gap-2'>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiMinusSm/></button>
+                   <p>1</p>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiPlusSm /></button>
+                 </div>
+              </div>
+              <div className='flex justify-between px-2 py-2 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+                 <div className='flex items-center gap-2'>
+                    <img src={cutlery} alt="" />
+                    <div className='flex flex-col gap-1'>
+                       <h2 className='font-term text-xl leading-3'>ПРИБОРЫ</h2>
+                       <p className='font-roboto text-[10]'>бесплатно</p>
+                    </div>
+                 </div>
+                 div
               </div>
               <div className='cart__bottom-buttons'>
                 <Link to={`/`} className='button button--outline button--add go-back-btn'>
