@@ -55,7 +55,7 @@ export default function Detail() {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`http://79.174.92.80:8000/food/${params.id}`)
+        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
         setPizza(data)
         setLoading(false)
       } catch (error) {
