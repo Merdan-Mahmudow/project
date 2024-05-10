@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
               <img src={Kimchistop} alt="" />
               <p className='text-center font-bold font-next text-sm uppercase'>самая вкусная еда</p>
             </div>
-            <Link to={'/delivery'}>
+            <Link to={'/favorites'}>
               <img className='w-[40px]' src={HeartButton} alt="" />
             </Link>
             

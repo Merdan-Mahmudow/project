@@ -111,7 +111,7 @@ export default function Cart() {
                        <p className='font-roboto text-[8px] font-bold text-red'>Выберите способ оплаты </p>
                     </div>
                  </div>
-                 <Link to='/delivery' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
+                 <Link to='/payment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
                  <div className='flex items-center gap-4 ml-2'>
@@ -120,7 +120,7 @@ export default function Cart() {
                        <h2 className='font-term text-md leading-4'>комментарии к заказу</h2>
                     </div>
                  </div>
-                 <Link to='/delivery' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>
+                 <Link to='/comment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
                  <div className='flex items-center gap-4 ml-2'>
@@ -129,7 +129,7 @@ export default function Cart() {
                       <input type="text" placeholder='промокод' className='w-[40vw] border-2 border-[#4D4D4D] rounded-lg font-term pl-2'/>
                     </div>
                  </div>
-                 <Link to='/delivery' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>применить</Link>
+                 <Link to='/promo' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>применить</Link>
               </div>
               <div className='cart__bottom-buttons'>
                 <Link to={`/`} className='button button--outline button--add go-back-btn'>

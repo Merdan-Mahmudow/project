@@ -19,6 +19,9 @@ const Orders: React.FC = React.lazy(() => import(/*webpackChunkName: "Orders"*/'
 const NotFound: React.FC = React.lazy(() => import(/*webpackChunkName: "NotFound"*/'./NotFound'))
 const ErrorPage: React.FC = React.lazy(() => import(/*webpackChunkName: "ErrorPage"*/'./ErrorPage'))
 const Delivery: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Delivery'))
+const Comment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Comment'))
+const Payment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Payment'))
+const Favorites: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Favorites'))
 
 export const router = createHashRouter([
   {
@@ -51,9 +54,17 @@ export const router = createHashRouter([
         element: <Cart />,
       },
       {
-        path: 'delivery',
-        element: <Delivery/>
-      }
+        path: 'comment',
+        element: <Comment/>
+      },
+      {
+        path: 'payment',
+        element: <Payment/>
+      },
+      {
+        path: 'favorites',
+        element: <Favorites/>
+      },
     ],
   },
 ]) 

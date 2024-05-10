@@ -36,7 +36,7 @@ export default function Delivery() {
                 </label>
             </div>
             <div className="w-full flex justify-end">
-                <button className="bg-stone-400 px-3 py-1 rounded-[8px] text-white font-roboto">ВЫБРАТЬ</button>
+                <button className="bg-stone-400 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]">ВЫБРАТЬ</button>
             </div>
         </div>
     )
