@@ -10,19 +10,19 @@
 
 body {
   background: $background;
-  background-size: cover;
+  background-size: 100vw 100vh;
   background-repeat: repeat-y;
   padding: 20px;
-  width: 100vw;
   // height: 100vh;
 }
 
 ::-webkit-scrollbar{
   width: 0;
+  height: 0;
 }
 
 .wrapper {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 40px;
   max-width: 1400px;
   // padding: 20px;

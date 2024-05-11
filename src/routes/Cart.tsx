@@ -131,11 +131,11 @@ export default function Cart() {
                  </div>
                  <Link to='/promo' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>применить</Link>
               </div>
-              <div className='cart__bottom-buttons'>
-                <Link to={`/`} className='button button--outline button--add go-back-btn'>
-                  <BackArrowSvg /><span>Вернуться назад</span>
+              <div className='flex justify-between'>
+                <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 bg-green-500 w-auto'>
+                  <BackArrowSvg /><span className='text-sm'>Вернуться назад</span>
                 </Link>
-                <button onClick={onClickPay} className='button pay-btn'>
+                <button onClick={onClickPay} className='font-bold uppercase font-next px-5 py-2 bg-red-600 rounded-[5px]'>
                   <span>Оплатить сейчас</span>
                 </button>
               </div>
