@@ -34,6 +34,17 @@ export default function Cart() {
     }
   }
   const [instCount, setInst] = useState<number>(1)
+  const handleMinus = () => {
+    if(instCount == 0){
+      setInst(0)
+    }
+    else{
+      setInst(instCount - 1)
+    }
+  }
+  const handlePlus = () => {
+    setInst(instCount + 1)
+  }
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -88,9 +99,9 @@ export default function Cart() {
                     </div>
                  </div>
                  <div className='flex gap-2'>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={() => setInst(instCount - 1)}><HiMinusSm/></button>
-                   <p>1</p>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={() => setInst(instCount + 1)}><HiPlusSm /></button>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={handleMinus}><HiMinusSm/></button>
+                   <p>{instCount}</p>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={handlePlus}><HiPlusSm /></button>
                  </div>
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
