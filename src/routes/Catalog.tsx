@@ -108,10 +108,10 @@ export const Catalog: React.FC = () => {
     <div className='content'>
       <div className='text-center mb-2'>
         <h2 className='text-3xl uppercase font-term py-3 text-white bg-headerNav bg-no-repeat bg-cover'>Меню</h2>
-        <div className="warning text-center">
-          <h1 className="font-term kor_love pt-2">ВНИМЕНИЕ ЛЮБИТЕЛЯМ КОРЕЙСКОЙ ЕДЫ!</h1>
-          <p className='mt-2 font-sans text-sm font-medium'>Адрес навынос: г. Южно-Сахалинск, ул. Мира 231/9</p>
-          <p className='pb-2 font-sans text-sm font-medium'>Принимаем заказы: ежедневно с 10:00 до 21:30</p>
+        <div className="warning text-center px-2 py-1">
+          <h1 className="font-term kor_love text-[12px]">ВНИМЕНИЕ ЛЮБИТЕЛЯМ КОРЕЙСКОЙ ЕДЫ!</h1>
+          <p className='mt-2 font-sans font-medium text-[9px]'>Адрес навынос: г. Южно-Сахалинск, ул. Мира 231/9</p>
+          <p className='font-sans font-medium text-[9px]'>Принимаем заказы: ежедневно с 10:00 до 21:30</p>
         </div>
       </div>
       <div className='container'>

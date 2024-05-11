@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../scss/components/_categories.scss'
 
 type CategoryItem = {
   id: number
@@ -32,7 +33,7 @@ export const Сategories: React.FC<СategoriesProps> = React.memo(({
             onClick={() => onChangeCategory(obj)}
             className={
               value.id === obj.id ?
-                'bg-white px-5 py-2 rounded-[30px] w-fill font-next text-black font-bold uppercase min-w-fit hover:cursor-pointer':
+                'active px-5 py-2 rounded-[30px] w-fill font-next text-white font-bold uppercase min-w-fit hover:cursor-pointer':
                 'bg-transparent px-5 py-2 w-fill rounded-[30px] text-white font-next font-bold uppercase min-w-fit hover:cursor-pointer'
             }>
             {obj.name}

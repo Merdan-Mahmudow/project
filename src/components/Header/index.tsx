@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
             <div>
               {/* <h1 className='text-2xl uppercase font-bold font-next'>KIMCHI<span className='text-red'>STOP</span></h1> */}
               <img src={Kimchistop} alt="" />
-              <p className='text-center font-bold font-next text-sm uppercase'>самая вкусная еда</p>
+              <p className='tasty-food text-center font-next text-sm uppercase'>самая вкусная еда</p>
             </div>
             <Link to={'/favorites'}>
               <img className='w-[40px]' src={HeartButton} alt="" />
@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
         
       </div>
       {pathname !== '/cart' &&
-          (<div className='fixed bottom-0 bg-blue-600 w-full left-0 py-5 rounded-t-2xl'>
+          (<div className='fixed bottom-0 bg-blue-600 w-full left-0 py-5 rounded-t-2xl z-10'>
             <Link to={'cart'} className='flex items-center justify-center text-white uppercase font-next'>В корзине
               <button className='pl-5'>
                 <span className=' text-white'>{totalPrice} ₽</span>
