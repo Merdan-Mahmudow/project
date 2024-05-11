@@ -58,10 +58,10 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             alt='Pizza'
           />
         </Link>
-      <div className='flex flex-col justify-between px-2'>
+      <div className='flex flex-col justify-between px-2 gap-1'>
         
         <h4 className='text-lg font-term leading-4'>{foodName}</h4>
-        <p className='text-[6pt] leading-tight'>{description}</p>
+        <p className='text-[6pt] leading-tight top-1 relative'>{description}</p>
         <div className='font-term text-grey'>{price}P</div>
         <button
           onClick={onClickAdd}

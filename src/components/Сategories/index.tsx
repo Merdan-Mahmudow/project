@@ -24,8 +24,8 @@ export const Сategories: React.FC<СategoriesProps> = React.memo(({
 }) => {
 
   return (
-    <div className='categories overflow-hidden overflow-x-scroll bg-red-600 px-2 py-2 w-fill flex items-center'>
-      <ul className='w-[500px] relative top-2'>
+    <div className='overflow-x-scroll bg-red-600 px-2 py-2'>
+      <ul className='w-[500px] relative flex h-full'>
         {categoriesList.map((obj) => (
           <li
             key={obj.id}
