@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
@@ -33,7 +33,7 @@ export default function Cart() {
       dispatch(clearItems())
     }
   }
-
+  const [instCount, setInst] = useState<number>(1)
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -88,9 +88,9 @@ export default function Cart() {
                     </div>
                  </div>
                  <div className='flex gap-2'>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiMinusSm/></button>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={() => setInst(instCount - 1)}><HiMinusSm/></button>
                    <p>1</p>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiPlusSm /></button>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={() => setInst(instCount + 1)}><HiPlusSm /></button>
                  </div>
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
