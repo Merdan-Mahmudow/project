@@ -6,6 +6,7 @@ import CartPageSvg from '../svg/CartPageSvg'
 import BasketSvg from '../svg/BasketSvg'
 import BackArrowSvg from '../svg/BackArrowSvg'
 import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { clearItems } from '../redux/cart/slice'
 import { selectCart } from '../redux/cart/selectors'
 import { HiPlusSm } from "react-icons/hi";
@@ -16,7 +17,10 @@ import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 
-export default function Cart() {
+interface CounterProps {
+  initialCount?: number;
+}
+export default function Cart({ initialCount = 1 }) {
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
   const onClickClear = () => {
@@ -33,6 +37,17 @@ export default function Cart() {
       dispatch(clearItems())
     }
   }
+  const [count, setCount] = useState(initialCount);
+
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
 
   return (
     <div className='content'>
@@ -64,9 +79,9 @@ export default function Cart() {
                     </div>
                  </div>
                  <div className='flex gap-2'>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiMinusSm/></button>
-                   <p>1</p>
-                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]'><HiPlusSm /></button>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={handleDecrement}><HiMinusSm/></button>
+                   <p className='font-bold font-roboto'>{count}</p>
+                   <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={handleIncrement}><HiPlusSm /></button>
                  </div>
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
@@ -111,8 +126,8 @@ export default function Cart() {
                 <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 bg-green-500 w-auto'>
                   <BackArrowSvg /><span className='text-sm'>Вернуться назад</span>
                 </Link>
-                <button onClick={onClickPay} className='font-bold uppercase font-next px-5 py-2 bg-red-600 rounded-[5px]'>
-                  <span>Оплатить сейчас</span>
+                <button onClick={onClickPay} className='fixed bottom-0 bg-blue-600 w-full left-0 py-5 rounded-t-2xl z-10'>
+                  <span className='uppercase font-bold font-term text-white text-xl tracking-widest'>Оплатить сейчас</span>
                 </button>
               </div>
             </div>

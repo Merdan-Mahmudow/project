@@ -64,23 +64,23 @@ export const CartItem: React.FC<CartItemProps> = ({
         <Link key={id} to={`/pizza/${id}`} className='gap-2 flex flex-col'>
           <h3 className='font-term text-2xl leading-4'>{foodName}</h3>
           <p className='font-next text-[6px] leading-2'>{description}</p>
-          <div className='flex items-center gap-2'>
+        </Link>
+        <div className='flex items-center gap-2 mt-2'>
             <button
               disabled={count === 0}
               onClick={onClickMinus}
               className='px-[2px] py-[2px] border-2 border-stone-600 rounded-full text-center'>
               {/* <MinusCartSvg /> */}
-              <HiPlusSm />
+              <HiMinusSm />
             </button>
             <b>{count}</b>
             <button
               onClick={onClickPlus}
               className='px-[2px] py-[2px] border-2 border-stone-600 rounded-full text-center'>
               {/* <PlusCartSvg /> */}
-              <HiMinusSm />
+              <HiPlusSm />
             </button>
           </div>
-        </Link>
       </div>
       <div className='flex flex-col w-[90px] self-center items-center gap-1'>
         <div className='text-right'>
