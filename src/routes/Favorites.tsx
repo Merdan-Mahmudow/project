@@ -16,10 +16,11 @@ import bus from '../assets/images/bus.svg'
 import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
+import { selectFav } from '../redux/favorite/selectorsFav'
 
 export default function Favorites(){
     const dispatch = useDispatch()
-    const { totalCount, totalPrice, items } = useSelector(selectCart)
+    const { items_fav } = useSelector(selectFav)
     const onClickClear = () => {
       if (window.confirm('Очистить корзину?')) {
         dispatch(clearItems())
@@ -27,14 +28,14 @@ export default function Favorites(){
     }
     return (
         <div className=''>
-        {items.length > 0 ? (
+        {items_fav.length > 0 ? (
           <div className='container container--cart'>
             <div className='cart'>
               <div className="flex w-full  bg-red-600 px-2 py-2">
                  <h1 className='text-white font-term text-2xl w-full text-center'>Мой заказ</h1>
               </div>
               <div className='content__items'>
-                {items.map((item: any) =>
+                {items_fav.map((item: any) =>
                   <FavoriteItem key={item.id} {...item} />)
                 }
               </div>

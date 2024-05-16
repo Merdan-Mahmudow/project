@@ -16,11 +16,14 @@ import bus from '../assets/images/bus.svg'
 import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
+import { DeliveryType } from './Delivery_Type'
+import DeliverySelectionPage from './DeliverySelectionPage'
 
-interface CounterProps {
-  initialCount?: number;
-}
-export default function Cart({ initialCount = 1 }) {
+// interface Props {
+//   deliveryType: DeliveryType;
+//   initialCount?: number;
+// }
+export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
   const onClickClear = () => {
@@ -49,7 +52,14 @@ export default function Cart({ initialCount = 1 }) {
       setCount(count - 1);
     }
   };
+  // const [selectedDeliveryName, setSelectedDeliveryName] = useState<string>('');
 
+  // const handleSelect = (deliveryType: DeliveryType) => {
+  //   const selectedOption = deliveryOptions.find((option) => option.type === deliveryType);
+  //   if (selectedOption) {
+  //     setSelectedDeliveryName(selectedOption.name);
+  //   }
+  // };
   return (
     <div className='content'>
       {items.length > 0 ? (

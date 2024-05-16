@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import filter from './filter/slice'
 import cart from './cart/slice'
 import pizza from './pizza/slice'
+import favSlice from './favorite/favSlice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     filter,
     cart,
     pizza,
+    favSlice
   },
 })
 
