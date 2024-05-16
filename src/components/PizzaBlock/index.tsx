@@ -90,7 +90,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     setStorageValue(`likeButton_${id}`, !isLiked);
   };
   return (
-    <div className='rounded-2xl bg-white pb-2'>
+    <div className='rounded-2xl bg-white pb-2 h-50'>
       <Link key={id} to={`/pizza/${id}`}>
           <img
             className='w-full h-[120px] rounded-t-2xl'
@@ -103,18 +103,20 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <h4 className='text-lg font-term leading-4'>{foodName}</h4>
         <p className='text-[6pt] leading-tight top-1 relative'>{description}</p>
         <div className='font-term text-grey'>{price}P</div>
-        <div className='flex w-full justify-between items-center'>
-            <button
-              onClick={onClickAdd}
-              // button button--outline button--add flex justify-between items-center
-              className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
-              {/* <PlusSvg /> */}
-              Добавить
-              {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
-            </button>
-            <button onClick={onClickAddFav}>
-              <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-7 h-7' />
-            </button>
+        <div className='flex h-50 items-end'>
+            <div className='flex w-full justify-between items-center h-full'>
+                <button
+                  onClick={onClickAdd}
+                  // button button--outline button--add flex justify-between items-center
+                  className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
+                  {/* <PlusSvg /> */}
+                  Добавить
+                  {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
+                </button>
+                <button onClick={onClickAddFav}>
+                  <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-7 h-7' />
+                </button>
+            </div>
         </div>
 
       </div>

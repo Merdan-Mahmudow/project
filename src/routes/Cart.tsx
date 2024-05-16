@@ -18,6 +18,7 @@ import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import { DeliveryType } from './Delivery_Type'
 import DeliverySelectionPage from './DeliverySelectionPage'
+import arrow_back from '../assets/images/Arrow 5.svg'
 
 // interface Props {
 //   deliveryType: DeliveryType;
@@ -64,8 +65,11 @@ export default function Cart({ initialCount = 1}){
       {items.length > 0 ? (
         <div className='container container--cart'>
           <div className='cart'>
-            <div className="flex w-full  bg-red-600 px-2 py-2">
-               <h1 className='text-white font-term text-2xl w-full text-center'>Мой заказ</h1>
+            <div className="flex w-full  bg-red-600 px-3 py-3">
+              <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
+                <img src={arrow_back} alt="" className='h-5 absolute'/>
+              </Link>
+               <h1 className='text-white font-term text-2xl w-full text-center tracking-widest'>Мой заказ</h1>
             </div>
             <div className='content__items'>
               {items.map((item: any) =>
@@ -133,9 +137,6 @@ export default function Cart({ initialCount = 1}){
                  <Link to='/promo' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>применить</Link>
               </div>
               <div className='flex justify-between'>
-                <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 bg-green-500 w-auto'>
-                  <BackArrowSvg /><span className='text-sm'>Вернуться назад</span>
-                </Link>
                 <button onClick={onClickPay} className='fixed bottom-0 bg-blue-600 w-full left-0 py-5 rounded-t-2xl z-10'>
                   <span className='uppercase font-bold font-term text-white text-xl tracking-widest'>Оплатить сейчас</span>
                 </button>
