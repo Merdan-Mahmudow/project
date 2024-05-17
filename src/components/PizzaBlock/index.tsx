@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom'
 import { addItem } from '../../redux/cart/slice'
 import { addItemFav } from '../../redux/favorite/favSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import PlusSvg from '../../svg/PlusSvg'
 import { selectCartItemById } from '../../redux/cart/selectors'
 import { CartItem } from '../../redux/cart/types'
 import heart_img from '../../assets/images/heart_img.svg'
 import heart_active from '../../assets/images/heart.png'
 import { FavItem } from '../../redux/favorite/types_fav'
-import { useEffect } from 'react'
 type PizzaBlockProps = {
   id: string,
   image: string,
@@ -113,9 +111,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                   Добавить
                   {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
                 </button>
-                <button onClick={onClickAddFav}>
+                {/* <button onClick={onClickAddFav}>
                   <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-7 h-7' />
-                </button>
+                </button> */}
             </div>
         </div>
 

@@ -2,7 +2,8 @@ import React, { Suspense } from 'react'
 import { createHashRouter } from 'react-router-dom'
 import { Root } from './Root'
 import { Catalog } from './Catalog'
-// import { Detail } from './Detail'
+import {Detail} from './Detail'
+import { useParams } from 'react-router-dom'
 // import { Cart } from './Cart'
 // import { Orders } from './Orders'
 // import { NotFound } from './NotFound'
@@ -13,6 +14,8 @@ import DeliverySelectionPage from './DeliverySelectionPage';
 import { GlobalLoader } from '../components/GlobalLoader'
 // import { Cart } from './Cart';
 import { useState } from 'react'
+// import { PizzaBlock } from '../components'
+import { PizzaBlockProps } from './Detail'
 
 const handleDeliverySelection = (deliveryWay: string) => {
   const url = new URL(`${window.location.origin}/?deliveryType=${deliveryWay}`);
@@ -30,7 +33,7 @@ const handleDeliverySelection = (deliveryWay: string) => {
 //const Cart: React.FC = React.lazy(() => import('./Cart'))
 
 const Cart: React.FC = React.lazy(() => import(/*webpackChunkName: "Cart"*/'./Cart'))
-const Detail: React.FC = React.lazy(() => import(/*webpackChunkName: "Detail"*/'./Detail'))
+// const Detail: React.FC = React.lazy(() => import(/*webpackChunkName: "Detail"*/'./Detail'))
 const Orders: React.FC = React.lazy(() => import(/*webpackChunkName: "Orders"*/'./Orders'))
 const NotFound: React.FC = React.lazy(() => import(/*webpackChunkName: "NotFound"*/'./NotFound'))
 const ErrorPage: React.FC = React.lazy(() => import(/*webpackChunkName: "ErrorPage"*/'./ErrorPage'))
@@ -38,6 +41,14 @@ const ErrorPage: React.FC = React.lazy(() => import(/*webpackChunkName: "ErrorPa
 const Comment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Comment'))
 const Payment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Payment'))
 const Favorites: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Favorites'))
+// type PizzaBlockProps = {
+//   id: string,
+//   image: string,
+//   foodName: string,
+//   description: string,
+//   price: number,
+//   count: number,
+// }
 export const router = createHashRouter([
   {
     path: '/',
@@ -54,7 +65,7 @@ export const router = createHashRouter([
       },
       {
         path: 'pizza/:id',
-        element: <Detail />,
+        element: <Detail />
       },
       {
         path: 'delivery',
