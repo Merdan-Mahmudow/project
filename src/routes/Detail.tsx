@@ -118,7 +118,8 @@ export const Detail = () => {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
+        const { data } = await axios.get(`https://jubilant-space-pancake-7qqj7jjrgx5cpj4v-8000.app.github.dev/food/${params.id}`)
+        // backend.skyrodev.ru
         setPizza(data)
         setLoading(false)
       } catch (error) {

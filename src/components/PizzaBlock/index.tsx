@@ -17,14 +17,16 @@ type PizzaBlockProps = {
   imageSrc: string;
   likeImageSrc: string;
 }
-
+interface Props {
+  initialCount: number;
+}
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id = '0',
   image = '',
   foodName = '',
   price = 0,
   description = '',
-}) => {
+}, {initialCount = 0}) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
 
@@ -82,10 +84,33 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const [isLiked, setIsLiked] = useState<boolean>(() =>
     getStorageValue(`likeButton_${id}`, false)
   );
-
+  
   const handleClick = () => {
     setIsLiked(!isLiked);
     setStorageValue(`likeButton_${id}`, !isLiked);
+  }
+  const [count, setCount] = useState(initialCount);
+  const [isCounter, setIsCounter] = useState(false);
+
+  const handleAddToCart = () => {
+    setCount(count + 1)
+    setIsCounter(true)
+    const item: CartItem = {
+      id,
+      foodName,
+      price,
+      image,
+      count: 0,
+      description,
+    }
+    dispatch(addItem(item))
+  }
+
+  const handleDecrement = () => {
+    setCount(count - 1);
+    if (count === 1) {
+      setIsCounter(false);
+    }
   };
   return (
     <div className='rounded-2xl bg-white pb-2 h-50'>
@@ -103,14 +128,24 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className='font-term text-grey'>{price}P</div>
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center h-full'>
-                <button
-                  onClick={onClickAdd}
-                  // button button--outline button--add flex justify-between items-center
-                  className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
-                  {/* <PlusSvg /> */}
-                  Добавить
-                  {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
-                </button>
+               {isCounter ? (
+              <div>
+                <button onClick={handleDecrement}>-</button>
+                <span>{count}</span>
+                <button onClick={handleAddToCart}><span onClick={onClickAdd}>+</span></button>
+              </div>
+              // {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
+               ) : (
+                <div>
+                    <button
+                      onClick={handleAddToCart}
+                      // button button--outline button--add flex justify-between items-center
+                      className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
+                      {/* <PlusSvg /> */}
+                      Добавить
+                    </button>
+                </div>
+               )}
                 {/* <button onClick={onClickAddFav}>
                   <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-7 h-7' />
                 </button> */}
