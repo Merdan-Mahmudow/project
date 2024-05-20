@@ -146,9 +146,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                     </button>
                 </div>
                )}
-                {/* <button onClick={onClickAddFav}>
+                <button onClick={onClickAddFav}>
                   <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-7 h-7' />
-                </button> */}
+                </button>
             </div>
         </div>
 
