@@ -26,13 +26,13 @@ export type PizzaBlockProps = {
   count: number,
 }
 
+
 export const Detail = () => {
   const params = useParams()
   const navigate = useNavigate()
   // const dispatch = useDispatch()
 
-  const cartItem = useSelector(selectCartItemById(params.id as string))
-
+  // const cartItem = useSelector(selectCartItemById(params.id as string))
   const [activeType, setactiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -48,6 +48,7 @@ export const Detail = () => {
     // const cartItem = useSelector(selectCartItemById(id))
   const onClickSize = (i: number) => setActiveSize(i)
   const onClickType = (i: number) => setactiveType(i)
+  const cartItem = useSelector(selectCartItemById(pizza.id))
   const addedCount = cartItem ? cartItem.count : 0
 
   const getStorageValue = (key: string, defaultValue: any): any => {
@@ -75,17 +76,17 @@ export const Detail = () => {
     setIsLiked(!isLiked);
     // setStorageValue(`likeButton_${id}`, !isLiked);
   };
-  // const onClickAdd = () => {
-  //   const item = {
-  //     id: pizza.id,
-  //     foodName: pizza.foodName,
-  //     description: pizza.description,
-  //     price: pizza.price,
-  //     image: pizza.image,
-  //     count: pizza.count,
-  //   }
-  //   dispatch(addItem(item))
-  // }
+  const onClickAdd = () => {
+    const item = {
+      id: pizza.id,
+      foodName: pizza.foodName,
+      description: pizza.description,
+      price: pizza.price,
+      image: pizza.image,
+      count: pizza.count,
+    }
+    dispatch(addItem(item))
+  }
   // const PizzaBlock: React.FC<PizzaBlockProps> = ({
   //   id = '0',
   //   image = '',
@@ -105,17 +106,17 @@ export const Detail = () => {
   //   dispatch(addItem(item))
   // }
 
-  // const onClickAddFav = () => {
-  //   const item_fav: FavItem = {
-  //     id,
-  //     foodName,
-  //     price,
-  //     image,
-  //     count: 0,
-  //     description,
-  //   }
-  //   dispatch(addItemFav(item_fav))
-  // }
+  const onClickAddFav = () => {
+    const item_fav: FavItem = {
+      id: pizza.id,
+      foodName: pizza.foodName,
+      description: pizza.description,
+      price: pizza.price,
+      image: pizza.image,
+      count: pizza.count,
+    }
+    dispatch(addItemFav(item_fav))
+  }
   useEffect(() => {
     async function fetchPizza() {
       try {
@@ -147,7 +148,7 @@ export const Detail = () => {
 
   return (
     <div className='content'>
-            <div className="flex w-full  bg-red-600 px-3 py-3">
+            <div className="flex w-full  bg-red-600 px-3 py-5">
                 <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
                     <img src={arrow_back} alt="" className='h-5 absolute' />
                 </Link>
@@ -155,29 +156,30 @@ export const Detail = () => {
             </div>
       <div className='h-[70vh]'>
         <div className='pizza-block-wrapper px-5 py-5'>
-          <div className='pizza-detail-block bg-white h-auto rounded-lg'>
+          <div className='pizza-detail-block bg-white h-auto rounded-xl pb-3'>
             <div className='flex w-full justify-center'>
               <img
-                className='w-full rounded-t-lg'
+                className='w-full rounded-t-xl h-[35vh]'
                 src={pizza.image}
                 alt='Food'
               />
             </div>
             <div className='pizza-detail-info'>
-              <h4 className='font-term uppercase text-4xl pl-3'>{pizza.foodName}</h4>
-              <div className='font-roboto text-l text-[14px] pl-3 text-[#5F5F5F] w-[70vw]'>{pizza.description}</div>
-              <h4 className='font-term uppercase text-4xl pl-3 tracking-[5px]'>{pizza.price}P</h4>
-              <div className='flex justify-between px-3 py-4 items-center'>
+              <h4 className='font-term uppercase text-4xl pl-3 pt-2'>{pizza.foodName}</h4>
+              <div className='font-roboto text-l text-[14px] pl-3 text-[#5F5F5F] w-[70vw]'>{pizza.description} Рис, свиной фарш, огурец, морковь, маш-маш, кимчи и жареное яйцо</div>
+              <h4 className='font-term uppercase text-4xl pl-3 tracking-[5px] text-[#474747] pt-2'>{pizza.price}P</h4>
+              <div className='flex justify-between px-3 py-3 items-center'>
               <div className='flex w-full justify-between items-center h-full'>
                 <button
-                  // onClick={onClickAdd}
+                  onClick={onClickAdd}
                   // button button--outline button--add flex justify-between items-center
-                  className='border-2 border-[#ABABAB] w-fit px-20 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
+                  className={addedCount > 0 ? 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold bg-red-600': 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold'}>
                   {/* <PlusSvg /> */}
+                  {/* 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold' */}
                   Добавить
-                  {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
+                  {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[7px] py-[2px] rounded-full ml-2 absolute'>{addedCount}</i>}
                 </button>
-                <button>
+                <button onClick={onClickAddFav}>
                   <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-9 h-9' />
                 </button>
             </div>

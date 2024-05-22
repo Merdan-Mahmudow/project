@@ -82,7 +82,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
             <button
               onClick={onClickAdd}
               // button button--outline button--add flex justify-between items-center
-              className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold'>
+              className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold mt-2'>
               {/* <PlusSvg /> */}
               Добавить
               {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}

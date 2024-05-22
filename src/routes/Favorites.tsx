@@ -17,6 +17,7 @@ import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import { selectFav } from '../redux/favorite/selectorsFav'
+import arrow_back from '../assets/images/Arrow 5.svg'
 
 export default function Favorites(){
     const dispatch = useDispatch()
@@ -31,9 +32,12 @@ export default function Favorites(){
         {items_fav.length > 0 ? (
           <div className='container container--cart'>
             <div className='cart'>
-              <div className="flex w-full  bg-red-600 px-2 py-2">
-                 <h1 className='text-white font-term text-2xl w-full text-center'>Мой заказ</h1>
-              </div>
+            <div className="flex w-full  bg-red-600 px-3 py-5">
+                <Link to={`/`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
+                    <img src={arrow_back} alt="" className='h-5 absolute' />
+                </Link>
+                <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>ИЗБРАННОЕ</h1>
+            </div>
               <div className='content__items'>
                 {items_fav.map((item: any) =>
                   <FavoriteItem key={item.id} {...item} />)

@@ -34,8 +34,8 @@ const DeliverySelectionPage = (onSelect: any) => {
     };
     return (
         <div className="w-full h-[80vh] bg-[#F1F1F1] pt-0 px-0 flex flex-col gap-2">
-            <div className="flex w-full  bg-red-600 px-3 py-3">
-                <Link to={`/tota`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
+            <div className="flex w-full  bg-red-600 px-3 py-5">
+                <Link to={`/cart`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
                     <img src={arrow_back} alt="" className='h-5 absolute' />
                 </Link>
                 <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>ДОСТАВКА</h1>
