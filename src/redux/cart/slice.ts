@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
       state.totalPrice = calcTotalPrice(state.items)
     },
     removeItem(state, action: PayloadAction<string>) {
-      state.items = state.items.filter(obj => obj.id != action.payload)
+      state.items = state.items.filter(obj => obj.id !== action.payload)
       state.totalCount = calcTotalCount(state.items)
       state.totalPrice = calcTotalPrice(state.items)
     },
@@ -43,6 +43,6 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { addItem, removeItem, minusItem, clearItems } = cartSlice.actions
+export const { addItem, removeItem, minusItem, clearItems} = cartSlice.actions
 
 export default cartSlice.reducer

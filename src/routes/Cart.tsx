@@ -2,64 +2,43 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
-import CartPageSvg from '../svg/CartPageSvg'
-import BasketSvg from '../svg/BasketSvg'
-import BackArrowSvg from '../svg/BackArrowSvg'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { clearItems } from '../redux/cart/slice'
 import { selectCart } from '../redux/cart/selectors'
-import { HiPlusSm } from "react-icons/hi";
-import { HiMinusSm } from "react-icons/hi";
-import cutlery from '../assets/images/cutlery_2.svg';
+import { HiPlusSm } from "react-icons/hi"
+import { HiMinusSm } from "react-icons/hi"
+import cutlery from '../assets/images/cutlery_2.svg'
 import bus from '../assets/images/bus.svg'
 import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
-import { DeliveryType } from './Delivery_Type'
-import DeliverySelectionPage from './DeliverySelectionPage'
 import arrow_back from '../assets/images/Arrow 5.svg'
 
-// interface Props {
-//   deliveryType: DeliveryType;
-//   initialCount?: number;
-// }
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
-  const onClickClear = () => {
-    if (window.confirm('Очистить корзину?')) {
-      dispatch(clearItems())
-    }
-  }
 
   const onClickPay = () => {
     if (window.confirm(`Вы заказали ${totalCount} пиц на сумму ${totalPrice} ₽`)) {
       const tg = Telegram.WebApp
-      console.log(tg.initDataUnsafe.chat?.id)
+      // console.log(tg.initDataUnsafe.chat?.id)
       tg.sendData(JSON.stringify(items))
       dispatch(clearItems())
     }
   }
-  const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState(initialCount)
 
   const handleIncrement = () => {
-    setCount(count + 1);
-  };
+    setCount(count + 1)
+  }
 
   const handleDecrement = () => {
     if (count > 0) {
-      setCount(count - 1);
+      setCount(count - 1)
     }
-  };
-  // const [selectedDeliveryName, setSelectedDeliveryName] = useState<string>('');
-
-  // const handleSelect = (deliveryType: DeliveryType) => {
-  //   const selectedOption = deliveryOptions.find((option) => option.type === deliveryType);
-  //   if (selectedOption) {
-  //     setSelectedDeliveryName(selectedOption.name);
-  //   }
-  // };
+  }
+  const selectedOption = localStorage.getItem("selectedOption")
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -102,7 +81,7 @@ export default function Cart({ initialCount = 1}){
                  <div className='flex items-center gap-4 ml-2'>
                     <img src={bus} alt="" />
                     <div className='flex flex-col gap-1'>
-                       <h2 className='font-term text-xl leading-3'>САМОВЫВОЗ</h2>
+                       <h2 className='font-term text-xl leading-3'>{selectedOption || "ДОСТАВКА"}</h2>
                        <p className='font-roboto text-[8px] font-bold'>Адрес:  г.Южно-Сахалинск, улица Мира 231/9</p>
                     </div>
                  </div>

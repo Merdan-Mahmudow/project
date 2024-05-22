@@ -120,7 +120,8 @@ export const Detail = () => {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
+        const { data } = await axios.get(`https://ubiquitous-robot-9vvg6ggj977f9vvx-8000.app.github.dev/food/${params.id}`)
+        // backend.skyrodev.ru
         // backend.skyrodev.ru
         setPizza(data)
         setLoading(false)

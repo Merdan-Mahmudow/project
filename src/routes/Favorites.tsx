@@ -21,7 +21,7 @@ import arrow_back from '../assets/images/Arrow 5.svg'
 
 export default function Favorites(){
     const dispatch = useDispatch()
-    const { items_fav } = useSelector(selectFav)
+    const { items } = useSelector(selectFav)
     const onClickClear = () => {
       if (window.confirm('Очистить корзину?')) {
         dispatch(clearItems())
@@ -29,7 +29,7 @@ export default function Favorites(){
     }
     return (
         <div className=''>
-        {items_fav.length > 0 ? (
+        {items.length > 0 ? (
           <div className='container container--cart'>
             <div className='cart'>
             <div className="flex w-full  bg-red-600 px-3 py-5">
@@ -39,7 +39,7 @@ export default function Favorites(){
                 <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>ИЗБРАННОЕ</h1>
             </div>
               <div className='content__items'>
-                {items_fav.map((item: any) =>
+                {items.map((item: any) =>
                   <FavoriteItem key={item.id} {...item} />)
                 }
               </div>

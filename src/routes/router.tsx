@@ -17,10 +17,6 @@ import { useState } from 'react'
 // import { PizzaBlock } from '../components'
 import { PizzaBlockProps } from './Detail'
 
-const handleDeliverySelection = (deliveryWay: string) => {
-  const url = new URL(`${window.location.origin}/?deliveryType=${deliveryWay}`);
-  window.history.pushState({ path: url.toString() }, '', url);
-};
 
 // const [selectedDeliveryName, setSelectedDeliveryName] = useState<string>('');
 
@@ -69,7 +65,8 @@ export const router = createHashRouter([
       },
       {
         path: 'delivery',
-        element: <DeliverySelectionPage onSelect={handleDeliverySelection}/>
+        // element: <DeliverySelectionPage onSelect={handleDeliverySelection}/>
+        element: <DeliverySelectionPage/>
       },
       {
         path: 'orders',

@@ -4,12 +4,12 @@ import { calcTotalPrice } from "./calcTotalPrice"
 
 export const getFavFromLS = () => {
   const data = localStorage.getItem('fav')
-  const items_fav = data ? JSON.parse(data) : []
-  const totalPrice = calcTotalPrice(items_fav)
-  const totalCount = calcTotalCount(items_fav)
+  const items = data ? JSON.parse(data) : []
+  const totalPrice = calcTotalPrice(items)
+  const totalCount = calcTotalCount(items)
 
   return {
-    items_fav: items_fav as FavItem[],
+    items: items as FavItem[],
     totalPrice,
     totalCount,
   }
