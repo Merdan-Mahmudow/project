@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom'
 import BackArrowSvg from '../svg/BackArrowSvg'
 import arrow_back from '../assets/images/Arrow 5.svg'
+import comment from '../assets/images/ч.svg'
 interface ButtonProps {
     disabled: boolean;
     style: React.CSSProperties;
