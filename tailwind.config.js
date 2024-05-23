@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       "backgroundImage":{
         "headerNav": 'url(../assets/images/nav_header.png)'
+      },
+      screens: {
+        '12pro': { 'raw': '(min-height: 390px)' },
       }
     },
     fontFamily: {

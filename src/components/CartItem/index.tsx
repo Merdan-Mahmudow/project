@@ -6,9 +6,9 @@ import RemoveCartSvg from '../../svg/RemoveCartSvg'
 import { useDispatch } from 'react-redux'
 import { addItem, minusItem, removeItem } from '../../redux/cart/slice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
-import { HiPlusSm } from "react-icons/hi";
-import { HiMinusSm } from "react-icons/hi";
-import { RxCross2 } from "react-icons/rx";
+import { HiPlusSm } from "react-icons/hi"
+import { HiMinusSm } from "react-icons/hi"
+import { RxCross2 } from "react-icons/rx"
 
 type CartItemProps = {
   id: string,

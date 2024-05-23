@@ -11,31 +11,31 @@ export const favSlice = createSlice({
   initialState,
   reducers: {
     addItemFav(state, action: PayloadAction<FavItem>) {
-      const findItem = state.items_fav.find(obj => obj.id === action.payload.id)
+      const findItem = state.items.find(obj => obj.id === action.payload.id)
       if (findItem) {
         findItem.count = 1
       } else {
-        state.items_fav.push({
+        state.items.push({
           ...action.payload,
           count: 0
         })
       }
-      state.totalCount = calcTotalCount(state.items_fav)
-      state.totalPrice = calcTotalPrice(state.items_fav)
+      state.totalCount = calcTotalCount(state.items)
+      state.totalPrice = calcTotalPrice(state.items)
     },
-    removeItem(state, action: PayloadAction<string>) {
-      state.items_fav = state.items_fav.filter(obj => obj.id != action.payload)
-      state.totalCount = calcTotalCount(state.items_fav)
-      state.totalPrice = calcTotalPrice(state.items_fav)
+    removeItemFav(state, action: PayloadAction<string>) {
+      state.items = state.items.filter(obj => obj.id !== action.payload)
+      state.totalCount = calcTotalCount(state.items)
+      state.totalPrice = calcTotalPrice(state.items)
     },
     clearItems(state) {
-      state.items_fav = []
+      state.items = []
       state.totalPrice = 0
       state.totalCount = 0
     },
   },
 })
 
-export const { addItemFav, removeItem, clearItems } = favSlice.actions
+export const { addItemFav, removeItemFav, clearItems } = favSlice.actions
 
 export default favSlice.reducer
