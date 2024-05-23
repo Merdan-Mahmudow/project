@@ -12,6 +12,19 @@ export const categoriesList: CategoryItem[] = [
   { id: 2, name: 'Острое' },
   { id: 3, name: 'Десерты' },
   { id: 4, name: 'Напитки' },
+  { id: 1, name: 'Говядина' },
+  { id: 2, name: 'Морепродукты' },
+  { id: 3, name: 'Без мяса' },
+  { id: 4, name: 'Свинина острая' },
+  { id: 5, name: 'Свинина неострая' },
+  { id: 6, name: 'Супы' },
+  { id: 7, name: 'Сосиски' },
+  { id: 8, name: 'Фри' },
+  { id: 9, name: 'Курица' },
+  { id: 10, name: 'Добавки' },
+  { id: 11, name: 'Соусы' },
+  { id: 12, name: 'Бар' },
+  { id: 13, name: 'Холодильник' },
 ]
 
 type СategoriesProps = {

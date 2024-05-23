@@ -120,7 +120,7 @@ export const Detail = () => {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://ubiquitous-robot-9vvg6ggj977f9vvx-8000.app.github.dev/food/${params.id}`)
+        const { data } = await axios.get(`https://redesigned-tribble-v44jpjjgxg4377r-8000.app.github.dev/food/${params.id}`)
         // backend.skyrodev.ru
         // backend.skyrodev.ru
         setPizza(data)
@@ -167,7 +167,7 @@ export const Detail = () => {
             </div>
             <div className='pizza-detail-info'>
               <h4 className='font-term uppercase text-4xl pl-3 pt-2'>{pizza.foodName}</h4>
-              <div className='font-roboto text-l text-[14px] pl-3 text-[#5F5F5F] w-[70vw]'>{pizza.description} Рис, свиной фарш, огурец, морковь, маш-маш, кимчи и жареное яйцо</div>
+              <div className='font-roboto text-l text-[14px] pl-3 text-[#5F5F5F] w-[70vw]'>{pizza.description}</div>
               <h4 className='font-term uppercase text-4xl pl-3 tracking-[5px] text-[#474747] pt-2'>{pizza.price}P</h4>
               <div className='flex justify-between px-3 py-3 items-center'>
               <div className='flex w-full justify-between items-center h-full'>

@@ -19,11 +19,9 @@ type PizzaBlockProps = {
   price: number,
   count: number,
   description: string,
-  imageSrc: string;
-  likeImageSrc: string;
-}
-interface Props {
-  initialCount: number;
+  imageSrc: string,
+  likeImageSrc: string,
+  maxLength?: number;
 }
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id = '0',
@@ -32,7 +30,8 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   price = 0,
   count = 0,
   description = '',
-}, {initialCount = count}) => {
+  maxLength = 9,
+}) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
 
@@ -164,6 +163,11 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
+  const [isTruncated, setIsTruncated] = useState(true)
+
+  // const toggleTruncation = () => setIsTruncated(!isTruncated)
+
+  const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
     <div className='rounded-2xl bg-white pb-3 h-50'>
       <Link key={id} to={`/pizza/${id}`}>
@@ -174,10 +178,22 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
           />
         </Link>
       <div className='flex flex-col justify-between px-2 gap-1'>
-        <div className='h-[8vh] mt-2 12pro:h-[10vh]'>
-          <h4 className='text-lg font-term leading-4'>{foodName}</h4>
-          <p className='text-[6pt] leading-tight top-1 relative'>{description}</p>
-          <div className='font-term text-grey'>{price}P</div>
+        <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
+          <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
+          {isTruncated ? (
+            <span className='text-[6pt] leading-tight relative'>
+              {truncatedText}
+              {description.length > maxLength * 9 && "..."}
+              {/* <button onClick={toggleTruncation}>Read more</button> */}
+            </span>
+          ) : (
+            <span className='text-[6pt] leading-tight relative'>
+              {description}
+              {/* <button onClick={toggleTruncation}>Read less</button> */}
+            </span>
+          )}
+          {/* <p className='text-[6pt] leading-tight relative'>{description}</p> */}
+          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3'>{price}P</div>
         </div>
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center '>
@@ -198,7 +214,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 </div>
                )}
                 <button onClick={onClickAddFav}>
-                  <img src={isLiked ? heart_active : heart_img} alt=""  className='w-7 h-7' />
+                  <img src={isLiked ? heart_active : heart_img} alt=""  className='w-6 h-6' />
                 </button>
             </div>
         </div>

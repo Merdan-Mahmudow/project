@@ -56,14 +56,14 @@ export default function Cart({ initialCount = 1}){
               }
             </div>
             <div className='cart__bottom'>
-              <div className='flex w-full justify-between px-2 py-2 bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex w-full justify-between px-2 py-2 bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                 <span className='uppercase font-term text-2xl'> Итого: </span>
                 <p className='uppercase font-term text-2xl'>{totalPrice} P</p>
               </div>
-              <div className='bg-[#F1F1F1] px-2 py-2 border-b-2 border-stone-800'>
+              <div className='bg-[#F1F1F1] px-2 py-2 border-b-[1px] border-[#A2A2A2]'>
                  <p className='text-[10px] font-roboto font-bold'>Призаказе от 2000р Батат фри с пармезаном всего за 120р Для получения скидки добавьте блюдо в заказ самостоятельно его можно найти в разделе Закуски</p>
               </div>
-              <div className='flex justify-between px-2 py-2 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex justify-between px-2 py-2 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                  <div className='flex items-center gap-2'>
                     <img src={cutlery} alt="" />
                     <div className='flex flex-col gap-1'>
@@ -77,7 +77,7 @@ export default function Cart({ initialCount = 1}){
                    <button className='border-2 border-stone-800 rounded-full px-[2px] py-[2px]' onClick={handleIncrement}><HiPlusSm /></button>
                  </div>
               </div>
-              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                  <div className='flex items-center gap-4 ml-2'>
                     <img src={bus} alt="" />
                     <div className='flex flex-col gap-1'>
@@ -87,7 +87,7 @@ export default function Cart({ initialCount = 1}){
                  </div>
                  <Link to='/delivery' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
               </div>
-              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                  <div className='flex items-center gap-4 ml-2'>
                     <img src={money} alt="" />
                     <div className='flex flex-col gap-1'>
@@ -97,7 +97,7 @@ export default function Cart({ initialCount = 1}){
                  </div>
                  <Link to='/payment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
               </div>
-              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                  <div className='flex items-center gap-4 ml-2'>
                     <img src={comment} alt="" />
                     <div className='flex flex-col gap-1'>
@@ -106,7 +106,7 @@ export default function Cart({ initialCount = 1}){
                  </div>
                  <Link to='/comment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>
               </div>
-              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                  <div className='flex items-center gap-4 ml-2'>
                     <img src={promo} alt="" />
                     <div className='flex flex-col gap-1'>
