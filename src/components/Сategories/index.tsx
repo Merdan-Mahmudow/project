@@ -8,10 +8,6 @@ type CategoryItem = {
 
 export const categoriesList: CategoryItem[] = [
   { id: 0, name: 'Популярное' },
-  { id: 1, name: 'Не острое' },
-  { id: 2, name: 'Острое' },
-  { id: 3, name: 'Десерты' },
-  { id: 4, name: 'Напитки' },
   { id: 1, name: 'Говядина' },
   { id: 2, name: 'Морепродукты' },
   { id: 3, name: 'Без мяса' },

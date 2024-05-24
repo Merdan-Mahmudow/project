@@ -23,6 +23,23 @@ type PizzaBlockProps = {
   likeImageSrc: string,
   maxLength?: number;
 }
+export const getStorageValue = (key: string, defaultValue: any): any => {
+  try {
+    const value = localStorage.getItem(key)
+    return value ? JSON.parse(value) : defaultValue
+  } catch (error) {
+    console.error(error)
+    return defaultValue
+  }
+};
+
+export const setStorageValue = (key: string, value: any): void => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch (error) {
+    console.error(error)
+  }
+}
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id = '0',
   image = '',
@@ -37,6 +54,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
+  // const [addedCount, setAddedCount] = useState(cartItem ? cartItem.count : 0)
   // const [count, setCount] = useState(count);
   // const [activeType, setactiveType] = useState<number>(0)
   // const [activeSize, setActiveSize] = useState<number>(0)
@@ -47,23 +65,23 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   // const onClickType = (i: number) => {
   //   setactiveType(i)
   // }
-  const getStorageValue = (key: string, defaultValue: any): any => {
-    try {
-      const value = localStorage.getItem(key)
-      return value ? JSON.parse(value) : defaultValue
-    } catch (error) {
-      console.error(error)
-      return defaultValue
-    }
-  };
+  // const getStorageValue = (key: string, defaultValue: any): any => {
+  //   try {
+  //     const value = localStorage.getItem(key)
+  //     return value ? JSON.parse(value) : defaultValue
+  //   } catch (error) {
+  //     console.error(error)
+  //     return defaultValue
+  //   }
+  // };
   
-  const setStorageValue = (key: string, value: any): void => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value))
-    } catch (error) {
-      console.error(error)
-    }
-  };
+  // const setStorageValue = (key: string, value: any): void => {
+  //   try {
+  //     localStorage.setItem(key, JSON.stringify(value))
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
   const onClickAdd = () => {
     // setIsCounter(true)
     const item: CartItem = {
@@ -84,12 +102,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     if (window.confirm('Вы точно хотите удалить товар из избранного?')) {
       dispatch(removeItemFav(id))
       setIsLiked(false)
+      setStorageValue(`likeButton_${id}`, !isLiked)
     }
   }
-  // const handleClick = () => {
-  //   setIsLiked(!isLiked)
-  //   setStorageValue(`likeButton_${id}`, !isLiked)
-  // }
+  const handleClick = () => {
+    setIsLiked(!isLiked)
+    setStorageValue(`likeButton_${id}`, !isLiked)
+  }
   const selectedOptionFav = localStorage.getItem("selectedOptionFav")
   const onClickAddFav = () => {
     const item_fav: FavItem = {
@@ -105,13 +124,14 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     setIsLiked(!isLiked)
     if (!isLiked) {
       setIsLiked(true)
-      setStorageValue(`likeButton_${id}`, !isLiked)
+      // setStorageValue(`likeButton_${id}`, !isLiked)
     }
-    else if(isLiked && selectedOptionFav === 'Removed'){
+    else if(isLiked){
       setIsLiked(false)
-      setStorageValue(`likeButton_${id}`, isLiked)
+      // setStorageValue(`likeButton_${id}`, isLiked)
       onClickRemoveFav()
     }
+    // handleClick()
   }
   
 
@@ -127,17 +147,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     dispatch(addItem(item))
     setIsCounter(true)
   }
-  // if(addedCount > 0){
-  //   setIsCounter(true)
-  // }
-
-  // const handleDecrement = () => {
-  //   setCount(count - 1);
-  //   if (count === 1) {
-  //     setIsCounter(false);
-  //   }
-  // };
-  // const dispatch = useDispatch()
   const onClickPlus = () => {
     dispatch(
       addItem({
@@ -160,12 +169,17 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   React.useEffect(() => {
+    // const savedCount = localStorage.getItem('count');
+    // const savedIsCounter = localStorage.getItem('isCounter');
+  
+    // if (savedCount && savedIsCounter) {
+    //   setAddedCount(parseInt(savedCount))
+    //   setIsCounter(JSON.parse(savedIsCounter))
+    // }
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
   const [isTruncated, setIsTruncated] = useState(true)
-
-  // const toggleTruncation = () => setIsTruncated(!isTruncated)
 
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
@@ -184,15 +198,12 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             <span className='text-[6pt] leading-tight relative'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
-              {/* <button onClick={toggleTruncation}>Read more</button> */}
             </span>
           ) : (
             <span className='text-[6pt] leading-tight relative'>
               {description}
-              {/* <button onClick={toggleTruncation}>Read less</button> */}
             </span>
           )}
-          {/* <p className='text-[6pt] leading-tight relative'>{description}</p> */}
           <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3'>{price}P</div>
         </div>
         <div className='flex h-50 items-end'>
@@ -214,7 +225,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 </div>
                )}
                 <button onClick={onClickAddFav}>
-                  <img src={isLiked ? heart_active : heart_img} alt=""  className='w-6 h-6' />
+                  <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-6 h-6' />
                 </button>
             </div>
         </div>
