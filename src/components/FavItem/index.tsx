@@ -6,11 +6,13 @@ import { CartItem as CartItemType } from '../../redux/cart/types'
 import { HiPlusSm } from "react-icons/hi";
 import { HiMinusSm } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
+import { removeItemFav } from '../../redux/favorite/favSlice'
 
 type FavItemProps = {
   id: string,
   image: string,
   foodName: string,
+  
   price: number,
   count: number,
   description: string
@@ -28,7 +30,7 @@ export const CartItem: React.FC<FavItemProps> = ({
 
   const onClickRemove = () => {
     if (window.confirm('Вы точно хотите удалить товар?')) {
-      dispatch(removeItem(id))
+      dispatch(removeItemFav(id))
     }
   }
 

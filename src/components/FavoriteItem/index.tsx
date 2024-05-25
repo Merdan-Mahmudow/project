@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addItem, minusItem, removeItem} from '../../redux/cart/slice'
-import { removeItemFav } from '../../redux/favorite/favSlice'
+// import { removeItem } from '../../redux/favorite/favSlice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
 import { RxCross2 } from "react-icons/rx";
 import { CartItem } from '../../redux/cart/types'
@@ -44,7 +44,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   }
   const onClickRemoveFav = () => {
     if (window.confirm('Вы точно хотите удалить товар из избранного?')) {
-      dispatch(removeItemFav(id))
+      dispatch(removeItem(id))
       setSelectedOption("Removed")
       localStorage.setItem("selectedOptionFav", "Removed")
       console.log(localStorage.getItem("selectedOptionFav"))

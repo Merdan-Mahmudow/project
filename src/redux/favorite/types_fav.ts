@@ -8,7 +8,7 @@ export type FavItem = {
   }
   
   export interface FavSliceState {
-    totalPrice: number
-    totalCount: number
+    // totalPrice: number
+    // totalCount: number
     items: FavItem[]
   }

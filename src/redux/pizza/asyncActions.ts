@@ -9,7 +9,7 @@ export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
   async (params) => {
     const { sortBy, order, category, search, currentPage } = params;
     //console.log(params, 4444);
-    const { data } = await axios.get<Pizza[]>(`https://redesigned-tribble-v44jpjjgxg4377r-8000.app.github.dev/food/`, {params: pickBy(
+    const { data } = await axios.get<Pizza[]>(`https://backend.skyrodev.ru/food/`, {params: pickBy(
       // backend.skyrodev.ru
       {
         category,

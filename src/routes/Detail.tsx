@@ -6,7 +6,7 @@ import PlusSvg from '../svg/PlusSvg'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { addItem } from '../redux/cart/slice'
-import { addItemFav } from '../redux/favorite/favSlice'
+// import { addItemFav } from '../redux/favorite/favSlice'
 import { selectCartItemById } from '../redux/cart/selectors'
 import { CartItem } from '../redux/cart/types'
 import { FavItem } from '../redux/favorite/types_fav'
@@ -115,12 +115,12 @@ export const Detail = () => {
       image: pizza.image,
       count: pizza.count,
     }
-    dispatch(addItemFav(item_fav))
+    dispatch(addItem(item_fav))
   }
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://redesigned-tribble-v44jpjjgxg4377r-8000.app.github.dev/food/${params.id}`)
+        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
         // backend.skyrodev.ru
         // backend.skyrodev.ru
         setPizza(data)
