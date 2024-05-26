@@ -1,5 +1,5 @@
 import { FavItem } from "../redux/favorite/types_fav"
 
-export const calcTotalCount = (items_fav: FavItem[]) => {
-  return items_fav.reduce((sum, obj) => obj.price * obj.count + sum, 0)
+export const calcTotalCount = (items: FavItem[]) => {
+  return items.reduce((sum, item) => sum + item.count, 0)
 }

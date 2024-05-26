@@ -7,7 +7,7 @@ import HeartButton from '../../assets/images/heart.svg'
 import Kimchistop from '../../assets/images/Frame 427321805.svg'
 export const Header: React.FC = () => {
   const { pathname } = useLocation()
-  const { items, totalPrice, totalCount } = useSelector(selectCart)
+  const { items, totalPrice} = useSelector(selectCart)
   const isMounted = useRef(false)
 
   useEffect(() => {

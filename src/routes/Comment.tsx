@@ -43,7 +43,11 @@ export default function Comment(){
                       <textarea name="text" id="text" placeholder="Ваш комментарий к заказу ..." className="px-5 border-2 border-[#9F9F9F] rounded-[20px] font-roboto font-bold py-2 bg-[#F1F1F1] text-lg" value={text} onChange={handleTextChange} rows={4} cols={40}/>
                   </div>
                   <div className="w-full flex justify-end mt-4">
-                      <button className="bg-[#BCBCBC] px- 10py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" disabled={text.length === 0} style={buttonStyle}>ОТПРАВИТЬ</button>
+                      <button className="bg-[#BCBCBC] px- 10py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" disabled={text.length === 0} style={buttonStyle}>
+                        <Link to='/cart'>
+                          ОТПРАВИТЬ
+                      </Link>
+                      </button>
                   </div>
             </div>
        </div>

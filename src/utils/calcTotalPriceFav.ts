@@ -1,5 +1,5 @@
-import { FavItem } from "../redux/favorite/types_fav"
+import { CartItem } from "../redux/cart/types"
 
-export const calcTotalPrice = (items_fav: FavItem[]) => {
-  return items_fav.reduce((sum, obj) => obj.price * obj.count + sum, 0)
+export const calcTotalPrice = (items: CartItem[]) => {
+  return items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
 }

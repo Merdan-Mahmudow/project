@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import { addItemFav } from '../../redux/favorite/favSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCartItemById } from '../../redux/cart/selectors'
 import { CartItem } from '../../redux/cart/types'
@@ -8,13 +7,11 @@ import heart_img from '../../assets/images/heart_img.svg'
 import heart_active from '../../assets/images/heart.png'
 import { FavItem } from '../../redux/favorite/types_fav'
 import { addItem, minusItem, removeItem} from '../../redux/cart/slice'
-// import { removeItemFav } from '../../redux/favorite/favSlice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
 import { removeItemFav } from '../../redux/favorite/favSlice'
 import { addItemFav } from '../../redux/favorite/favSlice'
-import { selectFavItemById } from '../../redux/favorite/selectorsFav'
 type PizzaBlockProps = {
   id: string,
   image: string,

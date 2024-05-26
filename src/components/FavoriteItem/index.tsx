@@ -9,6 +9,7 @@ import { CartItem } from '../../redux/cart/types'
 import { selectCartItemById } from '../../redux/cart/selectors'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { removeItemFav } from '../../redux/favorite/favSlice'
 
 type FavoriteItemProps = {
   id: string,
@@ -44,10 +45,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   }
   const onClickRemoveFav = () => {
     if (window.confirm('Вы точно хотите удалить товар из избранного?')) {
-      dispatch(removeItem(id))
-      setSelectedOption("Removed")
-      localStorage.setItem("selectedOptionFav", "Removed")
-      console.log(localStorage.getItem("selectedOptionFav"))
+      dispatch(removeItemFav(id))
     }
   }
   const onClickRemove = () => {
@@ -96,7 +94,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
       </div>
       <div className='flex flex-col w-[90px] self-center items-center gap-1'>
         <div className='text-right'>
-          <b className='text-xl font-term color w-[80px] text-right text-stone-600'>{price * count} P</b>
+          <b className='text-xl font-term color w-[80px] text-right text-stone-600'>{price}P</b>
         </div>
         <div onClick={onClickRemoveFav} className='border-2 border-stone-600 rounded-full px-1 py-1'>
           <div className=''><RxCross2/></div>

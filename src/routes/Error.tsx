@@ -1,24 +1,4 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { InfoBox } from '../components/InfoBox'
-import { CartItem } from '../components/CartItem'
-import CartPageSvg from '../svg/CartPageSvg'
-import BasketSvg from '../svg/BasketSvg'
-import BackArrowSvg from '../svg/BackArrowSvg'
-import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
-import { clearItems } from '../redux/cart/slice'
-import { selectCart } from '../redux/cart/selectors'
-import { HiPlusSm } from "react-icons/hi";
-import { HiMinusSm } from "react-icons/hi";
-import cutlery from '../assets/images/cutlery_2.svg';
-import bus from '../assets/images/bus.svg'
-import money from '../assets/images/money_hand.svg'
-import comment from '../assets/images/list_items.svg'
-import promo from '../assets/images/promocode.svg'
-import { DeliveryType } from './Delivery_Type'
-import DeliverySelectionPage from './DeliverySelectionPage'
-import arrow_back from '../assets/images/Arrow 5.svg'
 
 export default function Error(){
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
@@ -14,6 +13,7 @@ import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
+import EmptyCart from './EmptyCart'
 
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
@@ -125,12 +125,7 @@ export default function Cart({ initialCount = 1}){
         </div>
       )
         :
-        <InfoBox
-          title='Корзина пустая'
-          description='Вероятней всего, вы не заказывали ещё пиццу.  Для того, чтобы заказать пиццу, перейди на главную страницу.'
-          buttonTitle='Вернуться назад'
-          alt='Корзина пустая'
-        />
+        <EmptyCart />
       }
     </div>
   )
