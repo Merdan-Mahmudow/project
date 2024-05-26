@@ -178,16 +178,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     // }
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
-    axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => {
-      e.data.forEach((item: any) => {
-        if (item.id.toString() == id){
-          isLiked = true
-        }
-        else{
-          isLiked = false
-        }
-      })
-    })
   }, [addedCount, isCounter])
   const [isTruncated, setIsTruncated] = useState(true)
 

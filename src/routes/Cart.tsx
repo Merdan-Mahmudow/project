@@ -14,11 +14,12 @@ import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import EmptyCart from './EmptyCart'
+import qs from 'qs'
+import axios from 'axios'
 
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
-  const urlParams = useLocation()
 
   const onClickPay = () => {
     let user: any = ""
