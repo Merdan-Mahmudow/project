@@ -1,32 +1,11 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { InfoBox } from '../components/InfoBox'
-import { CartItem } from '../components/CartItem'
 import { FavoriteItem } from '../components/FavoriteItem'
-import CartPageSvg from '../svg/CartPageSvg'
-import BasketSvg from '../svg/BasketSvg'
-import BackArrowSvg from '../svg/BackArrowSvg'
-import { useSelector, useDispatch } from 'react-redux'
-import { clearItems } from '../redux/cart/slice'
-import { selectCart } from '../redux/cart/selectors'
-import { HiPlusSm } from "react-icons/hi";
-import { HiMinusSm } from "react-icons/hi";
-import cutlery from '../assets/images/cutlery_2.svg';
-import bus from '../assets/images/bus.svg'
-import money from '../assets/images/money_hand.svg'
-import comment from '../assets/images/list_items.svg'
-import promo from '../assets/images/promocode.svg'
+import { useSelector} from 'react-redux'
 import { selectFav } from '../redux/favorite/selectorsFav'
 import arrow_back from '../assets/images/Arrow 5.svg'
-
+import EmptyFav from './EmptyFav'
 export default function Favorites(){
-    const dispatch = useDispatch()
     const { items } = useSelector(selectFav)
-    const onClickClear = () => {
-      if (window.confirm('Очистить корзину?')) {
-        dispatch(clearItems())
-      }
-    }
     return (
         <div className=''>
         {items.length > 0 ? (
@@ -47,13 +26,10 @@ export default function Favorites(){
           </div>
         )
           :
-          <InfoBox
-            title='Корзина пустая'
-            description='Вероятней всего, вы не заказывали ещё пиццу.  Для того, чтобы заказать пиццу, перейди на главную страницу.'
-            buttonTitle='Вернуться назад'
-            alt='Корзина пустая'
-          />
+          <EmptyFav/>
+          
         }
+        
       </div>
     )
 }

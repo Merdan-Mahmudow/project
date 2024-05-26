@@ -49,7 +49,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   }
 
   return (
-    <div className='flex justify-between bg-[#F1F1F1] border-b-2 border-stone-700 py-2 px-2 gap-2'>
+    <div className='flex justify-between bg-[#F1F1F1] border-[1px] border-[#A2A2A2] py-2 px-2 gap-2'>
 
       <div className='flex justify-center items-center'>
         <Link key={id} to={`/pizza/${id}`}>
@@ -83,11 +83,13 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
       </div>
       <div className='flex flex-col w-[90px] self-center items-center gap-1'>
+        <div className="mt-[-30px] ml-[50px] absolute">
+          <div onClick={onClickRemove} className='border-2 border-stone-600 rounded-full px-1 py-1'>
+            <div className=''><RxCross2 /></div>
+          </div>
+        </div>
         <div className='text-right'>
           <b className='text-xl font-term color w-[80px] text-right text-stone-600'>{price * count} P</b>
-        </div>
-        <div onClick={onClickRemove} className='border-2 border-stone-600 rounded-full px-1 py-1'>
-          <div className=''><RxCross2/></div>
         </div>
       </div>
     </div>

@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { calcTotalCount } from '../../utils/calcTotalCount'
 import { calcTotalPrice } from '../../utils/calcTotalPrice'
 import { getFavFromLS } from '../../utils/getFavFormLS'
-import { FavItem, FavSliceState } from './types_fav'
+import { getCartFromLS } from '../../utils/getCartFromLS'
+import { FavItem, FavSliceState } from '../favorite/types_fav'
+import { CartItem, CartSliceState } from '../cart/types'
 
 const initialState: FavSliceState = getFavFromLS()
 
@@ -28,14 +30,9 @@ export const favSlice = createSlice({
       state.totalCount = calcTotalCount(state.items)
       state.totalPrice = calcTotalPrice(state.items)
     },
-    clearItems(state) {
-      state.items = []
-      state.totalPrice = 0
-      state.totalCount = 0
-    },
   },
 })
 
-export const { addItemFav, removeItemFav, clearItems } = favSlice.actions
+export const { addItemFav, removeItemFav} = favSlice.actions
 
 export default favSlice.reducer

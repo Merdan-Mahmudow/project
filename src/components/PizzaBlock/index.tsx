@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { addItemFav } from '../../redux/favorite/favSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCartItemById } from '../../redux/cart/selectors'
 import { CartItem } from '../../redux/cart/types'
@@ -8,12 +7,11 @@ import heart_img from '../../assets/images/heart_img.svg'
 import heart_active from '../../assets/images/heart.png'
 import { FavItem } from '../../redux/favorite/types_fav'
 import { addItem, minusItem, removeItem} from '../../redux/cart/slice'
-import { removeItemFav } from '../../redux/favorite/favSlice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
-import axios from 'axios'
-import qs from 'qs'
+import { removeItemFav } from '../../redux/favorite/favSlice'
+import { addItemFav } from '../../redux/favorite/favSlice'
 type PizzaBlockProps = {
   id: string,
   image: string,
@@ -21,12 +19,9 @@ type PizzaBlockProps = {
   price: number,
   count: number,
   description: string,
-  imageSrc: string;
-  likeImageSrc: string;
-  isLiked: boolean;
-}
-interface Props {
-  initialCount: number;
+  imageSrc: string,
+  likeImageSrc: string,
+  maxLength?: number;
 }
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id = '0',
@@ -35,13 +30,15 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   price = 0,
   count = 0,
   description = '',
-  isLiked = false,
-}, {initialCount = count}) => {
+  maxLength = 9,
+}) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
-
+  // const FavItem = useSelector(selectFavItemById(id))
+  // const addedCountFav = FavItem ? FavItem.count: 0
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
+  // const [addedCount, setAddedCount] = useState(cartItem ? cartItem.count : 0)
   // const [count, setCount] = useState(count);
   // const [activeType, setactiveType] = useState<number>(0)
   // const [activeSize, setActiveSize] = useState<number>(0)
@@ -52,6 +49,35 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   // const onClickType = (i: number) => {
   //   setactiveType(i)
   // }
+  // const getStorageValue = (key: string, defaultValue: any): any => {
+  //   try {
+  //     const value = localStorage.getItem(key)
+  //     return value ? JSON.parse(value) : defaultValue
+  //   } catch (error) {
+  //     console.error(error)
+  //     return defaultValue
+  //   }
+  // };
+  
+  // const setStorageValue = (key: string, value: any): void => {
+  //   try {
+  //     localStorage.setItem(key, JSON.stringify(value))
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+  const onClickAdd = () => {
+    // setIsCounter(true)
+    const item: CartItem = {
+      id,
+      foodName,
+      price,
+      image,
+      count: 0,
+      description,
+    }
+    dispatch(addItem(item))
+  }
   const getStorageValue = (key: string, defaultValue: any): any => {
     try {
       const value = localStorage.getItem(key)
@@ -68,10 +94,24 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     } catch (error) {
       console.error(error)
     }
-  };
-  const onClickAdd = () => {
-    // setIsCounter(true)
-    const item: CartItem = {
+  }
+  const [isLiked, setIsLiked] = useState<boolean>(() =>
+    getStorageValue(`likeButton_${id}`, false)
+  )
+  const onClickRemoveFav = () => {
+    if (window.confirm('Вы точно хотите удалить товар из избранного?')) {
+      dispatch(removeItemFav(id))
+      setIsLiked(false)
+      setStorageValue(`likeButton_${id}`, !isLiked)
+    }
+  }
+  const handleClick = () => {
+    setIsLiked(!isLiked)
+    setStorageValue(`likeButton_${id}`, !isLiked)
+  }
+  const selectedOptionFav = localStorage.getItem("selectedOptionFav")
+  const onClickAddFav = () => {
+    const item_fav: FavItem = {
       id,
       foodName,
       price,
@@ -79,25 +119,19 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       count: 0,
       description,
     }
-    dispatch(addItem(item))
-  }
-  // const handleClick = () => {
-  //   setIsLiked(!isLiked)
-  //   setStorageValue(`likeButton_${id}`, !isLiked)
-  // }
-  const params = qs.parse(window.location.search.substring(1))
-  const selectedOptionFav = localStorage.getItem("selectedOptionFav")
-  const onClickAddFav = () => {
-    
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(e => {
-      e.data.forEach((item: number) => {
-        if (item.toString() === id){
-          isLiked = true
-          
-        }
-        else isLiked = false
-      })
-    })
+    dispatch(addItemFav(item_fav))
+    // handleClick()
+    setIsLiked(!isLiked)
+    if (!isLiked) {
+      setIsLiked(true)
+      // setStorageValue(`likeButton_${id}`, !isLiked)
+    }
+    else if(isLiked){
+      setIsLiked(false)
+      // setStorageValue(`likeButton_${id}`, isLiked)
+      onClickRemoveFav()
+    }
+    // handleClick()
   }
   
 
@@ -113,17 +147,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     dispatch(addItem(item))
     setIsCounter(true)
   }
-  // if(addedCount > 0){
-  //   setIsCounter(true)
-  // }
-
-  // const handleDecrement = () => {
-  //   setCount(count - 1);
-  //   if (count === 1) {
-  //     setIsCounter(false);
-  //   }
-  // };
-  // const dispatch = useDispatch()
   const onClickPlus = () => {
     dispatch(
       addItem({
@@ -146,6 +169,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   React.useEffect(() => {
+    // const savedCount = localStorage.getItem('count');
+    // const savedIsCounter = localStorage.getItem('isCounter');
+  
+    // if (savedCount && savedIsCounter) {
+    //   setAddedCount(parseInt(savedCount))
+    //   setIsCounter(JSON.parse(savedIsCounter))
+    // }
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
     axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => {
@@ -159,6 +189,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       })
     })
   }, [addedCount, isCounter])
+  const [isTruncated, setIsTruncated] = useState(true)
+
+  const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
     <div className='rounded-2xl bg-white pb-3 h-50'>
       <Link key={id} to={`/pizza/${id}`}>
@@ -169,10 +202,19 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
           />
         </Link>
       <div className='flex flex-col justify-between px-2 gap-1'>
-        <div className='h-[8vh] mt-2 12pro:h-[10vh]'>
-          <h4 className='text-lg font-term leading-4'>{foodName}</h4>
-          <p className='text-[6pt] leading-tight top-1 relative'>{description}</p>
-          <div className='font-term text-grey'>{price}P</div>
+        <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
+          <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
+          {isTruncated ? (
+            <span className='text-[6pt] leading-tight relative'>
+              {truncatedText}
+              {description.length > maxLength * 9 && "..."}
+            </span>
+          ) : (
+            <span className='text-[6pt] leading-tight relative'>
+              {description}
+            </span>
+          )}
+          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3'>{price}P</div>
         </div>
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center '>
@@ -193,7 +235,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 </div>
                )}
                 <button onClick={onClickAddFav}>
-                  <img src={isLiked ? heart_active : heart_img} alt=""  className='w-7 h-7' />
+                  <img src={isLiked ? heart_active : heart_img} alt="" onClick={handleClick} className='w-6 h-6' />
                 </button>
             </div>
         </div>
