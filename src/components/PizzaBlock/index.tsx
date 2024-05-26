@@ -12,6 +12,8 @@ import { removeItemFav } from '../../redux/favorite/favSlice'
 import { CartItem as CartItemType } from '../../redux/cart/types'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
+import axios from 'axios'
+import qs from 'qs'
 type PizzaBlockProps = {
   id: string,
   image: string,
@@ -21,6 +23,7 @@ type PizzaBlockProps = {
   description: string,
   imageSrc: string;
   likeImageSrc: string;
+  isLiked: boolean;
 }
 interface Props {
   initialCount: number;
@@ -32,6 +35,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   price = 0,
   count = 0,
   description = '',
+  isLiked = false,
 }, {initialCount = count}) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
@@ -77,42 +81,23 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
     dispatch(addItem(item))
   }
-
-  const [isLiked, setIsLiked] = useState<boolean>(() =>
-    getStorageValue(`likeButton_${id}`, false)
-  )
-  const onClickRemoveFav = () => {
-    if (window.confirm('Вы точно хотите удалить товар из избранного?')) {
-      dispatch(removeItemFav(id))
-      setIsLiked(false)
-    }
-  }
   // const handleClick = () => {
   //   setIsLiked(!isLiked)
   //   setStorageValue(`likeButton_${id}`, !isLiked)
   // }
+  const params = qs.parse(window.location.search.substring(1))
   const selectedOptionFav = localStorage.getItem("selectedOptionFav")
   const onClickAddFav = () => {
-    const item_fav: FavItem = {
-      id,
-      foodName,
-      price,
-      image,
-      count: 0,
-      description,
-    }
-    dispatch(addItemFav(item_fav))
-    // handleClick()
-    setIsLiked(!isLiked)
-    if (!isLiked) {
-      setIsLiked(true)
-      setStorageValue(`likeButton_${id}`, !isLiked)
-    }
-    else if(isLiked && selectedOptionFav === 'Removed'){
-      setIsLiked(false)
-      setStorageValue(`likeButton_${id}`, isLiked)
-      onClickRemoveFav()
-    }
+    
+    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(e => {
+      e.data.forEach((item: number) => {
+        if (item.toString() === id){
+          isLiked = true
+          
+        }
+        else isLiked = false
+      })
+    })
   }
   
 
@@ -163,6 +148,16 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   React.useEffect(() => {
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
+    axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => {
+      e.data.forEach((item: any) => {
+        if (item.id.toString() == id){
+          isLiked = true
+        }
+        else{
+          isLiked = false
+        }
+      })
+    })
   }, [addedCount, isCounter])
   return (
     <div className='rounded-2xl bg-white pb-3 h-50'>

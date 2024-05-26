@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,17 +14,43 @@ import money from '../assets/images/money_hand.svg'
 import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
+import qs from 'qs'
+import axios from 'axios'
 
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
+  const urlParams = useLocation()
 
   const onClickPay = () => {
+    let user: any = ""
+    const params = qs.parse(window.location.search.substring(1))
+      
     if (window.confirm(`Вы заказали ${totalCount} пиц на сумму ${totalPrice} ₽`)) {
       const tg = Telegram.WebApp
-      // console.log(tg.initDataUnsafe.chat?.id)
-      tg.sendData(JSON.stringify(items))
+      const year: any = new Date().getFullYear()
+      const month: any = new Date().getMonth() + 1
+      const day: any = new Date().getDate()
+      console.log(params)
+      let sendData: any = {
+        "number": 1,
+        "items": items,
+        "total": totalPrice,
+        "date": `${day}.${month}.${year}`,
+        "address": "г. Южно-Сахалинск, ул. Мира 231/9",
+        "state": "Отправлен",
+        "isDelivery": false,
+        "payment": "Наличными",
+        "comment": "no comment",
+        "client": 10}//axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
+      
+
+
+      
+      console.log(sendData)
+      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData)
       dispatch(clearItems())
+      
     }
   }
   const [count, setCount] = useState(initialCount)
