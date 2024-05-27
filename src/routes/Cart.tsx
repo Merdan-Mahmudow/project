@@ -13,17 +13,44 @@ import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import EmptyCart from './EmptyCart'
+import axios from 'axios'
+import qs from 'qs'
+import React from 'react'
 
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
 
   const onClickPay = () => {
+    let user: any = ""
+    const params = qs.parse(window.location.search.substring(1))
+      
     if (window.confirm(`Вы заказали ${totalCount} пиц на сумму ${totalPrice} ₽`)) {
       const tg = Telegram.WebApp
-      tg.sendData(JSON.stringify(items))
+      const year: any = new Date().getFullYear()
+      const month: any = new Date().getMonth() + 1
+      const day: any = new Date().getDate()
+      console.log(params)
+      let sendData: any = {
+        "number": 1,
+        "items": items,
+        "total": totalPrice,
+        "date": `${day}.${month}.${year}`,
+        "address": "г. Южно-Сахалинск, ул. Мира 231/9",
+        "state": "Отправлен",
+        "isDelivery": false,
+        "payment": "Наличными",
+        "comment": localStorage.getItem("orderComment"),
+        "cutlery": localStorage.getItem("spoonCount"),
+        "client": 10}//axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
+      
 
+
+      localStorage.setItem('comments', "[]")
+      console.log(sendData)
+      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData)
       dispatch(clearItems())
+      
     }
   }
   const [count, setCount] = useState(initialCount)
@@ -37,6 +64,23 @@ export default function Cart({ initialCount = 1}){
       setCount(count - 1)
     }
   }
+  const saveToLocalStorage = () => {
+    localStorage.setItem('spoonCount', count.toString())
+  }
+
+  const loadFromLocalStorage = () => {
+    const storedCount = localStorage.getItem('spoonCount')
+    if (storedCount) {
+      setCount(parseInt(storedCount))
+    }
+  }
+  React.useEffect(() => {
+    loadFromLocalStorage()
+  }, [])
+
+  React.useEffect(() => {
+    saveToLocalStorage()
+  }, [count])
   const selectedOption = localStorage.getItem("selectedOption")
   const selectedOptionPay = localStorage.getItem("selectedOptionPay")
 
