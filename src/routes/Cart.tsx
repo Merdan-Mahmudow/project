@@ -39,6 +39,8 @@ export default function Cart({ initialCount = 1}){
     }
   }
   const selectedOption = localStorage.getItem("selectedOption")
+  const selectedOptionPay = localStorage.getItem("selectedOptionPay")
+
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -92,7 +94,7 @@ export default function Cart({ initialCount = 1}){
                     <img src={money} alt="" />
                     <div className='flex flex-col gap-1'>
                        <h2 className='font-term text-lg leading-3'>СПОСОБ ОПЛАТЫ</h2>
-                       <p className='font-roboto text-[8px] font-bold text-red'>Выберите способ оплаты </p>
+                       <p className='font-roboto text-[8px] font-bold text-red'>{selectedOptionPay || "Выберите способ оплаты"}</p>
                     </div>
                  </div>
                  <Link to='/payment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
