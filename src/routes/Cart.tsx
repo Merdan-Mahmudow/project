@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'

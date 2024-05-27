@@ -26,7 +26,7 @@ export default function Payment(){
                 <Link to={`/cart`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
                     <img src={arrow_back} alt="" className='h-5 absolute' />
                 </Link>
-                <h1 className='text-white font-term text-xl w-full text-center tracking-[6px] leading-5'>ВЫБЕРИТЕ <br></br>СПОСОБ ОПЛАТЫ</h1>
+                <h1 className='text-white font-term text-lg w-full text-center tracking-[6px] leading-5'>ВЫБЕРИТЕ <br></br>СПОСОБ ОПЛАТЫ</h1>
             </div>
             <div className="w-full flex justify-center flex-col gap-5 px-3 py-5">
             <div className="flex border-2 border-[#9C9C9C] justify-between px-3 py-1 items-center rounded-[30px]">

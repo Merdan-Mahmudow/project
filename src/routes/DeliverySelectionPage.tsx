@@ -57,7 +57,7 @@ const DeliverySelectionPage = () => {
                         <img src={bus_2} alt="" className="w-12 h-12" />
                         <div className="flex flex-col w-[45vw] gap-3">
                             <h2 className="text-2xl font-term leading-[17px] relative top-1">ДОСТАВКА</h2>
-                            <p className="leading-5 text-[8px] mt-1 relative top-1"><span className={selectedOption === 'option2' ? 'font-bold text-red-600': 'text-[#F1F1F1]'}>ПОКА НЕ ДОСТУПНО В ВАШЕМ РЕГИОНЕ</span></p>
+                            <p className="leading-5 text-[7px] mt-1 relative"><span className={selectedOption === 'ДОСТАВКА' ? 'font-bold text-red-600': 'text-[#F1F1F1]'}>ПОКА НЕ ДОСТУПНО В ВАШЕМ РЕГИОНЕ</span></p>
                         </div>
                     </div>
                     <img src={pencil} className="text-white text-[4px] w-[7vw] mr-3 rounded-[5px]" alt="" />
