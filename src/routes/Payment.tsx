@@ -6,22 +6,14 @@ import cash from '../assets/images/cash.svg'
 import { useState } from 'react'
 
 export default function Payment(){
-    const [selectedOptionPay, setSelectedOptionPay] = useState<string>("Medium")
+    const [selectedOptionPay, setSelectedOptionPay] = useState<string>("")
 
     const handleOptionChangePay = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSelectedOptionPay(event.target.value)
       localStorage.setItem("selectedOptionPay", event.target.value)
     }
-    const buttonStyle = {
-        backgroundColor: selectedOptionPay === '' ? '#BCBCBC' : '#FF3131',
-        color: 'white',
-        padding: '7px 40px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: selectedOptionPay === '' ? 'not-allowed' : 'pointer',
-    }
     return (
-       <div className="h-[80vh] bg-[#F1F1F1] flex flex-col gap-2">
+       <div className="h-[70vh] bg-[#F1F1F1] flex flex-col gap-2">
             <div className="flex w-full  bg-red-600 px-3 py-3">
                 <Link to={`/cart`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
                     <img src={arrow_back} alt="" className='h-5 absolute' />
@@ -89,7 +81,7 @@ export default function Payment(){
                     </label>
                 </div>
                 <div className="w-full flex justify-end mt-2">
-                    <button className="bg-stone-400 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" style={buttonStyle} disabled={selectedOptionPay === ''}>
+                    <button className={selectedOptionPay === '' ? 'bg-stone-400 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]': 'bg-red-600 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]'} disabled={selectedOptionPay === ''}>
                         <Link to='/cart'>ВЫБРАТЬ</Link>
                         </button>
                 </div>

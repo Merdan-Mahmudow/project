@@ -21,8 +21,8 @@ export default function Cart({ initialCount = 1}){
   const onClickPay = () => {
     if (window.confirm(`Вы заказали ${totalCount} пиц на сумму ${totalPrice} ₽`)) {
       const tg = Telegram.WebApp
-      // console.log(tg.initDataUnsafe.chat?.id)
       tg.sendData(JSON.stringify(items))
+
       dispatch(clearItems())
     }
   }

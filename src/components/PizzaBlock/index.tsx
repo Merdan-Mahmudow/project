@@ -34,40 +34,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const dispatch = useDispatch()
   const cartItem = useSelector(selectCartItemById(id))
-  // const FavItem = useSelector(selectFavItemById(id))
-  // const addedCountFav = FavItem ? FavItem.count: 0
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
-  // const [addedCount, setAddedCount] = useState(cartItem ? cartItem.count : 0)
-  // const [count, setCount] = useState(count);
-  // const [activeType, setactiveType] = useState<number>(0)
-  // const [activeSize, setActiveSize] = useState<number>(0)
-  // const onClickSize = (i: number) => {
-  //   setActiveSize(i)
-  // }
-
-  // const onClickType = (i: number) => {
-  //   setactiveType(i)
-  // }
-  // const getStorageValue = (key: string, defaultValue: any): any => {
-  //   try {
-  //     const value = localStorage.getItem(key)
-  //     return value ? JSON.parse(value) : defaultValue
-  //   } catch (error) {
-  //     console.error(error)
-  //     return defaultValue
-  //   }
-  // };
-  
-  // const setStorageValue = (key: string, value: any): void => {
-  //   try {
-  //     localStorage.setItem(key, JSON.stringify(value))
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
   const onClickAdd = () => {
-    // setIsCounter(true)
     const item: CartItem = {
       id,
       foodName,

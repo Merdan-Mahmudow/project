@@ -8,23 +8,14 @@ import pencil from '../assets/images/Pencil.svg'
 const DeliverySelectionPage = () => {
 
 
-    const [selectedOption, setSelectedOption] = useState<string>("Medium")
-
+    const [selectedOption, setSelectedOption] = useState<string>("")
+    
     const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSelectedOption(event.target.value)
       localStorage.setItem("selectedOption", event.target.value)
     }
-
-    const buttonStyle = {
-        backgroundColor: selectedOption === '' ? '#BCBCBC' : '#FF3131',
-        color: 'white',
-        padding: '10px 50px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: selectedOption === '' ? 'not-allowed' : 'pointer',
-    }
     return (
-        <div className="w-full h-[80vh] bg-[#F1F1F1] pt-0 px-0 flex flex-col gap-2">
+        <div className="w-full h-[70vh] bg-[#F1F1F1] pt-0 px-0 flex flex-col gap-2">
             <div className="flex w-full  bg-red-600 px-3 py-5">
                 <Link to={`/cart`} className='font-bold flex justify-between gap-1 items-center px-[10px] py-1 w-auto'>
                     <img src={arrow_back} alt="" className='h-5 absolute' />
@@ -75,7 +66,7 @@ const DeliverySelectionPage = () => {
                     </label>
                 </div>
                 <div className="w-full flex justify-end mt-2">
-                    <button className="bg-stone-400 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" style={buttonStyle} disabled={selectedOption === ''}>
+                    <button className={selectedOption === '' ? 'bg-stone-400 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]': 'bg-red-600 px-8 py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]'} disabled={selectedOption === ''}>
                         <Link to='/cart'>ВЫБРАТЬ</Link>
                         </button>
                 </div>
