@@ -143,7 +143,7 @@ export const Catalog: React.FC = () => {
               </div>
               <div className='info__wrapper'>
               </div>
-              <div className='grid grid-cols-2 gap-3 overflow-hidden overflow-y-scroll px-2 pt-4'>
+              <div className='grid grid-cols-2 gap-3 overflow-hidden overflow-y-scroll px-2 py-4'>
                 {status === 'loading' ? skeletons : pizzas}
               </div>
             </div>
