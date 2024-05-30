@@ -38,11 +38,12 @@ export default function Cart({ initialCount = 1}){
         "date": `${day}.${month}.${year}`,
         "address": "г. Южно-Сахалинск, ул. Мира 231/9",
         "state": "Отправлен",
-        "isDelivery": false,
+        "isDelivery": true ? selectedOption === "ДОСТАВКА" : false,
         "payment": selectedOptionPay,
         "comment": localStorage.getItem("orderComment"),
         "cutlery": localStorage.getItem("spoonCount"),
-        "client": 10}//axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
+        "client": 10}
+        //axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
       
 
 
