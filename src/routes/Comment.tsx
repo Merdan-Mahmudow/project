@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom'
-import BackArrowSvg from '../svg/BackArrowSvg'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import comment from '../assets/images/ч.svg'
 interface ButtonProps {
@@ -33,6 +32,11 @@ export default function Comment(){
         setText(event.target.value)
         console.log(text)
       }
+    
+      const handleCommentSubmit = () => {
+        localStorage.setItem('orderComment', text)
+        setText('')
+      }
     return (
        <div className="h-[80vh] bg-[#F1F1F1] pt-0 px-0 flex flex-col gap-2">
           <div className="flex w-full  bg-red-600 px-3 py-3">
@@ -46,7 +50,7 @@ export default function Comment(){
                       <textarea name="text" id="text" placeholder="Ваш комментарий к заказу ..." className="px-5 border-2 border-[#9F9F9F] rounded-[20px] font-roboto font-bold py-2 bg-[#F1F1F1] text-lg" value={text} onChange={handleTextChange} rows={4} cols={40}/>
                   </div>
                   <div className="w-full flex justify-end mt-4">
-                      <button className="bg-[#BCBCBC] px- 10py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" disabled={text.length === 0} style={buttonStyle}>
+                      <button className="bg-[#BCBCBC] px- 10py-2 rounded-[8px] text-white font-roboto font-bold text-[12px]" onClick={handleCommentSubmit} disabled={text.length === 0} style={buttonStyle}>
                         <Link to='/cart'>
                           ОТПРАВИТЬ
                       </Link>

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { InfoBox } from '../components/InfoBox'
 import { CartItem } from '../components/CartItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
@@ -14,8 +13,9 @@ import comment from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import EmptyCart from './EmptyCart'
-import qs from 'qs'
 import axios from 'axios'
+import qs from 'qs'
+import React from 'react'
 
 export default function Cart({ initialCount = 1}){
   const dispatch = useDispatch()
@@ -38,14 +38,16 @@ export default function Cart({ initialCount = 1}){
         "date": `${day}.${month}.${year}`,
         "address": "г. Южно-Сахалинск, ул. Мира 231/9",
         "state": "Отправлен",
-        "isDelivery": false,
-        "payment": "Наличными",
-        "comment": "no comment",
-        "client": 10}//axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
+        "isDelivery": true ? selectedOption === "ДОСТАВКА" : false,
+        "payment": selectedOptionPay,
+        "comment": localStorage.getItem("orderComment"),
+        "cutlery": localStorage.getItem("spoonCount"),
+        "client": 10}
+        //axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
       
 
 
-      
+      localStorage.setItem('comments', "[]")
       console.log(sendData)
       axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData)
       dispatch(clearItems())
@@ -63,7 +65,26 @@ export default function Cart({ initialCount = 1}){
       setCount(count - 1)
     }
   }
+  const saveToLocalStorage = () => {
+    localStorage.setItem('spoonCount', count.toString())
+  }
+
+  const loadFromLocalStorage = () => {
+    const storedCount = localStorage.getItem('spoonCount')
+    if (storedCount) {
+      setCount(parseInt(storedCount))
+    }
+  }
+  React.useEffect(() => {
+    loadFromLocalStorage()
+  }, [])
+
+  React.useEffect(() => {
+    saveToLocalStorage()
+  }, [count])
   const selectedOption = localStorage.getItem("selectedOption")
+  const selectedOptionPay = localStorage.getItem("selectedOptionPay")
+
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -117,7 +138,7 @@ export default function Cart({ initialCount = 1}){
                     <img src={money} alt="" />
                     <div className='flex flex-col gap-1'>
                        <h2 className='font-term text-lg leading-3'>СПОСОБ ОПЛАТЫ</h2>
-                       <p className='font-roboto text-[8px] font-bold text-red'>Выберите способ оплаты </p>
+                       <p className='font-roboto text-[8px] font-bold text-red'>{selectedOptionPay || "ЮКАССА"}</p>
                     </div>
                  </div>
                  <Link to='/payment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>
