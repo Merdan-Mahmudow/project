@@ -25,7 +25,7 @@ export const Catalog: React.FC = () => {
 
   const onChangeCategory = React.useCallback((idx: Category) => {
     dispatch(setCategory(idx))
-  }, [])
+  }, [dispatch])
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page))
@@ -84,7 +84,7 @@ export const Catalog: React.FC = () => {
       )
     }
     getPizzas()
-  }, [category.id, sort.sortProperty, searchValue, currentPage])
+  }, [])
 
   // Парсим параметры при первом рендере
   useEffect(() => {
