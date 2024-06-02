@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom'
 import arrow_back from '../assets/images/Arrow 5.svg'
+import comment from '../assets/images/ч.svg'
 interface ButtonProps {
     disabled: boolean;
     style: React.CSSProperties;
@@ -15,9 +16,10 @@ const Button: React.FC<ButtonProps> = ({ disabled, style, children }) => {
       </button>
     );
   };
+ 
 export default function Comment(){
-    const [text, setText] = useState('');
-
+    const [text, setText] = useState<string>('');
+    
     const buttonStyle = {
       backgroundColor: text.length === 0 ? '#BCBCBC' : '#FF3131',
       color: 'white',
@@ -28,6 +30,7 @@ export default function Comment(){
     }
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
+        console.log(text)
       }
     
       const handleCommentSubmit = () => {
@@ -56,4 +59,19 @@ export default function Comment(){
             </div>
        </div>
     )
+}
+
+function CartComment(){
+  return(
+    <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-2 border-stone-800'>
+             <div className='flex items-center gap-4 ml-2'>
+                <img src={comment} alt="" />
+                <div className='flex flex-col gap-1'>
+                   <h2 className='font-term text-md leading-4'>комментарии к заказу</h2>
+                   <p></p>
+                </div>
+             </div>
+             <Link to='/comment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>
+          </div>
+  )
 }

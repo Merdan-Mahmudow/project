@@ -121,8 +121,6 @@ export const Detail = () => {
     async function fetchPizza() {
       try {
         const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
-        // backend.skyrodev.ru
-        // backend.skyrodev.ru
         setPizza(data)
         setLoading(false)
       } catch (error) {

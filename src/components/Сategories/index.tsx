@@ -23,6 +23,7 @@ export const categoriesList: CategoryItem[] = [
   { id: 13, name: 'Холодильник' },
 ]
 
+
 type СategoriesProps = {
   value: CategoryItem
   onChangeCategory: (idx: CategoryItem) => void
