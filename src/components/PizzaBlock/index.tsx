@@ -184,7 +184,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
           <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
           {isTruncated ? (
-            <span className='text-[6pt] leading-tight relative'>
+            <span className='text-[6pt] 13mini:text-[5pt] leading-tight relative'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
             </span>
@@ -198,7 +198,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center '>
                {isCounter ? (
-              <div className='flex gap-2 w-10 justify-between items-center'>
+              <div className='flex gap-2 w-10 justify-between items-center 13mini:mt-2'>
                 <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiMinusSm/></button>
                 <span className='font-bold font-next'>{addedCount}</span>
                 <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiPlusSm/></button>
@@ -207,7 +207,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw]'>
+                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
