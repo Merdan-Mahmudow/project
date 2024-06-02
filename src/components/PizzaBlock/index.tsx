@@ -167,7 +167,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       .catch((error) => console.error('Error fetching favorites:', error))
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
-  }, [addedCount, isCounter])
+  }, [])
   const [isTruncated, setIsTruncated] = useState(true)
 
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
