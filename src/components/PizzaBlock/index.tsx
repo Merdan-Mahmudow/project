@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCartItemById } from '../../redux/cart/selectors'
@@ -15,6 +15,7 @@ import { addItemFav } from '../../redux/favorite/favSlice'
 import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
+import { FavoriteContext } from '../../routes/Favorites'
 
 
 type PizzaBlockProps = {
@@ -39,7 +40,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const like = useRef(null)
   const dispatch = useDispatch()
-  const [items, setItems] = useState<any[]>([])
+  const [items, setItems] = useState([])
   const cartItem = useSelector(selectCartItemById(id))
   const params = qs.parse(window.location.search.substring(1));
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
@@ -84,7 +85,12 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   const onClickFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`)
+    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
+      setItems(res.data)
+      console.log(items)
+    })
+    
+    
   }
   const handleClick = () => {
     setIsLiked(!isLiked)
@@ -149,8 +155,8 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       dispatch(removeItem(id))
     }
   }
-  const checkbutton = () => {
-    return items.find(item => item === id) ? heart_active : heart_img
+  const checkbutton: any = () => {
+    return items.find((item: any) => item === id) ? heart_active : heart_img
   }
 
   React.useEffect(() => {
@@ -165,6 +171,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         setItems(arr)
       })
       .catch((error) => console.error('Error fetching favorites:', error))
+
+      $(`.like_${id}`).attr('src', checkbutton)
+
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [])
@@ -172,6 +181,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
+    <FavoriteContext.Provider value={{ items, setItems }}>
     <div className='rounded-2xl bg-white pb-3 h-50'>
       <Link key={id} to={`/pizza/${id}`}>
           <img
@@ -214,14 +224,14 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 </div>
                )}
                 <button onClick={onClickFav}>
-                  <img src={isLiked ? heart_active : heart_img} alt="" ref={like} onClick={()=>{
-                    $(`.like`).attr('src', checkbutton())
-                  }} className={`like w-6 h-6`} />
+                  <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
+                    $(`.like_${id}`).attr('src', checkbutton())
+                  }} className={`like_${id} w-6 h-6`} />
                 </button>
             </div>
         </div>
 
       </div>
-    </div>
+    </div></FavoriteContext.Provider>
   )
 }
