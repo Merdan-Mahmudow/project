@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addItem, minusItem, removeItem } from '../../redux/cart/slice'
@@ -13,6 +13,7 @@ import { removeItemFav } from '../../redux/favorite/favSlice'
 import { FavoriteContext } from '../../routes/Favorites'
 import axios from 'axios'
 import qs from 'qs'
+import { GlobalContext } from '../../routes/router'
 
 type FavoriteItemProps = {
   id: string,
@@ -32,8 +33,8 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   description = ''
 }) => {
   const dispatch = useDispatch()
-  const [items, setItems] = useState([])
-  const params = qs.parse(window.location.search.substring(1));
+  const {likeItems, setLikeItems} = useContext(FavoriteContext)
+  const params = useContext(GlobalContext);
 
   const onClickPlus = () => {
     dispatch(
@@ -50,8 +51,8 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   }
   const onClickRemoveFav = () => {
     axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
-      setItems(res.data)
-      console.log(items)
+      setLikeItems(res.data)
+      console.log(likeItems)
     })
   }
   const onClickRemove = () => {
@@ -73,7 +74,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   const cartItem = useSelector(selectCartItemById(id))
   const addedCount = cartItem ? cartItem.count : 0
   return (
-    <FavoriteContext.Provider value={{ items, setItems }}>
+
       <div className='flex justify-between bg-[#F1F1F1] border-b-2 border-stone-700 py-2 px-2 gap-2'>
 
         <div className='flex justify-center items-center'>
@@ -108,6 +109,5 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
           </div>
         </div>
       </div>
-    </FavoriteContext.Provider>
   )
 }

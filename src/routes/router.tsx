@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react'
-import { createHashRouter } from 'react-router-dom'
+import React, { Suspense, createContext } from 'react'
+import { createHashRouter, createBrowserRouter, redirect } from 'react-router-dom'
 import { Root } from './Root'
 import { Catalog } from './Catalog'
 import {Detail} from './Detail'
@@ -16,6 +16,8 @@ import { GlobalLoader } from '../components/GlobalLoader'
 import { useState } from 'react'
 // import { PizzaBlock } from '../components'
 import { PizzaBlockProps } from './Detail'
+import qs from 'qs'
+import { render } from 'react-dom'
 
 
 // const [selectedDeliveryName, setSelectedDeliveryName] = useState<string>('');
@@ -37,15 +39,19 @@ const ErrorPage: React.FC = React.lazy(() => import(/*webpackChunkName: "ErrorPa
 const Comment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Comment'))
 const Payment: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Payment'))
 const Favorites: React.FC = React.lazy(() => import(/*webpackChunkName: "Delivery"*/'./Favorites'))
-// type PizzaBlockProps = {
-//   id: string,
-//   image: string,
-//   foodName: string,
-//   description: string,
-//   price: number,
-//   count: number,
-// }
-export const router = createHashRouter([
+
+let tgParams: any = qs.parse(window.location.search.substring(1))
+if (!localStorage.getItem('tgParams')){
+  localStorage.setItem('tgParams', JSON.stringify(tgParams))
+} else if (!tgParams.user) {
+  tgParams = JSON.parse(localStorage.getItem('tgParams') as string)
+} else if (!JSON.parse(localStorage.getItem('tgParams') as string).user){
+  redirect('/not-found')
+  localStorage.removeItem('tgParams')
+}
+
+export const GlobalContext = createContext(tgParams)
+export const router = createBrowserRouter([
   {
     path: '/',
     element: <Suspense fallback={<GlobalLoader />}><Root /></Suspense>,
@@ -53,40 +59,40 @@ export const router = createHashRouter([
     children: [
       {
         path: '*',
-        element: <NotFound />,
+        element: <GlobalContext.Provider value={tgParams}><NotFound /></GlobalContext.Provider>,
       },
       {
         path: '/',
-        element: <Catalog />,
+        element: <GlobalContext.Provider value={tgParams}><Catalog /></GlobalContext.Provider>,
       },
       {
         path: 'pizza/:id',
-        element: <Detail />
+        element: <GlobalContext.Provider value={tgParams}><Detail /></GlobalContext.Provider>
       },
       {
         path: 'delivery',
         // element: <DeliverySelectionPage onSelect={handleDeliverySelection}/>
-        element: <DeliverySelectionPage/>
+        element: <GlobalContext.Provider value={tgParams}><DeliverySelectionPage/></GlobalContext.Provider>
       },
       {
         path: 'orders',
-        element: <Orders />,
+        element: <GlobalContext.Provider value={tgParams}><Orders /></GlobalContext.Provider>,
       },
       {
         path: 'cart',
-        element: <Cart/>,
+        element: <GlobalContext.Provider value={tgParams}><Cart/></GlobalContext.Provider>,
       },
       {
         path: 'comment',
-        element: <Comment/>
+        element: <GlobalContext.Provider value={tgParams}><Comment/></GlobalContext.Provider>
       },
       {
         path: 'payment',
-        element: <Payment/>
+        element: <GlobalContext.Provider value={tgParams}><Payment/></GlobalContext.Provider>
       },
       {
         path: 'favorites',
-        element: <Favorites/>
+        element: <GlobalContext.Provider value={tgParams}><Favorites/></GlobalContext.Provider>
       },
     ],
   },

@@ -1,31 +1,38 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useRef, useEffect, useLayoutEffect, useState, useContext } from 'react'
 import qs from 'qs'
 import { useSelector } from 'react-redux'
 import { categoriesList, Сategories, sortList, SortPopup, PizzaBlock, Skeleton, Search, Pagination, InfoBox } from '../components'
 import { setCategory, setCurrentPage, setFilters } from '../redux/filter/slice'
 import { SearchPizzaParams } from '../redux/pizza/types'
-import { useAppDispatch } from '../redux/store'
+import { store, useAppDispatch } from '../redux/store'
 import { selectFilter } from '../redux/filter/selectors'
 import { Category } from '../redux/filter/types'
 import { fetchPizzas } from '../redux/pizza/asyncActions'
 import { selectPizzaData } from '../redux/pizza/selectors'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import Cart from './Cart'
 import Error from './Error'
 import { Link } from 'react-router-dom'
 import arrow_back from '../assets/images/Arrow 5.svg'
+import { GlobalContext } from './router'
+import { userState } from '../redux/user/slice'
+import { FavoriteContext } from './Favorites'
+import axios from 'axios'
 
 export const Catalog: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isMounted = useRef(false)
+  const userParams = useContext(GlobalContext)
+  const [likeItems, setLikeItems] = useState([])
+
 
   const { category, sort, currentPage, searchValue } = useSelector(selectFilter)
   const { items, status } = useSelector(selectPizzaData)
 
   const onChangeCategory = React.useCallback((idx: Category) => {
     dispatch(setCategory(idx))
-  }, [dispatch])
+  }, [])
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page))
@@ -54,26 +61,16 @@ export const Catalog: React.FC = () => {
     if (isMounted.current) {
       const params = {
         categoryId: category.id > 0 ? category.id : null,
-        sortProperty: sort.sortProperty,
-        currentPage: Number(currentPage),
+        currentPage: currentPage,
       }
 
-      const queryString = qs.stringify(params, { skipNulls: true })
-      console.log('queryString', queryString)
-      console.log('currentPage', currentPage)
-      console.log('category', category)
-      navigate(`/?${queryString}`);
+      const queryString = qs.stringify(params, { skipNulls: true }) 
+      navigate(`#/?${queryString}`);
     }
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams
       const sortObj = sortList.find((obj) => obj.sortProperty === params.sortBy)
       const categoryObj = categoriesList.find((obj) => obj.id === Number(params.category))
-
-      console.log('window', qs.parse(window.location.search.substring(1)).search)
-      console.log('params', params)
-      console.log('sortObj', sortObj)
-      console.log('categoryObj', categoryObj)
-
       dispatch(
         setFilters({
           searchValue: params.search,
@@ -84,7 +81,7 @@ export const Catalog: React.FC = () => {
       )
     }
     getPizzas()
-  }, [])
+  }, [category.id, currentPage])
 
   // Парсим параметры при первом рендере
   useEffect(() => {
@@ -103,13 +100,24 @@ export const Catalog: React.FC = () => {
       )
     }
     isMounted.current = true
+    axios
+      .get(`https://backend.skyrodev.ru/user/${userParams.user}/fav`)
+      .then((e) => {
+        let arr:any = []
+        e.data.forEach((item: any) => {
+            arr.push(item)
+        })
+        setLikeItems(arr)
+      })
+      .catch((error) => console.error('Error fetching favorites:', error))
   }, []);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />)
 
   return (
-    <div>
+    <FavoriteContext.Provider value={{likeItems, setLikeItems}}>
+      <div>
         {status === 'error' ? (
       <div>
         <div>
@@ -151,5 +159,7 @@ export const Catalog: React.FC = () => {
         </div>
         )}
       </div>
+    </FavoriteContext.Provider>
+
   )
 }

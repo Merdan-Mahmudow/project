@@ -16,6 +16,7 @@ import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
 import { FavoriteContext } from '../../routes/Favorites'
+import { GlobalContext } from '../../routes/router'
 
 
 type PizzaBlockProps = {
@@ -40,9 +41,11 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const like = useRef(null)
   const dispatch = useDispatch()
+  const {likeItems, setLikeItems} = useContext(FavoriteContext)
   const [items, setItems] = useState([])
+
   const cartItem = useSelector(selectCartItemById(id))
-  const params = qs.parse(window.location.search.substring(1));
+  const params = useContext(GlobalContext);
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
   const onClickAdd = () => {
@@ -86,8 +89,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   }
   const onClickFav = () => {
     axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
-      setItems(res.data)
-      console.log(items)
+      setLikeItems(res.data)
     })
     
     
@@ -156,32 +158,25 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   const checkbutton: any = () => {
-    return items.find((item: any) => item === id) ? heart_active : heart_img
+    return likeItems.find((item: any) => item.id === id) ? heart_active : heart_img
   }
 
   React.useEffect(() => {
-    axios
-      .get(`https://backend.skyrodev.ru/user/${params.user}/fav`)
-      .then((e) => {
-        let arr:any = []
-        e.data.forEach((item: any) => {
-            arr.push(item.id)
-        })
-        console.log(arr)
-        setItems(arr)
-      })
-      .catch((error) => console.error('Error fetching favorites:', error))
-
-      $(`.like_${id}`).attr('src', checkbutton)
+    
 
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
+  React.useEffect(() => {
+    
+
+      $(`.like_${id}`).attr('src', checkbutton)
+  }, [])
   const [isTruncated, setIsTruncated] = useState(true)
 
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
-    <FavoriteContext.Provider value={{ items, setItems }}>
+    
     <div className='rounded-2xl bg-white pb-3 h-50'>
       <Link key={id} to={`/pizza/${id}`}>
           <img
@@ -232,6 +227,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         </div>
 
       </div>
-    </div></FavoriteContext.Provider>
+    </div>
   )
 }

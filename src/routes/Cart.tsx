@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import { CartItem } from '../components/CartItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { clearItems } from '../redux/cart/slice'
 import { selectCart } from '../redux/cart/selectors'
 import { HiPlusSm } from "react-icons/hi"
@@ -16,12 +16,13 @@ import EmptyCart from './EmptyCart'
 import axios from 'axios'
 import qs from 'qs'
 import React from 'react'
+import { GlobalContext } from './router'
 
 export default function Cart({ initialCount = 1 }) {
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
   const [userID, setUserID] = React.useState<number>()
-  const params = qs.parse(window.location.search.substring(1))
+  const params = useContext(GlobalContext)
   const onClickPay = () => {
     let user: any = ""
 
@@ -33,7 +34,7 @@ export default function Cart({ initialCount = 1 }) {
       const day: any = new Date().getDate()
       console.log(params)
       let sendData: any = {
-        "number": 1,
+        "number": Math.floor(Math.random() * 100000),
         "items": items,
         "total": totalPrice,
         "date": `${day}.${month}.${year}`,
@@ -51,9 +52,12 @@ export default function Cart({ initialCount = 1 }) {
 
       localStorage.setItem('comments', "[]")
       console.log(sendData)
-      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData)
-      dispatch(clearItems())
+      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData).then(e => {
+        dispatch(clearItems())
+        window.location.href = `https://backend.skyrodev.ru/payments/?amount=${totalPrice}&currency=RUB&description=Оплата заказа №${sendData.number}`
 
+      })
+      
     }
   }
   const [count, setCount] = useState(initialCount)
