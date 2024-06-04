@@ -43,8 +43,9 @@ import { Link } from 'react-router-dom';
 import { FavoriteItem } from '../components/FavoriteItem';
 import arrow_back from '../assets/images/Arrow 5.svg'
 import { createContext, useContext, useEffect, useState } from 'react';
-import qs from 'qs';
-import axios from 'axios';
+import qs from 'qs'
+import axios from 'axios'
+import EmptyFav from './EmptyFav'
 
 export const FavoriteContext = createContext<{ items: any; setItems: (items: any) => void }>({items: [], setItems: () => {}})
 
@@ -84,12 +85,7 @@ export default function Favorites() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full">
-          <p className="text-lg font-medium">Избранное пусто</p>
-          <Link to="/" className="text-blue-500 underline mt-4">
-            Вернуться на главную
-          </Link>
-        </div>
+        <EmptyFav />
       )}
     </div>
     </FavoriteContext.Provider>
