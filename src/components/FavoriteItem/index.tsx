@@ -14,6 +14,8 @@ import { FavoriteContext } from '../../routes/Favorites'
 import axios from 'axios'
 import qs from 'qs'
 import { GlobalContext } from '../../routes/router'
+import { HiPlusSm } from "react-icons/hi"
+import { HiMinusSm } from "react-icons/hi"
 
 type FavoriteItemProps = {
   id: string,
@@ -34,6 +36,9 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
 }) => {
   const dispatch = useDispatch()
   const {likeItems, setLikeItems} = useContext(FavoriteContext)
+  const cartItem2 = useSelector(selectCartItemById(id))
+  const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
+  const addedCount2 = cartItem2 ? cartItem2.count: 0
   const params = useContext(GlobalContext);
 
   const onClickPlus = () => {
@@ -46,8 +51,11 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   const [selectedOptionFav, setSelectedOption] = useState<string>("")
 
   const onClickMinus = () => {
-    if (count === 1) onClickRemove()
-    if (count > 1) dispatch(minusItem(id))
+    if (addedCount === 1){
+      onClickRemove()
+      setIsCounter(false)
+    } 
+    if (addedCount > 1) dispatch(minusItem(id))
   }
   const onClickRemoveFav = () => {
     axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
@@ -60,7 +68,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
       dispatch(removeItem(id))
     }
   }
-  const onClickAdd = () => {
+  const handleAddToCart = () => {
     const item: CartItem = {
       id,
       foodName,
@@ -68,8 +76,13 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
       image,
       count: 0,
       description,
+      isCounter
     }
     dispatch(addItem(item))
+    setIsCounter(true)
+    localStorage.setItem('count', addedCount.toString())
+    localStorage.setItem('isCounter', (isCounter === true).toString())
+    console.log(isCounter)
   }
   const cartItem = useSelector(selectCartItemById(id))
   const addedCount = cartItem ? cartItem.count : 0
@@ -91,14 +104,22 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
             <h3 className='font-term text-2xl leading-4'>{foodName}</h3>
             <p className='font-next text-[6px] leading-2'>{description}</p>
           </Link>
-          <button
-            onClick={onClickAdd}
-            // button button--outline button--add flex justify-between items-center
-            className='border-2 border-[#ABABAB] w-fit px-5 py-2 rounded-md landing-1 uppercase font-next text-[10px] font-bold mt-2'>
-            {/* <PlusSvg /> */}
-            Добавить
-            {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>}
-          </button>
+          {addedCount > 0 ? (
+              <div className='flex gap-2 w-10 justify-between items-center 13mini:mt-2'>
+                <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiMinusSm/></button>
+                <span className='font-bold font-next'>{addedCount}</span>
+                <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiPlusSm/></button>
+              </div>
+               ) : (
+                <div>
+                    <button
+                      onClick={handleAddToCart}
+                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2'>
+                      Добавить
+                      {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
+                    </button>
+                </div>
+               )}
         </div>
         <div className='flex flex-col w-[90px] self-center items-center gap-1'>
           <div className='text-right'>

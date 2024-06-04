@@ -5,6 +5,7 @@ export type CartItem = {
   image: string
   count: number
   description: string
+  isCounter: boolean
 }
 
 export interface CartSliceState {

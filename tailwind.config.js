@@ -7,7 +7,8 @@ module.exports = {
         "headerNav": 'url(../assets/images/nav_header.png)'
       },
       screens: {
-        '12pro': { 'raw': '(min-height: 390px)' },
+        '12pro': { 'raw': '(max-width: 390px)' },
+        '13mini': { 'raw': '(max-width: 375px)' },
       }
     },
     fontFamily: {

@@ -46,6 +46,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import qs from 'qs';
 import axios from 'axios';
 import { GlobalContext } from './router';
+import EmptyFav from './EmptyFav';
+
 
 export const FavoriteContext = createContext<{ likeItems: any; setLikeItems: (items: any) => void }>({likeItems: [], setLikeItems: () => {}})
 
@@ -85,12 +87,7 @@ export default function Favorites() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full">
-          <p className="text-lg font-medium">Избранное пусто</p>
-          <Link to="/" className="text-blue-500 underline mt-4">
-            Вернуться на главную
-          </Link>
-        </div>
+        <EmptyFav />
       )}
     </div>
     </FavoriteContext.Provider>
