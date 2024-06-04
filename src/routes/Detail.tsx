@@ -84,6 +84,7 @@ export const Detail = () => {
       price: pizza.price,
       image: pizza.image,
       count: pizza.count,
+      isCounter: true
     }
     dispatch(addItem(item))
   }
@@ -114,6 +115,7 @@ export const Detail = () => {
       price: pizza.price,
       image: pizza.image,
       count: pizza.count,
+      isCounter: true
     }
     dispatch(addItem(item_fav))
   }

@@ -45,6 +45,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const params = qs.parse(window.location.search.substring(1));
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
+  const counter = cartItem ? cartItem.isCounter: false
   const onClickAdd = () => {
     const item: CartItem = {
       id,
@@ -53,6 +54,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       image,
       count: 0,
       description,
+      isCounter
     }
     dispatch(addItem(item))
   }
@@ -105,6 +107,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       image,
       count: 0,
       description,
+      isCounter
     }
     dispatch(addItemFav(item_fav))
     // handleClick()
@@ -130,9 +133,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       image,
       count: 0,
       description,
+      isCounter
     }
     dispatch(addItem(item))
     setIsCounter(true)
+    localStorage.setItem('count', addedCount.toString())
+    localStorage.setItem('isCounter', (isCounter === true).toString())
+    console.log(isCounter)
   }
   const onClickPlus = () => {
     dispatch(
@@ -173,9 +180,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       .catch((error) => console.error('Error fetching favorites:', error))
 
       $(`.like_${id}`).attr('src', checkbutton)
-
-    localStorage.setItem('count', addedCount.toString())
-    localStorage.setItem('isCounter', setIsCounter.toString())
+      // localStorage.setItem('count', addedCount.toString())
+      // localStorage.setItem('isCounter', isCounter.toString())
+      console.log(localStorage.getItem('isCounter'))
   }, [])
   const [isTruncated, setIsTruncated] = useState(true)
 
@@ -230,7 +237,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 </button>
             </div>
         </div>
-
       </div>
     </div></FavoriteContext.Provider>
   )

@@ -5,6 +5,7 @@ export type FavItem = {
     image: string
     count: number
     description: string
+    isCounter: boolean
   }
   
   export interface FavSliceState {

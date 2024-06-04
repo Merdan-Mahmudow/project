@@ -67,6 +67,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
       image,
       count: 0,
       description,
+      isCounter:true
     }
     dispatch(addItem(item))
   }
