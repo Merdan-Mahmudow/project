@@ -17,7 +17,6 @@ import qs from 'qs'
 import $ from 'jquery'
 import { FavoriteContext } from '../../routes/Favorites'
 
-
 type PizzaBlockProps = {
   id: string,
   image: string,
@@ -43,7 +42,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const [items, setItems] = useState([])
   const cartItem = useSelector(selectCartItemById(id))
   const params = qs.parse(window.location.search.substring(1));
-  const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
+  var [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
   const counter = cartItem ? cartItem.isCounter: false
   const onClickAdd = () => {
@@ -131,14 +130,29 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       foodName,
       price,
       image,
-      count: 0,
+      count: addedCount,
       description,
       isCounter
     }
     dispatch(addItem(item))
-    setIsCounter(true)
-    localStorage.setItem('count', addedCount.toString())
-    localStorage.setItem('isCounter', (isCounter === true).toString())
+    // setIsCounter(true)
+    if(addedCount > 0){
+      isCounter = true
+      localStorage.setItem('isCounter', (isCounter === true).toString())
+    }
+    else{
+      isCounter = false
+      localStorage.setItem('isCounter', (isCounter === false).toString())
+    }
+    // isCounter = true
+    // if(count > 0){
+    //   localStorage.setItem('count', addedCount.toString())
+    //   localStorage.setItem('isCounter', (isCounter === true).toString())
+    // }
+    // else{
+    //   localStorage.setItem('count', addedCount.toString())
+    //   localStorage.setItem('isCounter', (isCounter === false).toString())
+    // }
     console.log(isCounter)
   }
   const onClickPlus = () => {
@@ -214,7 +228,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         </div>
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center '>
-               {isCounter ? (
+               {addedCount > 0 ? (
               <div className='flex gap-2 w-10 justify-between items-center 13mini:mt-2'>
                 <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiMinusSm/></button>
                 <span className='font-bold font-next'>{addedCount}</span>
