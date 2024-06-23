@@ -185,8 +185,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   }
 
   React.useEffect(() => {
-    
-
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
@@ -209,7 +207,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       <div className='flex flex-col px-2 gap-1'>
         <div className='h-[70px] mt-1 flex flex-col gap-1'>
           <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
-          {isTruncated ? (
+          {/* {isTruncated ? (
             <span className='text-[5pt] leading-tight'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
@@ -218,7 +216,10 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             <span className='text-[7px] leading-tight relative'>
               {description}
             </span>
-          )}
+          )} */}
+          <span className='text-[7px] leading-tight relative pizza-block-description'>
+  {description}
+</span>
           <div className='font-term text-grey text-lg text-[#474747] tracking-widest'>{price}P</div>
         </div>
         <div className=''>
