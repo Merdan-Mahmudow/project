@@ -47,6 +47,7 @@ import qs from 'qs';
 import axios from 'axios';
 import { GlobalContext } from './router';
 import EmptyFav from './EmptyFav';
+import { Detail } from './Detail';
 
 
 export const FavoriteContext = createContext<{ likeItems: any; setLikeItems: (items: any) => void }>({likeItems: [], setLikeItems: () => {}})
@@ -90,6 +91,7 @@ export default function Favorites() {
         <EmptyFav />
       )}
     </div>
+    <div className='hidden'><Detail/></div>
     </FavoriteContext.Provider>
   );
 

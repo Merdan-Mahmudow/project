@@ -17,6 +17,7 @@ import arrow_back from '../assets/images/Arrow 5.svg'
 import { FavoriteContext } from './Favorites'
 import $ from 'jquery'
 import qs, { ParsedQs } from 'qs'
+import { GlobalContext } from './router'
 
 const typeNames = ['тонкое', 'традиционное']
 
@@ -31,8 +32,9 @@ export type PizzaBlockProps = {
 
 
 export const Detail = () => {
-  const likeItems = JSON.parse(localStorage.getItem('likeItems') || '[]')
+  const [likeItems, setLikeItems] = useState([])
   const params = useParams()
+  const paramss = useContext(GlobalContext);
   const navigate = useNavigate()
 
   // const cartItem = useSelector(selectCartItemById(params.id as string))
@@ -63,6 +65,12 @@ export const Detail = () => {
       return defaultValue;
     }
   };
+  useEffect(() => {
+    axios
+      .get(`https://backend.skyrodev.ru/user/${paramss.user}/fav`)
+      .then((e) => setLikeItems(e.data))
+      .catch((error) => console.error('Error fetching favorites:', error));
+  }, [])
 
   const setStorageValue = (key: string, value: any): void => {
     try {
@@ -82,6 +90,12 @@ export const Detail = () => {
     setIsLiked(!isLiked);
     // setStorageValue(`likeButton_${id}`, !isLiked);
   };
+  const onClickFav = () => {
+    axios.patch(`https://backend.skyrodev.ru/user/${paramss.user}/fav?favourite_item=${pizza.id}`).then(res => {
+      setLikeItems(res.data)
+      localStorage.setItem('likeItems', JSON.stringify(res.data))
+      console.log(likeItems)
+    })}
   const onClickAdd = () => {
     const item = {
       id: pizza.id,
@@ -187,7 +201,7 @@ export const Detail = () => {
                       Добавить
                       {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[7px] py-[2px] rounded-full ml-2 absolute'>{addedCount}</i>}
                     </button>
-                    <button onClick={onClickAddFav}>
+                    <button onClick={onClickFav}>
                     <img alt="" src= {checkbutton()} onClick={()=>{
                     $(`.like_${pizza.id}`).attr('src', checkbutton())
                   }} className={`like_${pizza.id} w-6 h-6`} />
