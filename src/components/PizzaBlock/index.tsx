@@ -215,7 +215,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
               {description.length > maxLength * 9 && "..."}
             </span>
           ) : (
-            <span className='text-[5pt] leading-tight relative'>
+            <span className='text-[7px] leading-tight relative 13mini:text-[7px] desc-text'>
               {description}
             </span>
           )}
