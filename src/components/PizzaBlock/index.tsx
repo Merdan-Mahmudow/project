@@ -210,12 +210,12 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
           <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
           {isTruncated ? (
-            <span className='text-[5pt] 13mini:text-[5pt] leading-tight relative'>
+            <span className='text-[7px] leading-tight relative'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
             </span>
           ) : (
-            <span className='text-[5pt] leading-tight relative'>
+            <span className='text-[7px] leading-tight relative 13mini:text-[7px]'>
               {description}
             </span>
           )}
