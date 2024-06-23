@@ -92,6 +92,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const onClickFav = () => {
     axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
       setLikeItems(res.data)
+      localStorage.setItem('likeItems', JSON.stringify(res.data))
     })
     
     
@@ -190,8 +191,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
   React.useEffect(() => {
-    
-
       $(`.like_${id}`).attr('src', checkbutton)
   }, [])
   const [isTruncated, setIsTruncated] = useState(true)
