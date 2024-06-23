@@ -210,7 +210,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
           <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
           {isTruncated ? (
-            <span className='text-[6pt] 13mini:text-[5pt] leading-tight relative'>
+            <span className='text-[5pt] 13mini:text-[5pt] leading-tight relative'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
             </span>
@@ -242,7 +242,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <button onClick={onClickFav}>
                   <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
                     $(`.like_${id}`).attr('src', checkbutton())
-                  }} className={`like_${id} w-6 h-6 top-[3px] relative`} />
+                  }} className={`like_${id} w-6 h-6 top-[0px] relative 13mini:top-[3px]`} />
                 </button>
             </div>
         </div>
