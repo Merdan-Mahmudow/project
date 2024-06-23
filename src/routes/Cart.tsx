@@ -21,6 +21,7 @@ import cutlery_2 from '../assets/images/cutlery.svg'
 import ukassa from '../assets/images/ukassa.svg'
 import sbp from '../assets/images/sbp.svg'
 import cash from '../assets/images/cash.svg'
+import $ from 'jquery'
 
 export default function Cart({ initialCount = 1 }) {
   
@@ -35,7 +36,7 @@ export default function Cart({ initialCount = 1 }) {
     if( $('.promo').val() === "") {
       $('.promo-error').text("Ввведите промокод")
     }
-    if ($('.promo').val() === "KIMCHI10" || $('.promo').val() === "kimchi10") {
+    if ($('.promo').val() === "KIMCHI10" || $('.promo').val() === "kimchi10" || $('.promo').val() === "Kimchi10") {
       dispatch(discount())
       $(".promo-error").addClass("hidden")
       $('.promo').val("")
