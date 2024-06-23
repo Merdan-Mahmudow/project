@@ -1,3 +1,6 @@
+// export enum DeliveryImage{
+   
+// }
 export enum DeliveryType {
     SELF_PICKUP,
     DELIVERY,
@@ -7,6 +10,7 @@ export enum DeliveryType {
     id: number;
     name: string;
     type: DeliveryType;
+    // image: DeliveryImage
   }
   
   export const deliveryOptions: DeliveryOption[] = [

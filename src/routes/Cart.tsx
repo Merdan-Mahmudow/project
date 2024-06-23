@@ -17,6 +17,10 @@ import axios from 'axios'
 import qs from 'qs'
 import React from 'react'
 import { GlobalContext } from './router'
+import cutlery_2 from '../assets/images/cutlery.svg'
+import ukassa from '../assets/images/ukassa.svg'
+import sbp from '../assets/images/sbp.svg'
+import cash from '../assets/images/cash.svg'
 
 export default function Cart({ initialCount = 1 }) {
   const dispatch = useDispatch()
@@ -91,7 +95,12 @@ export default function Cart({ initialCount = 1 }) {
   }, [count])
   const selectedOption = localStorage.getItem("selectedOption")
   const selectedOptionPay = localStorage.getItem("selectedOptionPay")
-
+  // let img = ""
+  // if(selectedOption === "ДОСТАВКА"){
+  //   img = "../assets/images/bus.svg"
+  // } else{
+  //   img = '../assets/images/cutlery_2.svg'
+  // }
   return (
     <div className='content'>
       {items.length > 0 ? (
@@ -132,7 +141,7 @@ export default function Cart({ initialCount = 1 }) {
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                 <div className='flex items-center gap-4 ml-2'>
-                  <img src={bus} alt="" />
+                  <img src={selectedOption === "ДОСТАВКА" ? bus : cutlery_2} alt="" />
                   <div className='flex flex-col gap-1'>
                     <h2 className='font-term text-xl leading-3'>{selectedOption || "ДОСТАВКА"}</h2>
                     <p className='font-roboto text-[8px] font-bold'>Адрес:  г.Южно-Сахалинск, улица Мира 231/9</p>
@@ -142,10 +151,10 @@ export default function Cart({ initialCount = 1 }) {
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                 <div className='flex items-center gap-4 ml-2'>
-                  <img src={money} alt="" />
+                  <img src={selectedOptionPay === "ЮКАССА" ? ukassa : selectedOptionPay === "СБП" ? sbp : cash } alt="" />
                   <div className='flex flex-col gap-1'>
                     <h2 className='font-term text-lg leading-3'>СПОСОБ ОПЛАТЫ</h2>
-                    <p className='font-roboto text-[8px] font-bold text-red'>{selectedOptionPay || "ЮКАССА"}</p>
+                    <p className='font-roboto text-[8px] font-bold text-red'>{selectedOptionPay || "КАРТА"}</p>
                   </div>
                 </div>
                 <Link to='/payment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>изменить</Link>

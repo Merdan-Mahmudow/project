@@ -83,7 +83,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
       </div>
       <div className='flex flex-col w-[90px] self-center items-center gap-1'>
-        <div className="mt-[-30px] ml-[50px] absolute">
+        <div className="mt-[-30px] ml-[50px] absolute 13mini:mt-[-20px]">
           <div onClick={onClickRemove} className='border-2 border-stone-600 rounded-full px-1 py-1'>
             <div className=''><RxCross2 /></div>
           </div>

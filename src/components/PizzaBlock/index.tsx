@@ -216,7 +216,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
               {description.length > maxLength * 9 && "..."}
             </span>
           ) : (
-            <span className='text-[6pt] leading-tight relative'>
+            <span className='text-[5pt] leading-tight relative'>
               {description}
             </span>
           )}
@@ -243,7 +243,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <button onClick={onClickFav}>
                   <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
                     $(`.like_${id}`).attr('src', checkbutton())
-                  }} className={`like_${id} w-6 h-6`} />
+                  }} className={`like_${id} w-6 h-6 top-[3px] relative`} />
                 </button>
             </div>
         </div>
