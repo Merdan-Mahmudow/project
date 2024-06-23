@@ -21,6 +21,7 @@ import cutlery_2 from '../assets/images/cutlery.svg'
 import ukassa from '../assets/images/ukassa.svg'
 import sbp from '../assets/images/sbp.svg'
 import cash from '../assets/images/cash.svg'
+import $ from 'jquery'
 
 export default function Cart({ initialCount = 1 }) {
   
@@ -35,7 +36,7 @@ export default function Cart({ initialCount = 1 }) {
     if( $('.promo').val() === "") {
       $('.promo-error').text("Ввведите промокод")
     }
-    if ($('.promo').val() === "KIMCHI10" || $('.promo').val() === "kimchi10") {
+    if ($('.promo').val() === "KIMCHI10" || $('.promo').val() === "kimchi10" || $('.promo').val() === "Kimchi10") {
       dispatch(discount())
       $(".promo-error").addClass("hidden")
       $('.promo').val("")
@@ -175,7 +176,7 @@ setPromoactive(localStorage.getItem('promocode') === "true")
                 <div className='flex items-center gap-4 ml-2'>
                   <img src={selectedOption === "ДОСТАВКА" ? bus : cutlery_2} alt="" />
                   <div className='flex flex-col gap-1'>
-                    <h2 className='font-term text-xl leading-3'>{selectedOption || "ДОСТАВКА"}</h2>
+                    <h2 className='font-term text-xl leading-3'>{selectedOption || "САМОВЫВОЗ"}</h2>
                     <p className='font-roboto text-[8px] font-bold'>Адрес:  г.Южно-Сахалинск, улица Мира 231/9</p>
                   </div>
                 </div>
