@@ -185,8 +185,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   }
 
   React.useEffect(() => {
-    
-
     localStorage.setItem('count', addedCount.toString())
     localStorage.setItem('isCounter', setIsCounter.toString())
   }, [addedCount, isCounter])
@@ -198,7 +196,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
     
-    <div className='rounded-2xl bg-white pb-3 h-50'>
+    <div className='rounded-2xl bg-white pb-3 h-[235px]'>
       <Link key={id} to={`/pizza/${id}`}>
           <img
             className='w-full h-[120px] rounded-t-2xl'
@@ -206,34 +204,37 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             alt='Pizza'
           />
         </Link>
-      <div className='flex flex-col justify-between px-2 gap-1'>
-        <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
+      <div className='flex flex-col px-2 gap-1'>
+        <div className='h-[70px] mt-1 flex flex-col gap-1'>
           <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
-          {isTruncated ? (
-            <span className='text-[7px] leading-tight relative desc-text'>
+          {/* {isTruncated ? (
+            <span className='text-[5pt] leading-tight'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
             </span>
           ) : (
-            <span className='text-[7px] leading-tight relative 13mini:text-[7px] desc-text'>
+            <span className='text-[7px] leading-tight relative'>
               {description}
             </span>
-          )}
-          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3 pb-2'>{price}P</div>
+          )} */}
+          <span className='text-[7px] leading-tight relative pizza-block-description'>
+  {description}
+</span>
+          <div className='font-term text-grey text-lg text-[#474747] tracking-widest'>{price}P</div>
         </div>
-        <div className='flex h-50 items-end'>
-            <div className='flex w-full justify-between items-center '>
+        <div className=''>
+            <div className='flex justify-between'>
                {addedCount > 0 ? (
-              <div className='flex gap-2 w-10 justify-between items-center 13mini:mt-2'>
-                <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiMinusSm/></button>
-                <span className='font-bold font-next'>{addedCount}</span>
-                <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiPlusSm/></button>
+              <div className='gap-2'>
+                <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1'><HiMinusSm/></button>
+                <span className='font-bold font-next mx-2'>{addedCount}</span>
+                <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1'><HiPlusSm/></button>
               </div>
                ) : (
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2 mt-[5px]'>
+                      className='border-2 border-[#ABABAB] px-6 py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>

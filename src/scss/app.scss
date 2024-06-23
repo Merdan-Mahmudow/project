@@ -26,6 +26,10 @@ body {
   border-radius: 40px;
   max-width: 1400px;
 }
-.desc-text{
-   font-size: 7px !important;
+.pizza-block-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
