@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import PlusSvg from '../svg/PlusSvg'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { addItem } from '../redux/cart/slice'
+// import { addItem } from '../redux/cart/slice'
 // import { addItemFav } from '../redux/favorite/favSlice'
 import { selectCartItemById } from '../redux/cart/selectors'
 import { CartItem } from '../redux/cart/types'
@@ -16,7 +16,11 @@ import { Link } from 'react-router-dom'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import { FavoriteContext } from './Favorites'
 import $ from 'jquery'
+import { CartItem as CartItemType } from '../redux/cart/types'
 import qs, { ParsedQs } from 'qs'
+import { addItem, minusItem, removeItem} from '../redux/cart/slice'
+import { HiPlusSm } from "react-icons/hi"
+import { HiMinusSm } from "react-icons/hi"
 
 const typeNames = ['тонкое', 'традиционное']
 
@@ -31,10 +35,10 @@ export type PizzaBlockProps = {
 
 
 export const Detail = () => {
-  const likeItems = JSON.parse(localStorage.getItem('likeItems') || '[]')
+  // const likeItems = JSON.parse(localStorage.getItem('likeItems') || '[]')
   const params = useParams()
   const navigate = useNavigate()
-
+  const {likeItems, setLikeItems} = useContext(FavoriteContext)
   // const cartItem = useSelector(selectCartItemById(params.id as string))
   const [activeType, setactiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
@@ -52,6 +56,8 @@ export const Detail = () => {
   const onClickSize = (i: number) => setActiveSize(i)
   const onClickType = (i: number) => setactiveType(i)
   const cartItem = useSelector(selectCartItemById(pizza.id))
+  var [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
+  const counter = cartItem ? cartItem.isCounter: false
   const addedCount = cartItem ? cartItem.count : 0
 
   const getStorageValue = (key: string, defaultValue: any): any => {
@@ -125,6 +131,65 @@ export const Detail = () => {
     }
     dispatch(addItem(item_fav))
   }
+  const onClickFav = () => {
+    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${pizza.id}`).then(res => {
+      setLikeItems(res.data)
+      localStorage.setItem('likeItems', JSON.stringify(res.data))
+    })
+    
+    
+  }
+  const onClickRemove = () => {
+    if (window.confirm('Вы точно хотите удалить товар?')) {
+      dispatch(removeItem(pizza.id))
+    }
+  }
+  const handleAddToCart = () => {
+    const item: CartItem = {
+      id: pizza.id,
+      foodName: pizza.foodName,
+      description: pizza.description,
+      price: pizza.price,
+      image: pizza.image,
+      count: pizza.count,
+      isCounter: true
+    }
+    dispatch(addItem(item))
+    // setIsCounter(true)
+    if(addedCount > 0){
+      isCounter = true
+      localStorage.setItem('isCounter', (isCounter === true).toString())
+    }
+    else{
+      isCounter = false
+      localStorage.setItem('isCounter', (isCounter === false).toString())
+    }
+    // isCounter = true
+    // if(count > 0){
+    //   localStorage.setItem('count', addedCount.toString())
+    //   localStorage.setItem('isCounter', (isCounter === true).toString())
+    // }
+    // else{
+    //   localStorage.setItem('count', addedCount.toString())
+    //   localStorage.setItem('isCounter', (isCounter === false).toString())
+    // }
+    console.log(isCounter)
+  }
+  const onClickPlus = () => {
+    dispatch(
+      addItem({
+        id:pizza.id,
+      } as CartItemType),
+    )
+  }
+
+  const onClickMinus = () => {
+    if (addedCount === 1){
+      onClickRemove()
+      setIsCounter(false)
+    } 
+    if (addedCount > 1) dispatch(minusItem(pizza.id))
+  }
   useEffect(() => {
     async function fetchPizza() {
       try {
@@ -162,7 +227,7 @@ export const Detail = () => {
           </Link>
           <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>МЕНЮ</h1>
         </div>
-        <div className='h-[70vh]'>
+        <div className='h-[75vh]'>
           <div className='pizza-block-wrapper px-5 py-5'>
             <div className='pizza-detail-block bg-white h-auto rounded-xl pb-3'>
               <div className='flex w-full justify-center'>
@@ -178,19 +243,28 @@ export const Detail = () => {
                 <h4 className='font-term uppercase text-4xl pl-3 tracking-[5px] text-[#474747] pt-2'>{pizza.price}P</h4>
                 <div className='flex justify-between px-3 py-3 items-center'>
                   <div className='flex w-full justify-between items-center h-full'>
-                    <button
-                      onClick={onClickAdd}
-                      // button button--outline button--add flex justify-between items-center
-                      className={addedCount > 0 ? 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold bg-red-600' : 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold'}>
-                      {/* <PlusSvg /> */}
-                      {/* 'border-2 border-[#ABABAB] w-fit px-[23vw] py-2 rounded-md landing-1 uppercase font-next text-[12px] font-bold' */}
-                      Добавить
-                      {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[7px] py-[2px] rounded-full ml-2 absolute'>{addedCount}</i>}
-                    </button>
-                    <button onClick={onClickAddFav}>
+                  <div className='flex justify-between'>
+                    {addedCount > 0 ? (
+                      <div className='gap-2'>
+                        <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1'><HiMinusSm /></button>
+                        <span className='font-bold font-next mx-2'>{addedCount}</span>
+                        <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1'><HiPlusSm /></button>
+                      </div>
+                    ) : (
+                      <div>
+                        <button
+                          onClick={handleAddToCart}
+                          className='border-2 border-[#ABABAB] px-[18vw] py-2 rounded-md landing-1 uppercase font-next text-[15px] font-bold text-center'>
+                          Добавить
+
+                        </button>
+                      </div>
+                    )}
+                    </div>
+                    <button onClick={onClickFav}>
                     <img alt="" src= {checkbutton()} onClick={()=>{
                     $(`.like_${pizza.id}`).attr('src', checkbutton())
-                  }} className={`like_${pizza.id} w-6 h-6`} />
+                  }} className={`like_${pizza.id} w-[10vw]`} />
                     </button>
                   </div>
                 </div>
