@@ -2,7 +2,7 @@ import { Link, redirect } from 'react-router-dom'
 import { CartItem } from '../components/CartItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { useContext, useState } from 'react'
-import { clearItems } from '../redux/cart/slice'
+import { clearItems, discount } from '../redux/cart/slice'
 import { selectCart } from '../redux/cart/selectors'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
@@ -23,10 +23,30 @@ import sbp from '../assets/images/sbp.svg'
 import cash from '../assets/images/cash.svg'
 
 export default function Cart({ initialCount = 1 }) {
+  
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
   const [userID, setUserID] = React.useState<number>()
+  const [promoactive, setPromoactive] = React.useState(false)
   const params = useContext(GlobalContext)
+  
+  const onClickPromo = () => {
+    
+    if( $('.promo').val() === "") {
+      $('.promo-error').text("Ввведите промокод")
+    }
+    if ($('.promo').val() === "KIMCHI10" || $('.promo').val() === "kimchi10") {
+      dispatch(discount())
+      $(".promo-error").addClass("hidden")
+      $('.promo').val("")
+      $(".promo-block").addClass("hidden")
+      $(".promo-actived").removeClass("hidden")
+      localStorage.setItem('promocode', "true")
+    } if ($('.promo').val() !== "KIMCHI10" && $('.promo').val() !== ""){
+      $('.promo-error').text("Данный промокод не действителен или истёк!")
+    }
+    
+  }
   const onClickPay = () => {
     let user: any = ""
 
@@ -48,9 +68,13 @@ export default function Cart({ initialCount = 1 }) {
         "payment": selectedOptionPay,
         "comment": localStorage.getItem("orderComment"),
         "cutlery": localStorage.getItem("spoonCount"),
-        "client": 10
+        "client": userID
       }
       //axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
+      // const ws = new WebSocket("wss://backend.skyrodev.ru/order/ws")
+      // ws.onopen = () => {
+      //   ws.send(JSON.stringify(sendData))
+      // }
 
 
 
@@ -87,6 +111,14 @@ export default function Cart({ initialCount = 1 }) {
   }
   React.useEffect(() => {
     loadFromLocalStorage()
+    if (!localStorage.getItem('promocode')){
+      localStorage.setItem('promocode', "false")
+    }
+    if(localStorage.getItem('promocode') === "true"){
+      $('.promo-block').addClass("hidden")
+      $('.promo-actived').removeClass("hidden")
+    }
+setPromoactive(localStorage.getItem('promocode') === "true")
   }, [])
 
   React.useEffect(() => {
@@ -168,15 +200,27 @@ export default function Cart({ initialCount = 1 }) {
                 </div>
                 <Link to='/comment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>
               </div>
-              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
+              <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2] promo-block'>
                 <div className='flex items-center gap-4 ml-2'>
                   <img src={promo} alt="" />
                   <div className='flex flex-col gap-1'>
-                    <input type="text" placeholder='промокод' className='w-[40vw] border-2 border-[#4D4D4D] rounded-lg font-term pl-2' />
+                    <input type="text" placeholder='промокод' className='w-[40vw] border-2 border-[#4D4D4D] rounded-lg font-term pl-2 promo' />
+                    <p className='text-[8px] font-bold text-red-500 promo-error'></p>
                   </div>
                 </div>
-                <Link to='/promo' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>применить</Link>
+                <button onClick={onClickPromo} className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Активировать</button>
               </div>
+
+              <div className='hidden flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2] promo-actived'>
+                <div className='flex items-center gap-4 ml-2'>
+                  <img src={promo} alt="" />
+                  <div className='flex flex-col gap-1'>
+                    <h1  className='text-lg font-term pl-2'>Промокод KIMCHI10 активирован!</h1>
+                  </div>
+                </div>
+                
+              </div>
+
               <div className='flex justify-between'>
                 <button onClick={onClickPay} className='fixed bottom-0 bg-blue-600 w-full left-0 py-5 rounded-t-2xl z-10'>
                   <span className='uppercase font-bold font-term text-white text-xl tracking-widest'>Оплатить сейчас</span>

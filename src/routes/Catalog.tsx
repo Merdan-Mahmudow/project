@@ -108,6 +108,7 @@ export const Catalog: React.FC = () => {
             arr.push(item)
         })
         setLikeItems(arr)
+        localStorage.setItem('likeItems', JSON.stringify(arr))
       })
       .catch((error) => console.error('Error fetching favorites:', error))
   }, []);

@@ -18,6 +18,7 @@ import { useState } from 'react'
 import { PizzaBlockProps } from './Detail'
 import qs from 'qs'
 import { render } from 'react-dom'
+import { FavoriteContext } from './Favorites'
 
 
 // const [selectedDeliveryName, setSelectedDeliveryName] = useState<string>('');
