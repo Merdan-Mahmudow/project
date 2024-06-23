@@ -219,7 +219,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
               {description}
             </span>
           )}
-          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3'>{price}P</div>
+          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3 pb-2'>{price}P</div>
         </div>
         <div className='flex h-50 items-end'>
             <div className='flex w-full justify-between items-center '>
@@ -233,7 +233,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2'>
+                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2 mt-[5px]'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
