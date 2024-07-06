@@ -217,7 +217,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
               {description}
             </span>
           )} */}
-          <span className='text-[7px] leading-tight relative pizza-block-description'>
+          <span className='text-[7px] leading-tight relative pizza-block-description top-1'>
   {description}
 </span>
           <div className='font-term text-grey text-lg text-[#474747] tracking-widest'>{price}P</div>
