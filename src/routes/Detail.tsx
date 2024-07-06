@@ -68,8 +68,7 @@ export const Detail = () => {
       console.error(error);
       return defaultValue;
     }
-  };
-
+  }
   const setStorageValue = (key: string, value: any): void => {
     try {
       localStorage.setItem(key, JSON.stringify(value));

@@ -90,7 +90,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   const onClickFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
+    axios.patch(`https://api.kimchistop.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
       setLikeItems(res.data)
       localStorage.setItem('likeItems', JSON.stringify(res.data))
     })
@@ -217,7 +217,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
               {description}
             </span>
           )} */}
-          <span className='text-[7px] leading-tight relative pizza-block-description top-1'>
+          <span className='text-[7px] leading-tight relative pizza-block-description'>
   {description}
 </span>
           <div className='font-term text-grey text-lg text-[#474747] tracking-widest'>{price}P</div>
@@ -234,7 +234,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] px-6 py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
+                      className='border-2 border-[#ABABAB] w-[100px] h-[25px] rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
@@ -243,7 +243,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <button onClick={onClickFav}>
                   <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
                     $(`.like_${id}`).attr('src', checkbutton())
-                  }} className={`like_${id} w-6 h-6 top-[0px] relative 13mini:top-[3px]`} />
+                  }} className={`like_${id} w-[25px] h-[25px] top-[0px] relative`} />
                 </button>
             </div>
         </div>

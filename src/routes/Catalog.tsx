@@ -142,7 +142,7 @@ export const Catalog: React.FC = () => {
               <h1 className='text-white font-term text-2xl w-full text-center tracking-[5px] leading-5 px-5 py-5'>МЕНЮ</h1>
             </div>
             <div className="warning text-center px-2 py-[0px] bg-white">
-              <h1 className="font-term kor_love text-[13.5px] pt-[5px]">ВНИМЕНИЕ ЛЮБИТЕЛЯМ КОРЕЙСКОЙ ЕДЫ!</h1>
+              <h1 className="font-term kor_love text-[12.5px] pt-[5px]">ВНИМЕНИЕ ЛЮБИТЕЛЯМ КОРЕЙСКОЙ ЕДЫ!</h1>
               <p className='mt-2 font-sans font-medium text-[11.5px]  top-[-3px] relative'>Адрес навынос: г. Южно-Сахалинск, ул. Мира 231/9</p>
               <p className='font-sans font-medium text-[11.5px] top-[-5px] relative'>Принимаем заказы: ежедневно с 10:00 до 21:30</p>
             </div>
