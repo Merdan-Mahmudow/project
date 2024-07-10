@@ -32,7 +32,7 @@ export const Catalog: React.FC = () => {
 
   const onChangeCategory = React.useCallback((idx: Category) => {
     dispatch(setCategory(idx))
-  }, [])
+  }, [dispatch])
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page))
