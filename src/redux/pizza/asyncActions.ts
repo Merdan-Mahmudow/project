@@ -9,8 +9,8 @@ export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
   async (params) => {
     const {category} = params;
     //console.log(params, 4444);
-    const { data } = await axios.get<Pizza[]>(`https://backend.skyrodev.ru/food/`, {params: pickBy(
-      // backend.skyrodev.ru
+    const { data } = await axios.get<Pizza[]>(`https://api.kimchistop.ru/food/`, {params: pickBy(
+      // api.kimchistop.ru
       {
         category,
       },

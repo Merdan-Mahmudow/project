@@ -58,7 +58,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
     if (addedCount > 1) dispatch(minusItem(id))
   }
   const onClickRemoveFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
+    axios.patch(`https://api.kimchistop.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
       setLikeItems(res.data)
       console.log(likeItems)
     })

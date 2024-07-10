@@ -72,7 +72,7 @@ export const Detail = () => {
   };
   useEffect(() => {
     axios
-      .get(`https://backend.skyrodev.ru/user/${paramss.user}/fav`)
+      .get(`https://api.kimchistop.ru/user/${paramss.user}/fav`)
       .then((e) => setLikeItems(e.data))
       .catch((error) => console.error('Error fetching favorites:', error));
   }, [])
@@ -139,7 +139,7 @@ export const Detail = () => {
     dispatch(addItem(item_fav))
   }
   const onClickFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${pizza.id}`).then(res => {
+    axios.patch(`https://api.kimchistop.ru/user/${paramss.user}/fav?favourite_item=${pizza.id}`).then(res => {
       setLikeItems(res.data)
       localStorage.setItem('likeItems', JSON.stringify(res.data))
     })
@@ -200,7 +200,7 @@ export const Detail = () => {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
+        const { data } = await axios.get(`https://api.kimchistop.ru/food/${params.id}`)
         setPizza(data)
         setLoading(false)
       } catch (error) {

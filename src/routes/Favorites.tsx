@@ -10,8 +10,8 @@
 //     // useEffect(()=>{
 //     // }, [items])
 //     const params = qs.parse(window.location.search.substring(1))
-//     axios.post(`https://backend.skyrodev.ru/user/setstate?nickname=${params.user}`)
-//     axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => setItems(e.data))
+//     axios.post(`https://api.kimchistop.ru/user/setstate?nickname=${params.user}`)
+//     axios.get(`https://api.kimchistop.ru/user/${params.user}/fav`).then(e => setItems(e.data))
 //     return (
 //         <div className=''>
 //         {items.length > 0 ? (
@@ -59,7 +59,7 @@ export default function Favorites() {
 
   useEffect(() => {
     axios
-      .get(`https://backend.skyrodev.ru/user/${params.user}/fav`)
+      .get(`https://api.kimchistop.ru/user/${params.user}/fav`)
       .then((e) => setLikeItems(e.data))
       .catch((error) => console.error('Error fetching favorites:', error));
   }, [])
@@ -91,7 +91,6 @@ export default function Favorites() {
         <EmptyFav />
       )}
     </div>
-    <div className='hidden'><Detail/></div>
     </FavoriteContext.Provider>
   );
 

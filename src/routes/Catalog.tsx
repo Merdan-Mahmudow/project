@@ -101,7 +101,7 @@ export const Catalog: React.FC = () => {
     }
     isMounted.current = true
     axios
-      .get(`https://backend.skyrodev.ru/user/${userParams.user}/fav`)
+      .get(`https://api.kimchistop.ru/user/${userParams.user}/fav`)
       .then((e) => {
         let arr:any = []
         e.data.forEach((item: any) => {

@@ -71,8 +71,8 @@ export default function Cart({ initialCount = 1 }) {
         "cutlery": localStorage.getItem("spoonCount"),
         "client": userID
       }
-      //axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => e.data.id)
-      // const ws = new WebSocket("wss://backend.skyrodev.ru/order/ws")
+      //axios.get(`https://api.kimchistop.ru/user/${params.user}`).then(e => e.data.id)
+      // const ws = new WebSocket("wss://api.kimchistop.ru/order/ws")
       // ws.onopen = () => {
       //   ws.send(JSON.stringify(sendData))
       // }
@@ -81,9 +81,9 @@ export default function Cart({ initialCount = 1 }) {
 
       localStorage.setItem('comments', "[]")
       console.log(sendData)
-      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData).then(e => {
+      axios.post(`https://api.kimchistop.ru/order/?chatID=${params.chatID}`, sendData).then(e => {
         dispatch(clearItems())
-        window.location.href = `https://backend.skyrodev.ru/payments/?amount=${totalPrice}&currency=RUB&description=Оплата заказа №${sendData.number}`
+        window.location.href = `https://api.kimchistop.ru/payments/?amount=${totalPrice}&currency=RUB&description=Оплата заказа №${sendData.number}`
 
       })
       
@@ -124,7 +124,7 @@ setPromoactive(localStorage.getItem('promocode') === "true")
 
   React.useEffect(() => {
     saveToLocalStorage()
-    axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => setUserID(e.data.id))
+    axios.get(`https://api.kimchistop.ru/user/${params.user}`).then(e => setUserID(e.data.id))
   }, [count])
   const selectedOption = localStorage.getItem("selectedOption")
   const selectedOptionPay = localStorage.getItem("selectedOptionPay")
