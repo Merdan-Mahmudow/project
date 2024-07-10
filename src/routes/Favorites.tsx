@@ -10,8 +10,8 @@
 //     // useEffect(()=>{
 //     // }, [items])
 //     const params = qs.parse(window.location.search.substring(1))
-//     axios.post(`https://backend.skyrodev.ru/user/setstate?nickname=${params.user}`)
-//     axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => setItems(e.data))
+//     axios.post(`https://api.kimchistop.ru/user/setstate?nickname=${params.user}`)
+//     axios.get(`https://api.kimchistop.ru/user/${params.user}/fav`).then(e => setItems(e.data))
 //     return (
 //         <div className=''>
 //         {items.length > 0 ? (
@@ -47,6 +47,7 @@ import qs from 'qs';
 import axios from 'axios';
 import { GlobalContext } from './router';
 import EmptyFav from './EmptyFav';
+import { Detail } from './Detail';
 
 
 export const FavoriteContext = createContext<{ likeItems: any; setLikeItems: (items: any) => void }>({likeItems: [], setLikeItems: () => {}})
@@ -58,7 +59,7 @@ export default function Favorites() {
 
   useEffect(() => {
     axios
-      .get(`https://backend.skyrodev.ru/user/${params.user}/fav`)
+      .get(`https://api.kimchistop.ru/user/${params.user}/fav`)
       .then((e) => setLikeItems(e.data))
       .catch((error) => console.error('Error fetching favorites:', error));
   }, [])

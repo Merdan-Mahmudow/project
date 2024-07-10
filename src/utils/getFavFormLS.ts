@@ -10,8 +10,8 @@ let data: FavItem[] = []
 async function getData() {
   const ls: any = localStorage.getItem('tgParams')
   const params: any = JSON.parse(ls)
-  await axios.post(`https://backend.skyrodev.ru/user/setstate?nickname=${params.user}`)
-  await axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => {
+  await axios.post(`https://api.kimchistop.ru/user/setstate?nickname=${params.user}`)
+  await axios.get(`https://api.kimchistop.ru/user/${params.user}/fav`).then(e => {
     e.data.forEach((item:any) =>{
       data.push(item)
       console.log(item)

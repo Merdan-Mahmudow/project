@@ -18,8 +18,6 @@
     "autocannon": "^7.15.0",
     "axios": "^1.1.2",
     "gh-pages": "^4.0.0",
-    "gsap": "^3.12.5",
-    "gsap-trial": "^3.12.5",
     "jquery": "^3.7.1",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.11.0",

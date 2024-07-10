@@ -18,6 +18,7 @@ import { FavoriteContext } from './Favorites'
 import $ from 'jquery'
 import { CartItem as CartItemType } from '../redux/cart/types'
 import qs, { ParsedQs } from 'qs'
+import { GlobalContext } from './router'
 import { addItem, minusItem, removeItem} from '../redux/cart/slice'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
@@ -35,10 +36,10 @@ export type PizzaBlockProps = {
 
 
 export const Detail = () => {
-  // const likeItems = JSON.parse(localStorage.getItem('likeItems') || '[]')
+  const [likeItems, setLikeItems] = useState([])
   const params = useParams()
+  const paramss = useContext(GlobalContext);
   const navigate = useNavigate()
-  const {likeItems, setLikeItems} = useContext(FavoriteContext)
   // const cartItem = useSelector(selectCartItemById(params.id as string))
   const [activeType, setactiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
@@ -68,7 +69,14 @@ export const Detail = () => {
       console.error(error);
       return defaultValue;
     }
-  }
+  };
+  useEffect(() => {
+    axios
+      .get(`https://api.kimchistop.ru/user/${paramss.user}/fav`)
+      .then((e) => setLikeItems(e.data))
+      .catch((error) => console.error('Error fetching favorites:', error));
+  }, [])
+
   const setStorageValue = (key: string, value: any): void => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
@@ -131,7 +139,7 @@ export const Detail = () => {
     dispatch(addItem(item_fav))
   }
   const onClickFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${pizza.id}`).then(res => {
+    axios.patch(`https://api.kimchistop.ru/user/${paramss.user}/fav?favourite_item=${pizza.id}`).then(res => {
       setLikeItems(res.data)
       localStorage.setItem('likeItems', JSON.stringify(res.data))
     })
@@ -192,7 +200,7 @@ export const Detail = () => {
   useEffect(() => {
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(`https://backend.skyrodev.ru/food/${params.id}`)
+        const { data } = await axios.get(`https://api.kimchistop.ru/food/${params.id}`)
         setPizza(data)
         setLoading(false)
       } catch (error) {
