@@ -205,11 +205,11 @@ setPromoactive(localStorage.getItem('promocode') === "true")
                 <div className='flex items-center gap-4 ml-2'>
                   <img src={promo} alt="" />
                   <div className='flex flex-col gap-1'>
-                    <input type="text" placeholder='промокод' className='w-[35vw] border-2 border-[#4D4D4D] rounded-lg font-term pl-2 promo' />
+                    <input type="text" placeholder='промокод' className='w-[34vw] border-2 border-[#4D4D4D] rounded-lg font-term pl-2 promo' />
                     <p className='text-[8px] font-bold text-red-500 promo-error'></p>
                   </div>
                 </div>
-                <button onClick={onClickPromo} className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold top-1'>Активировать</button>
+                <button onClick={onClickPromo} className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] w-[100px] font-bold top-1'>Активировать</button>
               </div>
 
               <div className='hidden flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2] promo-actived'>

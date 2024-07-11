@@ -234,7 +234,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] w-[100px] h-[25px] rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
+                      className='border-2 border-[#ABABAB] w-[99px] h-[25px] rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
