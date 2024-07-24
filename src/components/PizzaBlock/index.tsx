@@ -206,7 +206,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         </Link>
       <div className='flex flex-col px-2 gap-1'>
         <div className='h-[70px] mt-1 flex flex-col gap-1'>
-          <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
+          <h4 className='text-sm font-term leading-4 tracking-widest'>{foodName}</h4>
           {/* {isTruncated ? (
             <span className='text-[5pt] leading-tight'>
               {truncatedText}

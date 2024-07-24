@@ -234,7 +234,8 @@ export const Detail = () => {
           </Link>
           <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>МЕНЮ</h1>
         </div>
-        <div className='h-[75vh]'>
+        {/* 75vh */}
+        <div>
           <div className='pizza-block-wrapper px-5 py-5'>
             <div className='pizza-detail-block bg-white h-auto rounded-xl pb-3'>
               <div className='flex w-full justify-center'>

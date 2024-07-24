@@ -11,9 +11,9 @@ export default function EmptyCart(){
                <h1 className='text-white font-term text-2xl w-full text-center tracking-widest'>Мой заказ</h1>
             </div>
       <div className='h-[60vh] bg-white flex flex-col justify-center items-center gap-9'>
-        <h1 className="text-[45px] font-term text-center leading-10 tracking-widest">КОРЗИНА
+        <h1 className="text-[40px] font-term text-center leading-10 tracking-widest relative top-[50px]">КОРЗИНА
           ПУСТАЯ</h1>
-        <p className="font-next text-center leading-5 tracking-widest font-[100] text-[13px]">Добавьте что-то из меню чтобы сделать заказ</p>
+        <p className="font-next text-center leading-5 tracking-widest font-[100] text-[13px] relative top-[70px]">Добавьте что-то из меню чтобы сделать заказ</p>
         <Link to='/' className="bg-red-600 text-white px-7 py-2 rounded-md uppercase font-next font-bold">На Главную</Link>
       </div>
     </>

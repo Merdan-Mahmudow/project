@@ -21,8 +21,8 @@ export const categoriesList: CategoryItem[] = [
   { id: 11, name: 'Соусы' },
   { id: 12, name: 'Бар' },
   { id: 13, name: 'Холодильник' },
+  { id: 14, name: 'Десерты' },
 ]
-
 
 type СategoriesProps = {
   value: CategoryItem
