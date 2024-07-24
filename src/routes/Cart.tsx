@@ -176,7 +176,7 @@ setPromoactive(localStorage.getItem('promocode') === "true")
                 <div className='flex items-center gap-4 ml-2'>
                   <img src={selectedOption === "ДОСТАВКА" ? bus : cutlery_2} alt="" />
                   <div className='flex flex-col gap-1'>
-                    <h2 className='font-term text-xl leading-3'>{selectedOption || "САМОВЫВОЗ"}</h2>
+                    <h2 className='font-term text-xl leading-3'>{selectedOption || "НА ВЫНОС"}</h2>
                     <p className='font-roboto text-[8px] font-bold'>Адрес:  г.Южно-Сахалинск, улица Мира 231/9</p>
                   </div>
                 </div>
