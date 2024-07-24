@@ -8,6 +8,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  scroll-behavior: auto;
+}
 body {
   background: $background;
   background-size: 100vw 100vh;
@@ -32,4 +36,9 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+  margin: auto !important;
 }

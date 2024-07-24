@@ -206,7 +206,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
         </Link>
       <div className='flex flex-col px-2 gap-1'>
         <div className='h-[70px] mt-1 flex flex-col gap-1'>
-          <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
+          <h4 className='text-sm font-term leading-4 tracking-widest'>{foodName}</h4>
           {/* {isTruncated ? (
             <span className='text-[5pt] leading-tight'>
               {truncatedText}
@@ -234,7 +234,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] px-6 py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
+                      className='border-2 border-[#ABABAB] w-[99px] h-[25px] rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
@@ -243,7 +243,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <button onClick={onClickFav}>
                   <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
                     $(`.like_${id}`).attr('src', checkbutton())
-                  }} className={`like_${id} w-6 h-6 top-[0px] relative 13mini:top-[3px]`} />
+                  }} className={`like_${id} w-[25px] h-[25px] top-[0px] relative`} />
                 </button>
             </div>
         </div>
