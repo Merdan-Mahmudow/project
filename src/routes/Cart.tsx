@@ -9,7 +9,7 @@ import { HiMinusSm } from "react-icons/hi"
 import cutlery from '../assets/images/cutlery_2.svg'
 import bus from '../assets/images/bus.svg'
 import money from '../assets/images/money_hand.svg'
-import comment from '../assets/images/list_items.svg'
+import commentImage from '../assets/images/list_items.svg'
 import promo from '../assets/images/promocode.svg'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import EmptyCart from './EmptyCart'
@@ -22,15 +22,37 @@ import ukassa from '../assets/images/ukassa.svg'
 import sbp from '../assets/images/sbp.svg'
 import cash from '../assets/images/cash.svg'
 import $ from 'jquery'
+import { selectComment } from '../redux/comment/selectors'
 
 export default function Cart({ initialCount = 1 }) {
   
   const dispatch = useDispatch()
   const { totalCount, totalPrice, items } = useSelector(selectCart)
   const [userID, setUserID] = React.useState<number>()
+  const [userData, setUserData] = React.useState({})
   const [promoactive, setPromoactive] = React.useState(false)
   const params = useContext(GlobalContext)
+  const {comment} = useSelector(selectComment)
+  const year: any = new Date().getFullYear()
+  const month: any = new Date().getMonth() + 1
+  const day: any = new Date().getDate()
+  const selectedOption = localStorage.getItem("selectedOption")
+  const selectedOptionPay = localStorage.getItem("selectedOptionPay")
   
+  let sendData: any = {
+    "number": Math.floor(Math.random() * 100000),
+    "items": items,
+    "total": totalPrice,
+    "date": `${day}.${month}.${year}`,
+    "address": "г. Южно-Сахалинск, ул. Мира 231/9",
+    "state": "Отправлен",
+    "isDelivery": true ? selectedOption === "ДОСТАВКА" : false,
+    "payment": selectedOptionPay,
+    "comment": comment,
+    "cutlery": localStorage.getItem("spoonCount"),
+    "client": userID
+  }
+  console.log(params, sendData)
   const onClickPromo = () => {
     
     if( $('.promo').val() === "") {
@@ -49,45 +71,27 @@ export default function Cart({ initialCount = 1 }) {
     
   }
   const onClickPay = () => {
-    let user: any = ""
-
-
-    if (window.confirm(`Вы заказали ${totalCount} пиц на сумму ${totalPrice} ₽`)) {
-      const tg = Telegram.WebApp
-      const year: any = new Date().getFullYear()
-      const month: any = new Date().getMonth() + 1
-      const day: any = new Date().getDate()
-      console.log(params)
-      let sendData: any = {
-        "number": Math.floor(Math.random() * 100000),
-        "items": items,
-        "total": totalPrice,
-        "date": `${day}.${month}.${year}`,
-        "address": "г. Южно-Сахалинск, ул. Мира 231/9",
-        "state": "Отправлен",
-        "isDelivery": true ? selectedOption === "ДОСТАВКА" : false,
-        "payment": selectedOptionPay,
-        "comment": localStorage.getItem("orderComment"),
-        "cutlery": localStorage.getItem("spoonCount"),
-        "client": userID
-      }
-      //axios.get(`https://api.kimchistop.ru/user/${params.user}`).then(e => e.data.id)
-      // const ws = new WebSocket("wss://api.kimchistop.ru/order/ws")
-      // ws.onopen = () => {
-      //   ws.send(JSON.stringify(sendData))
-      // }
+     
+      
+      const ws = new WebSocket("wss://backend.skyrodev.ru/order/ws")
+     
 
 
 
       localStorage.setItem('comments', "[]")
       console.log(sendData)
-      axios.post(`https://api.kimchistop.ru/order/?chatID=${params.chatID}`, sendData).then(e => {
+      axios.post(`https://backend.skyrodev.ru/order/?chatID=${params.chatID}`, sendData)
+       ws.onopen = async () => {
+        
+        let datas:any = {
+          "order": sendData,
+          "user": userData
+        }
+        await ws.send(JSON.stringify(datas))
         dispatch(clearItems())
-        window.location.href = `https://api.kimchistop.ru/payments/?amount=${totalPrice}&currency=RUB&description=Оплата заказа №${sendData.number}`
-
-      })
-      
-    }
+        window.location.href = `https://backend.skyrodev.ru/payments/?amount=${totalPrice}&currency=RUB&description=Оплата заказа №${sendData.number}`
+      }
+    
   }
   const [count, setCount] = useState(initialCount)
 
@@ -124,10 +128,12 @@ setPromoactive(localStorage.getItem('promocode') === "true")
 
   React.useEffect(() => {
     saveToLocalStorage()
-    axios.get(`https://api.kimchistop.ru/user/${params.user}`).then(e => setUserID(e.data.id))
+    axios.get(`https://backend.skyrodev.ru/user/${params.user}`).then(e => {
+      setUserData(e.data)
+      setUserID(e.data.id)
+    })
   }, [count])
-  const selectedOption = localStorage.getItem("selectedOption")
-  const selectedOptionPay = localStorage.getItem("selectedOptionPay")
+
   // let img = ""
   // if(selectedOption === "ДОСТАВКА"){
   //   img = "../assets/images/bus.svg"
@@ -194,9 +200,10 @@ setPromoactive(localStorage.getItem('promocode') === "true")
               </div>
               <div className='flex justify-between px-2 py-4 items-center bg-[#F1F1F1] border-b-[1px] border-[#A2A2A2]'>
                 <div className='flex items-center gap-4 ml-2'>
-                  <img src={comment} alt="" />
+                  <img src={commentImage} alt="" />
                   <div className='flex flex-col gap-1'>
                     <h2 className='font-term text-md leading-4'>комментарии к заказу</h2>
+                    <p>{comment}</p>
                   </div>
                 </div>
                 <Link to='/comment' className='uppercase text-[#4D4D4D] border-2 rounded-[5px] border-[#4D4D4D] text-[8px] px-4 py-1 font-bold'>Написать</Link>

@@ -4,6 +4,7 @@ import cart from './cart/slice'
 import pizza from './pizza/slice'
 import favSlice from './favorite/favSlice'
 import user from './user/slice'
+import comment from './comment/slice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     pizza,
     favSlice,
     user,
+    comment,
   },
 })
 

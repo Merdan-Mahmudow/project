@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom'
 import arrow_back from '../assets/images/Arrow 5.svg'
 import comment from '../assets/images/ч.svg'
+import { useDispatch } from "react-redux";
+import $ from 'jquery'
+import { commentState } from "../redux/comment/slice";
 interface ButtonProps {
     disabled: boolean;
     style: React.CSSProperties;
@@ -18,7 +21,9 @@ const Button: React.FC<ButtonProps> = ({ disabled, style, children }) => {
   };
  
 export default function Comment(){
-    const [text, setText] = useState<string>('');
+    const [text, setText] = useState('');
+    const dispatch = useDispatch()
+    const textArea = useRef(null)
     
     const buttonStyle = {
       backgroundColor: text.length === 0 ? '#BCBCBC' : '#FF3131',
@@ -28,14 +33,16 @@ export default function Comment(){
       borderRadius: '5px',
       cursor: text.length === 0 ? 'not-allowed' : 'pointer',
     }
-    const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(event.target.value)
-        console.log(text)
+    const handleTextChange: React.ComponentProps<"textarea">["onChange"] = (event) => {
+        setText(event?.target.value)
       }
+      useEffect(() => {
+        console.log(text)
+        dispatch(commentState(text))
+      }, [text])
     
-      const handleCommentSubmit = () => {
-        localStorage.setItem('orderComment', text)
-        setText('')
+      function handleCommentSubmit(): any  {
+        localStorage.setItem('orderComment', comment)        
       }
     return (
        <div className="h-[80vh] bg-[#F1F1F1] pt-0 px-0 flex flex-col gap-2">
