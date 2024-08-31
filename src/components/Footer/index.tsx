@@ -8,6 +8,10 @@ export const Footer: React.FC = () => {
        <div className='flex flex-col items-center gap-3'>
           <img src={wabisabi} alt="" className='w-[28vw]'/>
           <p className='text-white text-[11.2px] font-bold text-center tracking-widest  font-roboto'>Сделано в WABISABI. Сервис приема заказов.</p>
+          <p>ИНН: 650115385034</p>
+          <p>ОГРН: 323650000016972</p>
+          <p>Тел: +79146414351</p>
+          <p>Эл. почта: Dydniklena@icloud.com</p>
        </div>
     </footer>
   )
