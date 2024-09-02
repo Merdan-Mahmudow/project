@@ -212,6 +212,9 @@ export const Detail = () => {
     fetchPizza()
     $(`.like_${pizza.id}`).attr('src', checkbutton)
   }, [])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   // const onClickAddFav = () => {
   //   const item_fav: FavItem = {
   //     id,

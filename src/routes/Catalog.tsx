@@ -111,9 +111,12 @@ export const Catalog: React.FC = () => {
         localStorage.setItem('likeItems', JSON.stringify(arr))
       })
       .catch((error) => console.error('Error fetching favorites:', error))
-  }, []);
+  }, [])
 
-  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
+
+  const sortedItems = [...items].sort((a: any, b: any) => a.id - b.id)
+  const pizzas = sortedItems.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
+  // const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />)
 
   return (
