@@ -65,7 +65,7 @@ export const Catalog: React.FC = () => {
       }
 
       const queryString = qs.stringify(params, { skipNulls: true }) 
-      navigate(`#/?${queryString}`);
+      navigate(`#/?${queryString}`)
     }
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams
@@ -111,7 +111,7 @@ export const Catalog: React.FC = () => {
         localStorage.setItem('likeItems', JSON.stringify(arr))
       })
       .catch((error) => console.error('Error fetching favorites:', error))
-  }, [])
+  }, [dispatch, userParams.user])
 
 
   const sortedItems = [...items].sort((a: any, b: any) => a.id - b.id)
