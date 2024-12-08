@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addItem, minusItem, removeItem } from '../../redux/cart/slice'
@@ -13,6 +13,7 @@ import { removeItemFav } from '../../redux/favorite/favSlice'
 import { FavoriteContext } from '../../routes/Favorites'
 import axios from 'axios'
 import qs from 'qs'
+import { GlobalContext } from '../../routes/router'
 import { HiPlusSm } from "react-icons/hi"
 import { HiMinusSm } from "react-icons/hi"
 
@@ -34,11 +35,11 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   description = ''
 }) => {
   const dispatch = useDispatch()
-  const [items, setItems] = useState([])
+  const {likeItems, setLikeItems} = useContext(FavoriteContext)
   const cartItem2 = useSelector(selectCartItemById(id))
   const [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount2 = cartItem2 ? cartItem2.count: 0
-  const params = qs.parse(window.location.search.substring(1));
+  const params = useContext(GlobalContext);
 
   const onClickPlus = () => {
     dispatch(
@@ -57,9 +58,9 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
     if (addedCount > 1) dispatch(minusItem(id))
   }
   const onClickRemoveFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
-      setItems(res.data)
-      console.log(items)
+    axios.patch(`https://api.kimchistop.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
+      setLikeItems(res.data)
+      console.log(likeItems)
     })
   }
   const onClickRemove = () => {
@@ -86,7 +87,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
   const cartItem = useSelector(selectCartItemById(id))
   const addedCount = cartItem ? cartItem.count : 0
   return (
-    <FavoriteContext.Provider value={{ items, setItems }}>
+
       <div className='flex justify-between bg-[#F1F1F1] border-b-2 border-stone-700 py-2 px-2 gap-2'>
 
         <div className='flex justify-center items-center'>
@@ -129,6 +130,5 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = ({
           </div>
         </div>
       </div>
-    </FavoriteContext.Provider>
   )
 }

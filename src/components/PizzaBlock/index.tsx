@@ -16,6 +16,8 @@ import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
 import { FavoriteContext } from '../../routes/Favorites'
+import { GlobalContext } from '../../routes/router'
+
 
 type PizzaBlockProps = {
   id: string,
@@ -39,9 +41,11 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const like = useRef(null)
   const dispatch = useDispatch()
+  const {likeItems, setLikeItems} = useContext(FavoriteContext)
   const [items, setItems] = useState([])
+
   const cartItem = useSelector(selectCartItemById(id))
-  const params = qs.parse(window.location.search.substring(1));
+  const params = useContext(GlobalContext);
   var [isCounter, setIsCounter] = useState(localStorage.getItem('isCounter') === 'true')
   const addedCount = cartItem ? cartItem.count: 0
   const counter = cartItem ? cartItem.isCounter: false
@@ -86,9 +90,9 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   const onClickFav = () => {
-    axios.patch(`https://backend.skyrodev.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
-      setItems(res.data)
-      console.log(items)
+    axios.patch(`https://api.kimchistop.ru/user/${params.user}/fav?favourite_item=${id}`).then(res => {
+      setLikeItems(res.data)
+      localStorage.setItem('likeItems', JSON.stringify(res.data))
     })
     
     
@@ -177,33 +181,22 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     }
   }
   const checkbutton: any = () => {
-    return items.find((item: any) => item === id) ? heart_active : heart_img
+    return likeItems.find((item: any) => item.id === id) ? heart_active : heart_img
   }
 
   React.useEffect(() => {
-    axios
-      .get(`https://backend.skyrodev.ru/user/${params.user}/fav`)
-      .then((e) => {
-        let arr:any = []
-        e.data.forEach((item: any) => {
-            arr.push(item.id)
-        })
-        console.log(arr)
-        setItems(arr)
-      })
-      .catch((error) => console.error('Error fetching favorites:', error))
-
+    localStorage.setItem('count', addedCount.toString())
+    localStorage.setItem('isCounter', setIsCounter.toString())
+  }, [addedCount, isCounter])
+  React.useEffect(() => {
       $(`.like_${id}`).attr('src', checkbutton)
-      // localStorage.setItem('count', addedCount.toString())
-      // localStorage.setItem('isCounter', isCounter.toString())
-      console.log(localStorage.getItem('isCounter'))
   }, [])
   const [isTruncated, setIsTruncated] = useState(true)
 
   const truncatedText = description.split(' ').slice(0, maxLength).join(' ')
   return (
-    <FavoriteContext.Provider value={{ items, setItems }}>
-    <div className='rounded-2xl bg-white pb-3 h-50'>
+    
+    <div className='rounded-2xl bg-white pb-3 h-[235px]'>
       <Link key={id} to={`/pizza/${id}`}>
           <img
             className='w-full h-[120px] rounded-t-2xl'
@@ -211,34 +204,37 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             alt='Pizza'
           />
         </Link>
-      <div className='flex flex-col justify-between px-2 gap-1'>
-        <div className='h-[8vh] mt-1 12pro:h-[7vh] flex flex-col gap-1'>
-          <h4 className='text-xl font-term leading-4 tracking-widest'>{foodName}</h4>
-          {isTruncated ? (
-            <span className='text-[6pt] 13mini:text-[5pt] leading-tight relative'>
+      <div className='flex flex-col px-2 gap-1'>
+        <div className='h-[70px] mt-1 flex flex-col gap-1'>
+          <h4 className='text-[12px] font-term leading-4 tracking-widest'>{foodName}</h4>
+          {/* {isTruncated ? (
+            <span className='text-[5pt] leading-tight'>
               {truncatedText}
               {description.length > maxLength * 9 && "..."}
             </span>
           ) : (
-            <span className='text-[6pt] leading-tight relative'>
+            <span className='text-[7px] leading-tight relative'>
               {description}
             </span>
-          )}
-          <div className='font-term text-grey text-lg text-[#474747] tracking-widest leading-3'>{price}P</div>
+          )} */}
+          <span className='text-[7px] leading-tight relative pizza-block-description'>
+  {description}
+</span>
+          <div className='font-term text-grey text-lg text-[#474747] tracking-widest'>{price}P</div>
         </div>
-        <div className='flex h-50 items-end'>
-            <div className='flex w-full justify-between items-center '>
+        <div className=''>
+            <div className='flex justify-between'>
                {addedCount > 0 ? (
-              <div className='flex gap-2 w-10 justify-between items-center 13mini:mt-2'>
-                <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiMinusSm/></button>
-                <span className='font-bold font-next'>{addedCount}</span>
-                <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1 leading-3 text-center flex items-center'><HiPlusSm/></button>
+              <div className='gap-2'>
+                <button onClick={onClickMinus} className='border-2 border-black rounded-full px-1 py-1'><HiMinusSm/></button>
+                <span className='font-bold font-next mx-2'>{addedCount}</span>
+                <button onClick={onClickPlus} className='border-2 border-black rounded-full px-1 py-1'><HiPlusSm/></button>
               </div>
                ) : (
                 <div>
                     <button
                       onClick={handleAddToCart}
-                      className='border-2 border-[#ABABAB] w-[30vw] py-1 rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center 12pro:w-[28vw] 13mini:mt-2'>
+                      className='border-2 border-[#ABABAB] w-[99px] h-[25px] rounded-md landing-1 uppercase font-next text-[10px] font-bold text-center'>
                       Добавить
                       {/* {addedCount > 0 && <i className='text-[10px] font-next font-bold bg-black text-white px-[5px] py-[2px] rounded-full ml-2'>{addedCount}</i>} */}
                     </button>
@@ -247,11 +243,11 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 <button onClick={onClickFav}>
                   <img alt="" ref={like} src= {checkbutton()} onClick={()=>{
                     $(`.like_${id}`).attr('src', checkbutton())
-                  }} className={`like_${id} w-6 h-6`} />
+                  }} className={`like_${id} w-[25px] h-[25px] top-[0px] relative`} />
                 </button>
             </div>
         </div>
       </div>
-    </div></FavoriteContext.Provider>
+    </div>
   )
 }

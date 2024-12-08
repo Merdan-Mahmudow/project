@@ -40,9 +40,13 @@ export const cartSlice = createSlice({
       state.totalPrice = 0
       state.totalCount = 0
     },
+    discount(state) {
+      let ds = state.totalPrice / 100 * 10
+      state.totalPrice = state.totalPrice - ds
+    }
   },
 })
 
-export const { addItem, removeItem, minusItem, clearItems} = cartSlice.actions
+export const { addItem, removeItem, minusItem, clearItems, discount} = cartSlice.actions
 
 export default cartSlice.reducer

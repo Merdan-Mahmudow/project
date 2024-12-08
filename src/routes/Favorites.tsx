@@ -10,8 +10,8 @@
 //     // useEffect(()=>{
 //     // }, [items])
 //     const params = qs.parse(window.location.search.substring(1))
-//     axios.post(`https://backend.skyrodev.ru/user/setstate?nickname=${params.user}`)
-//     axios.get(`https://backend.skyrodev.ru/user/${params.user}/fav`).then(e => setItems(e.data))
+//     axios.post(`https://api.kimchistop.ru/user/setstate?nickname=${params.user}`)
+//     axios.get(`https://api.kimchistop.ru/user/${params.user}/fav`).then(e => setItems(e.data))
 //     return (
 //         <div className=''>
 //         {items.length > 0 ? (
@@ -43,27 +43,30 @@ import { Link } from 'react-router-dom';
 import { FavoriteItem } from '../components/FavoriteItem';
 import arrow_back from '../assets/images/Arrow 5.svg'
 import { createContext, useContext, useEffect, useState } from 'react';
-import qs from 'qs'
-import axios from 'axios'
-import EmptyFav from './EmptyFav'
+import qs from 'qs';
+import axios from 'axios';
+import { GlobalContext } from './router';
+import EmptyFav from './EmptyFav';
+import { Detail } from './Detail';
 
-export const FavoriteContext = createContext<{ items: any; setItems: (items: any) => void }>({items: [], setItems: () => {}})
+
+export const FavoriteContext = createContext<{ likeItems: any; setLikeItems: (items: any) => void }>({likeItems: [], setLikeItems: () => {}})
 
 export default function Favorites() {
-  const  [items, setItems]  = useState([]);
+  const  [likeItems, setLikeItems]  = useState([]);
 
-  const params = qs.parse(window.location.search.substring(1));
+  const params = useContext(GlobalContext);
 
   useEffect(() => {
     axios
-      .get(`https://backend.skyrodev.ru/user/${params.user}/fav`)
-      .then((e) => setItems(e.data))
+      .get(`https://api.kimchistop.ru/user/${params.user}/fav`)
+      .then((e) => setLikeItems(e.data))
       .catch((error) => console.error('Error fetching favorites:', error));
   }, [])
   return (
-    <FavoriteContext.Provider value={{ items, setItems }}>
+    <FavoriteContext.Provider value={{ likeItems, setLikeItems }}>
       <div className="">
-      {items.length > 0 ? (
+      {likeItems.length > 0 ? (
         <div className="container container--cart">
           <div className="cart">
             <div className="flex w-full bg-red-600 px-3 py-5">
@@ -78,7 +81,7 @@ export default function Favorites() {
               </h1>
             </div>
             <div className="content__items">
-              {items.map((item: any) => (
+              {likeItems.map((item: any) => (
                 <FavoriteItem key={item.id} {...item} />
               ))}
             </div>

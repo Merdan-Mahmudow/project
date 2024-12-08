@@ -11,9 +11,9 @@ export default function EmptyFav(){
         <h1 className='text-white font-term text-2xl w-full text-center tracking-[6px] leading-5'>ИЗБРАННОЕ</h1>
       </div>
       <div className='h-[60vh] bg-white flex flex-col justify-center items-center gap-9'>
-        <h1 className="text-[45px] font-term text-center leading-8 tracking-widest">ИЗБРАННЫХ
+        <h1 className="text-[40px] font-term text-center leading-8 tracking-widest relative top-[50px]">ИЗБРАННЫХ
           НЕТ</h1>
-        <p className="font-next text-center leading-5 tracking-widest font-[100] text-[13px]">Добавьте что-то В ИЗБРАННОЕ чтобы ТУТ ЧТО-ТО ПОЯВИЛОСЬ</p>
+        <p className="font-next text-center leading-5 tracking-widest font-[100] text-sm relative top-[70px]">Добавьте что-то В ИЗБРАННОЕ чтобы ТУТ ЧТО-ТО ПОЯВИЛОСЬ</p>
         <Link to='/' className="bg-red-600 text-white px-7 py-2 rounded-md uppercase font-next font-bold">На Главную</Link>
       </div>
     </>
